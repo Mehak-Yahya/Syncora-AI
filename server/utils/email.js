@@ -11,6 +11,30 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+export const sendInvitationEmail = async ({
+  email,
+  inviterName,
+  workspaceName,
+  projectName,
+  token,
+}) => {
+  const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+
+  await transporter.sendMail({
+    from: `"Syncora" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: `${inviterName} invited you to ${projectName || workspaceName} on Syncora`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 40px 24px; color: #171717;">
+        <h1>Join ${projectName || workspaceName}</h1>
+        <p>${inviterName} invited you to collaborate${projectName ? ` on the project ${projectName}` : ` in the ${workspaceName} workspace`}.</p>
+        <p><a href="${clientUrl}/login?invite=${token}">Accept invitation</a></p>
+        <p>This invitation expires in 7 days.</p>
+      </div>
+    `,
+  });
+};
+
 export const sendResetOtp = async (email, otp) => {
   await transporter.sendMail({
     from: `"Syncora" <${process.env.EMAIL_USER}>`,

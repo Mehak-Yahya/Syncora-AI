@@ -3,8 +3,12 @@ import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import dotenv from "dotenv";
 import User from "../models/User.js";
+import Workspace from "../models/Workspace.js";
+import Invitation from "../models/Invitation.js";
 import { hashPassword } from "../utils/password.js";
-import { sendResetOtp } from "../utils/email.js";
+import { sendInvitationEmail, sendResetOtp } from "../utils/email.js";
+import crypto from "node:crypto";
+import jwtSecret from "../config/auth.js";
 
 dotenv.config();
 
@@ -74,7 +78,7 @@ export const signup = async (req, res) => {
       {
         userId: user._id,
       },
-      process.env.JWT_SECRET,
+      jwtSecret,
       {
         expiresIn: "7d",
       }
@@ -89,6 +93,7 @@ export const signup = async (req, res) => {
         name: user.name,
         email: user.email,
         provider: user.provider,
+        onboardingCompleted: user.onboardingCompleted,
       },
     });
   } catch (error) {
@@ -159,7 +164,7 @@ export const login = async (req, res) => {
       {
         userId: user._id,
       },
-      process.env.JWT_SECRET,
+      jwtSecret,
       {
         expiresIn: "7d",
       }
@@ -174,6 +179,7 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         provider: user.provider,
+        onboardingCompleted: user.onboardingCompleted,
       },
     });
   } catch (error) {
@@ -182,6 +188,114 @@ export const login = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Something went wrong while logging in.",
+    });
+  }
+};
+
+export const completeOnboarding = async (req, res) => {
+  try {
+    const { workspace: workspaceInput = {}, invites = [] } = req.body;
+    const workspaceName = workspaceInput.workspaceName?.trim();
+
+    if (!workspaceName) {
+      return res.status(400).json({
+        success: false,
+        message: "Workspace name is required.",
+      });
+    }
+
+    let workspace = await Workspace.findOne({ owner: req.user._id });
+
+    if (!workspace) {
+      const baseSlug =
+        workspaceInput.workspaceSlug?.trim().toLowerCase() ||
+        workspaceName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      let slug = baseSlug || "workspace";
+      let suffix = 2;
+
+      while (await Workspace.exists({ slug })) {
+        slug = `${baseSlug || "workspace"}-${suffix}`;
+        suffix += 1;
+      }
+
+      workspace = await Workspace.create({
+        name: workspaceName,
+        slug,
+        description: workspaceInput.description?.trim() || "",
+        visibility: workspaceInput.visibility === "public" ? "public" : "private",
+        owner: req.user._id,
+        members: [{ user: req.user._id, role: "owner" }],
+      });
+    }
+
+    const uniqueInvites = [
+      ...new Set(
+        invites
+          .map((email) => email?.trim().toLowerCase())
+          .filter((email) => email && emailRegex.test(email))
+      ),
+    ];
+
+    const invitationResults = await Promise.all(
+      uniqueInvites.map(async (email) => {
+        const existing = await Invitation.findOne({
+          workspace: workspace._id,
+          email,
+          status: "pending",
+          expiresAt: { $gt: new Date() },
+        });
+
+        if (existing) return existing;
+
+        const invitation = await Invitation.create({
+          workspace: workspace._id,
+          inviter: req.user._id,
+          email,
+          token: crypto.randomBytes(32).toString("hex"),
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        });
+
+        try {
+          await sendInvitationEmail({
+            email,
+            inviterName: req.user.name || req.user.email,
+            workspaceName: workspace.name,
+            token: invitation.token,
+          });
+        } catch (emailError) {
+          console.error("Invitation email error:", emailError.message);
+        }
+
+        return invitation;
+      })
+    );
+
+    req.user.onboardingCompleted = true;
+    await req.user.save();
+
+    return res.status(200).json({
+      success: true,
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        provider: req.user.provider,
+        onboardingCompleted: true,
+        workspace: {
+          id: workspace._id,
+          owner: workspace.owner,
+          name: workspace.name,
+          slug: workspace.slug,
+          memberCount: workspace.members.length,
+        },
+      },
+      invitationsCreated: invitationResults.length,
+    });
+  } catch (error) {
+    console.error("Onboarding completion error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Unable to complete onboarding.",
     });
   }
 };

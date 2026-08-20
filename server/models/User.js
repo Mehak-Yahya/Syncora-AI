@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
+    onboardingCompleted: {
+      type: Boolean,
+      default: false,
+    },
+
     // Password reset fields
     resetOtp: {
       type: String,
