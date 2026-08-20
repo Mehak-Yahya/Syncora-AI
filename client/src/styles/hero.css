@@ -1,0 +1,59 @@
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 92, 53, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 92, 53, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: heroGridMove 28s linear infinite;
+}
+
+.hero-glow {
+  animation: heroGlow 9s ease-in-out infinite;
+}
+
+.hero-glow-secondary {
+  animation: heroGlowSecondary 11s ease-in-out infinite;
+}
+
+@keyframes heroGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 64px 64px;
+  }
+}
+
+@keyframes heroGlow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes heroGlowSecondary {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid,
+  .hero-glow,
+  .hero-glow-secondary {
+    animation: none;
+  }
+}

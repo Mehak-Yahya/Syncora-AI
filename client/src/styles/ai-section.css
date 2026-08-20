@@ -1,0 +1,91 @@
+.ai-section-grid {
+  background-image:
+    linear-gradient(rgba(23, 23, 23, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.025) 1px, transparent 1px);
+
+  background-size: 64px 64px;
+}
+
+.ai-panel {
+  transform: translateZ(0);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.ai-panel:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 35px 90px rgba(40, 35, 30, 0.13);
+}
+
+.ai-pulse {
+  animation: aiPulse 5s ease-in-out infinite;
+}
+
+@keyframes aiPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+.ai-response {
+  animation: aiResponse 0.7s ease-out both;
+}
+
+@keyframes aiResponse {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-status {
+  animation: aiStatus 4s ease-in-out infinite;
+}
+
+@keyframes aiStatus {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .ai-section-grid {
+    background-size: 48px 48px;
+  }
+
+  .ai-panel:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-pulse,
+  .ai-response,
+  .ai-status {
+    animation: none;
+  }
+
+  .ai-panel {
+    transition: none;
+  }
+}
