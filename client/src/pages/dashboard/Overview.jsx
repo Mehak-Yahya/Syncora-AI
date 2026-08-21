@@ -1,10 +1,10 @@
-
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const DashboardOverview = ({ dashboard }) => {
   const {
     connectedProjects = [],
+    githubError = "",
     handleConnectGithub,
     handleInvitation,
     handleNavClick,
@@ -17,77 +17,85 @@ const DashboardOverview = ({ dashboard }) => {
     workspaceName,
   } = dashboard;
 
-  const firstName = user.name?.split(" ")[0] || "there";
+  const [range, setRange] = useState("7D");
+  const [projectFilter, setProjectFilter] = useState("All");
 
-  const activity = useMemo(
-    () => [34, 48, 42, 67, 54, 78, 71, 92, 76, 88, 82, 96],
-    []
-  );
+  const firstName = user.name?.split(" ")[0] || "there";
 
   const activeProjects = projects.filter(
     (project) =>
       !project.status || project.status.toLowerCase() === "active"
   ).length;
 
-  const inactiveProjects = Math.max(
-    projects.length - activeProjects,
-    0
-  );
+  const githubPercentage = projects.length
+    ? Math.min(100, Math.round((connectedProjects.length / projects.length) * 100))
+    : 0;
 
-  const githubPercentage =
-    projects.length > 0
-      ? Math.min(
-          100,
-          Math.round(
-            (connectedProjects.length / projects.length) * 100
-          )
-        )
-      : 0;
+  const pendingInvitations = user.invitations?.length || 0;
+
+  const activitySets = {
+    "24H": [31, 44, 39, 57, 51, 68, 61, 76, 70, 83, 78, 91],
+    "7D": [38, 52, 46, 69, 58, 82, 73, 94, 79, 90, 85, 98],
+    "30D": [45, 39, 61, 53, 70, 65, 78, 72, 84, 77, 91, 96],
+  };
+
+  const activity = activitySets[range];
 
   const avgActivity = Math.round(
-    activity.reduce((a, b) => a + b, 0) / activity.length
+    activity.reduce((sum, value) => sum + value, 0) / activity.length
   );
 
+  const filteredProjects = useMemo(() => {
+    if (projectFilter === "Active") {
+      return projects.filter(
+        (project) =>
+          !project.status || project.status.toLowerCase() === "active"
+      );
+    }
+
+    if (projectFilter === "Connected") {
+      return projects.filter((project) => project.github?.connected);
+    }
+
+    return projects;
+  }, [projectFilter, projects]);
+
   return (
-    <div className="min-h-[calc(100vh-1px)] bg-[#F5F6F8] text-[#11161D]">
-      <div className="mx-auto w-full max-w-[1600px] px-5 py-5 lg:px-7">
-
-        {/* =====================================================
-            HEADER
-        ====================================================== */}
-
+    <div className="min-h-screen bg-[#F3F5F7] text-[#11161D]">
+      <div className="mx-auto w-full max-w-[1700px] px-4 py-4 lg:px-6">
+        {/* HEADER */}
         <motion.header
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-5 flex items-center justify-between gap-5"
+          className="mb-4 flex items-center justify-between"
         >
-          <div className="min-w-0">
-            <div className="mb-2 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#24B47E]" />
-
-              <span className="truncate text-[10px] font-bold uppercase tracking-[0.18em] text-[#737C87]">
-                {workspaceName || "Workspace"}
-              </span>
-
-              <span className="rounded-full bg-[#E8F7F1] px-2 py-0.5 text-[8px] font-bold text-[#16845D]">
-                ONLINE
-              </span>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#11161D] text-sm font-bold text-white">
+              S
             </div>
 
-            <h1 className="text-[26px] font-semibold tracking-[-0.045em] lg:text-[29px]">
-              Good to see you, {firstName}
-            </h1>
+            <div>
+              <div className="mb-0.5 flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#24B47E]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#6F7883]">
+                  {workspaceName || "Workspace"}
+                </span>
+                <span className="rounded-full bg-[#E6F7F0] px-2 py-0.5 text-[8px] font-bold text-[#16845D]">
+                  ONLINE
+                </span>
+              </div>
 
-            <p className="mt-1 text-[12px] text-[#7A838F]">
-              Here's what's happening across your engineering workspace.
-            </p>
+              <h1 className="text-[24px] font-semibold leading-none tracking-[-0.045em] lg:text-[27px]">
+                Good to see you, {firstName}
+              </h1>
+            </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => handleNavClick("AI workspace")}
-              className="rounded-xl border border-[#DDE1E6] bg-white px-4 py-2.5 text-[11px] font-semibold text-[#343B44] shadow-sm transition hover:border-[#C8CDD3] hover:bg-[#FAFAFA]"
+              className="rounded-xl border border-[#D9DEE3] bg-white px-4 py-2.5 text-[11px] font-semibold shadow-sm transition hover:border-[#FFAA96] hover:text-[#FF5C35]"
             >
               ✦ Ask AI
             </button>
@@ -95,692 +103,458 @@ const DashboardOverview = ({ dashboard }) => {
             <button
               type="button"
               onClick={openProjectDialog}
-              className="rounded-xl bg-[#FF5C35] px-4 py-2.5 text-[11px] font-semibold text-white shadow-[0_5px_15px_rgba(255,92,53,0.18)] transition hover:bg-[#E94B27]"
+              className="rounded-xl bg-[#FF5C35] px-4 py-2.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_rgba(255,92,53,0.2)] transition hover:bg-[#E94B27]"
             >
               + New project
             </button>
           </div>
         </motion.header>
 
-        {/* =====================================================
-            BENTO DASHBOARD
-        ====================================================== */}
-
-        <div className="grid grid-cols-12 gap-4">
-
-          {/* ===================================================
-              WELCOME CARD
-          ==================================================== */}
-
+        {/* COMMAND CENTER
+            Desktop is intentionally two rows. The previous version forced too
+            much content into three short rows, which made every label tiny. */}
+        <div className="grid gap-3 lg:h-[calc(100vh-104px)] lg:min-h-[620px] lg:grid-cols-12 lg:grid-rows-[minmax(300px,0.95fr)_minmax(300px,1.05fr)]">
+          {/* HERO */}
           <motion.section
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="relative col-span-12 overflow-hidden rounded-[22px] bg-[#11161D] p-7 lg:col-span-7 lg:min-h-[270px] lg:p-8"
+            className="relative col-span-12 overflow-hidden rounded-[22px] bg-[#11161D] p-6 text-white shadow-sm lg:col-span-5"
           >
-            <div className="pointer-events-none absolute -right-20 -top-28 h-72 w-72 rounded-full bg-[#FF5C35]/10 blur-3xl" />
-
-            <div className="pointer-events-none absolute -bottom-32 left-[45%] h-64 w-64 rounded-full bg-[#5865F2]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-28 h-80 w-80 rounded-full bg-[#FF5C35]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 left-[42%] h-72 w-72 rounded-full bg-[#5865F2]/10 blur-3xl" />
 
             <div className="relative flex h-full flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-[#FF704D]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-base text-[#FF704D]">
                     ✦
                   </span>
 
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8F99A5]">
-                    Syncora command center
-                  </span>
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.19em] text-[#8F99A5]">
+                      Syncora Command Center
+                    </p>
+                    <p className="mt-0.5 text-[9px] text-[#626C78]">
+                      Workspace overview
+                    </p>
+                  </div>
                 </div>
 
-                <h2 className="mt-5 max-w-[610px] text-[34px] font-semibold leading-[1.06] tracking-[-0.05em] text-white lg:text-[40px]">
+                <h2 className="mt-7 max-w-[570px] text-[35px] font-semibold leading-[1.02] tracking-[-0.055em] lg:text-[38px]">
                   Your engineering workspace,
-                  <span className="text-[#FF704D]">
-                    {" "}
-                    in one view.
-                  </span>
+                  <span className="text-[#FF704D]"> in one view.</span>
                 </h2>
 
-                <p className="mt-4 max-w-[570px] text-[12px] leading-6 text-[#9EA7B1]">
-                  Monitor projects, repositories, team activity and
-                  engineering intelligence without jumping between tools.
+                <p className="mt-3 text-[11px] text-[#A3ACB6]">
+                  Projects · GitHub · Team · AI
                 </p>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-2.5">
                 <button
                   type="button"
                   onClick={() => handleNavClick("Projects")}
-                  className="rounded-xl bg-white px-4 py-2.5 text-[11px] font-semibold text-[#11161D] transition hover:bg-[#F1F1F1]"
+                  className="rounded-xl bg-white px-4 py-2.5 text-[10px] font-semibold text-[#11161D] transition hover:bg-[#F0F0F0]"
                 >
-                  View projects →
+                  Projects →
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleNavClick("AI workspace")}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[11px] font-semibold text-white transition hover:bg-white/10"
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[10px] font-semibold text-white transition hover:bg-white/10"
                 >
-                  Open AI workspace
+                  AI workspace →
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => {
-                    if (projects.length) {
-                      handleConnectGithub(projects[0]._id);
-                    } else {
-                      openProjectDialog();
-                    }
-                  }}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[11px] font-semibold text-white transition hover:bg-white/10"
+                  onClick={() =>
+                    projects.length
+                      ? handleConnectGithub(projects[0]._id)
+                      : openProjectDialog()
+                  }
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[10px] font-semibold text-white transition hover:bg-white/10"
                 >
-                  ◈ Connect GitHub
+                  GitHub →
                 </button>
               </div>
+
+              {githubError && (
+                <p className="mt-3 max-w-md rounded-lg border border-[#7F3F35] bg-[#2A1715] px-3 py-2 text-[10px] text-[#FFB5A5]">
+                  {githubError}
+                </p>
+              )}
             </div>
           </motion.section>
 
-          {/* ===================================================
-              PROJECT OVERVIEW
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-3"
-            delay={0.08}
+          {/* KPI GRID */}
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 }}
+            className="col-span-12 grid grid-cols-2 gap-3 lg:col-span-4"
           >
-            <CardHeader
-              title="Projects"
-              subtitle="Workspace portfolio"
+            <KpiCard
               icon="◇"
+              label="Projects"
+              value={projects.length}
+              detail={`${activeProjects} active`}
+              badge={projects.length ? "+12%" : "—"}
+              onClick={() => handleNavClick("Projects")}
             />
 
-            <div className="mt-5 flex items-center justify-center">
-              <DonutChart
-                percentage={
-                  projects.length
-                    ? Math.round(
-                        (activeProjects / projects.length) * 100
-                      )
-                    : 0
-                }
-                centerValue={projects.length}
-                centerLabel="projects"
-              />
-            </div>
-
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              <MiniMetric
-                label="Active"
-                value={activeProjects}
-                dot="bg-[#24B47E]"
-              />
-
-              <MiniMetric
-                label="Other"
-                value={inactiveProjects}
-                dot="bg-[#B9BEC5]"
-              />
-            </div>
-          </BentoCard>
-
-          {/* ===================================================
-              TEAM
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-2"
-            delay={0.12}
-          >
-            <CardHeader
-              title="Team"
-              subtitle="Workspace members"
-              icon="♧"
-            />
-
-            <div className="mt-6">
-              <div className="text-[38px] font-semibold tracking-[-0.05em]">
-                {memberCount}
-              </div>
-
-              <p className="mt-1 text-[10px] text-[#858D97]">
-                active members
-              </p>
-            </div>
-
-            <div className="mt-6 flex -space-x-2">
-              {Array.from({
-                length: Math.min(memberCount, 4),
-              }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#EEF0F2] text-[9px] font-semibold text-[#59626D]"
-                >
-                  {index + 1}
-                </div>
-              ))}
-
-              {memberCount > 4 && (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#11161D] text-[8px] font-semibold text-white">
-                  +{memberCount - 4}
-                </div>
-              )}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleNavClick("Team")}
-              className="mt-5 text-left text-[9px] font-semibold text-[#FF5C35]"
-            >
-              Manage team →
-            </button>
-          </BentoCard>
-
-          {/* ===================================================
-              RECENT PROJECTS
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-7"
-            delay={0.16}
-          >
-            <div className="flex items-center justify-between">
-              <CardHeader
-                title="Recent projects"
-                subtitle="Your latest engineering work"
-                icon="◈"
-              />
-
-              <button
-                type="button"
-                onClick={() => handleNavClick("Projects")}
-                className="text-[10px] font-semibold text-[#FF5C35]"
-              >
-                View all →
-              </button>
-            </div>
-
-            {projects.length === 0 ? (
-              <EmptyProjects
-                openProjectDialog={openProjectDialog}
-              />
-            ) : (
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {projects.slice(0, 4).map((project) => (
-                  <ProjectCard
-                    key={project._id}
-                    project={project}
-                    onGithub={() =>
-                      handleConnectGithub(project._id)
-                    }
-                    onSync={
-                      handleSyncRepository
-                        ? () =>
-                            handleSyncRepository(project._id)
-                        : undefined
-                    }
-                    syncing={
-                      syncingProjectId === project._id
-                    }
-                  />
-                ))}
-              </div>
-            )}
-          </BentoCard>
-
-          {/* ===================================================
-              GITHUB HEALTH
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-3"
-            delay={0.2}
-          >
-            <CardHeader
-              title="GitHub health"
-              subtitle="Repository connection"
+            <KpiCard
               icon="◉"
+              label="GitHub linked"
+              value={`${githubPercentage}%`}
+              detail={`${connectedProjects.length}/${projects.length} connected`}
+              badge={githubPercentage === 100 ? "Healthy" : "Action"}
+              warning={githubPercentage < 100}
+              progress={githubPercentage}
+              onClick={() =>
+                projects.length
+                  ? handleConnectGithub(projects[0]._id)
+                  : openProjectDialog()
+              }
             />
 
-            <div className="mt-5 flex items-center gap-5">
-              <DonutChart
-                percentage={githubPercentage}
-                centerValue={`${githubPercentage}%`}
-                centerLabel="linked"
-                size="small"
+            <KpiCard
+              icon="♧"
+              label="Team"
+              value={memberCount}
+              detail="active members"
+              badge="Live"
+              onClick={() => handleNavClick("Team")}
+            />
+
+            <KpiCard
+              icon="✦"
+              label="AI workspace"
+              value="Ready"
+              detail="AI ready"
+              badge="Online"
+              dark
+              onClick={() => handleNavClick("AI workspace")}
+            />
+          </motion.section>
+
+          {/* SYSTEM STATUS */}
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="col-span-12 rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-3"
+          >
+            <div className="flex items-start justify-between">
+              <CardHeader
+                icon="⌁"
+                title="System status"
+                subtitle="Workspace health"
               />
 
-              <div>
-                <p className="text-[12px] font-semibold">
-                  {connectedProjects.length} connected
-                </p>
-
-                <p className="mt-1 text-[9px] leading-4 text-[#858D97]">
-                  {projects.length - connectedProjects.length > 0
-                    ? `${
-                        projects.length -
-                        connectedProjects.length
-                      } projects still need GitHub`
-                    : "All projects are connected"}
-                </p>
-              </div>
+              <span className="flex items-center gap-1.5 rounded-full bg-[#E6F7F0] px-2.5 py-1 text-[8px] font-bold text-[#16845D]">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#24B47E]" />
+                LIVE
+              </span>
             </div>
 
-            <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-[#EEF0F2]">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${githubPercentage}%` }}
-                transition={{ duration: 0.8 }}
-                className="h-full rounded-full bg-[#FF5C35]"
+            <div className="mt-5 space-y-2.5">
+              <StatusRow
+                label="Workspace"
+                value="Operational"
+                ok
               />
+              <StatusRow
+                label="GitHub"
+                value={
+                  githubPercentage === 100
+                    ? "Fully linked"
+                    : `${githubPercentage}% linked`
+                }
+                ok={githubPercentage === 100}
+              />
+              <StatusRow label="AI engine" value="Ready" ok />
+              <StatusRow
+                label="Invitations"
+                value={pendingInvitations ? `${pendingInvitations} pending` : "Clear"}
+                ok={!pendingInvitations}
+              />
+            </div>
+
+            <div
+              className={`mt-4 rounded-xl px-3 py-2.5 ${
+                pendingInvitations
+                  ? "bg-[#FFF8EE]"
+                  : githubPercentage < 100
+                  ? "bg-[#FFF8F5]"
+                  : "bg-[#F2FAF6]"
+              }`}
+            >
+              <p className="text-[9px] font-semibold">
+                {pendingInvitations
+                  ? `${pendingInvitations} invite${pendingInvitations > 1 ? "s" : ""} pending`
+                  : githubPercentage < 100
+                  ? `${projects.length - connectedProjects.length} project${projects.length - connectedProjects.length === 1 ? "" : "s"} need GitHub`
+                  : "Workspace healthy"}
+              </p>
             </div>
 
             <button
               type="button"
               onClick={() => {
-                if (projects.length) {
-                  handleConnectGithub(projects[0]._id);
+                if (pendingInvitations) {
+                  handleInvitation(user.invitations[0].token, "accept");
+                } else if (githubPercentage < 100) {
+                  projects.length
+                    ? handleConnectGithub(projects[0]._id)
+                    : openProjectDialog();
                 } else {
-                  openProjectDialog();
+                  handleNavClick("AI workspace");
                 }
               }}
-              className="mt-4 w-full rounded-lg border border-[#E2E5E9] py-2 text-[9px] font-semibold text-[#343B44] transition hover:border-[#FFB09E] hover:text-[#FF5C35]"
+              className="mt-3 w-full rounded-xl bg-[#11161D] py-2.5 text-[10px] font-semibold text-white transition hover:bg-[#252C35]"
             >
-              Manage GitHub →
+              {pendingInvitations
+                ? "Review invitation →"
+                : githubPercentage < 100
+                ? "Complete GitHub setup →"
+                : "Open command center →"}
             </button>
-          </BentoCard>
+          </motion.section>
 
-          {/* ===================================================
-              AI WORKSPACE
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-2"
-            delay={0.24}
+          {/* PROJECTS */}
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="col-span-12 min-h-0 overflow-hidden rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-7"
           >
-            <CardHeader
-              title="AI workspace"
-              subtitle="Engineering intelligence"
-              icon="✦"
-            />
+            <div className="flex items-center justify-between gap-4">
+              <CardHeader
+                icon="◈"
+                title="Projects"
+                subtitle="Recent engineering work"
+              />
 
-            <div className="mt-6 flex items-center gap-2">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#24B47E]" />
-
-              <span className="text-[12px] font-semibold">
-                Ready
-              </span>
+              <div className="flex items-center gap-1 rounded-xl bg-[#F4F6F8] p-1">
+                {["All", "Active", "Connected"].map((filter) => (
+                  <button
+                    key={filter}
+                    type="button"
+                    onClick={() => setProjectFilter(filter)}
+                    className={`rounded-lg px-3 py-1.5 text-[9px] font-semibold transition ${
+                      projectFilter === filter
+                        ? "bg-white text-[#11161D] shadow-sm"
+                        : "text-[#858D97] hover:text-[#343B44]"
+                    }`}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <p className="mt-2 text-[9px] leading-4 text-[#858D97]">
-              Ask Syncora to understand your projects, codebase
-              and engineering workflow.
-            </p>
+            <div className="mt-4 grid min-h-0 grid-cols-2 gap-3 overflow-auto pr-1 lg:max-h-[calc(100%-55px)]">
+              {filteredProjects.length === 0 ? (
+                <EmptyProjects
+                  hasProjects={projects.length > 0}
+                  openProjectDialog={openProjectDialog}
+                />
+              ) : (
+                filteredProjects.slice(0, 4).map((project) => (
+                  <ProjectCard
+                    key={project._id}
+                    project={project}
+                    onGithub={() => handleConnectGithub(project._id)}
+                    onSync={
+                      handleSyncRepository
+                        ? () => handleSyncRepository(project._id)
+                        : undefined
+                    }
+                    syncing={syncingProjectId === project._id}
+                  />
+                ))
+              )}
+            </div>
+          </motion.section>
 
-            <button
-              type="button"
-              onClick={() => handleNavClick("AI workspace")}
-              className="mt-5 w-full rounded-lg bg-[#11161D] py-2.5 text-[9px] font-semibold text-white transition hover:bg-[#252C35]"
-            >
-              Open AI →
-            </button>
-          </BentoCard>
-
-          {/* ===================================================
-              ACTIVITY
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-7"
-            delay={0.28}
+          {/* ACTIVITY */}
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="col-span-12 min-h-0 overflow-hidden rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-5"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-start justify-between gap-4">
               <CardHeader
+                icon="⌁"
                 title="Workspace activity"
                 subtitle="Recent engineering signals"
-                icon="⌁"
               />
 
               <div className="text-right">
-                <p className="text-[18px] font-semibold">
+                <p className="text-[30px] font-semibold leading-none tracking-[-0.055em]">
                   {avgActivity}
                 </p>
-                <p className="text-[8px] text-[#858D97]">
+                <p className="mt-1 text-[8px] text-[#858D97]">
                   activity score
                 </p>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_1.5fr]">
-
-              <div className="space-y-3">
-                <ActivityItem
-                  icon="◈"
-                  title="GitHub"
-                  text={
-                    connectedProjects.length
-                      ? `${connectedProjects.length} repositories connected`
-                      : "No repositories connected"
-                  }
-                  time="Now"
-                />
-
-                <ActivityItem
-                  icon="◇"
-                  title="Projects"
-                  text={`${projects.length} projects available`}
-                  time="Now"
-                />
-
-                <ActivityItem
-                  icon="♧"
-                  title="Team"
-                  text={`${memberCount} members in workspace`}
-                  time="Now"
-                />
-
-                <ActivityItem
-                  icon="✦"
-                  title="Syncora AI"
-                  text="AI workspace ready"
-                  time="Ready"
-                  last
-                />
+            <div className="mt-3 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-semibold">Engineering activity</p>
+                <p className="mt-0.5 text-[8px] text-[#858D97]">
+                  {range === "24H"
+                    ? "Last 24 hours"
+                    : range === "30D"
+                    ? "Last 30 days"
+                    : "Last 7 days"}
+                </p>
               </div>
 
-              <div className="rounded-xl border border-[#EEF0F2] bg-[#FAFBFC] p-4">
-                <div className="flex items-center justify-between">
-                  <p className="text-[10px] font-semibold">
-                    Engineering activity
-                  </p>
-
-                  <span className="rounded-full bg-[#E8F7F1] px-2 py-1 text-[7px] font-bold text-[#16845D]">
-                    LIVE
-                  </span>
-                </div>
-
-                <div className="mt-5 flex h-[85px] items-end gap-1.5">
-                  {activity.map((value, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ height: 0 }}
-                      animate={{
-                        height: `${Math.max(12, value)}%`,
-                      }}
-                      transition={{
-                        duration: 0.6,
-                        delay: index * 0.035,
-                      }}
-                      className="flex-1 rounded-t-md bg-[#FF5C35]/75 transition hover:bg-[#FF5C35]"
-                    />
-                  ))}
-                </div>
-
-                <div className="mt-2 flex justify-between text-[7px] text-[#A0A7AF]">
-                  <span>Earlier</span>
-                  <span>Now</span>
-                </div>
-              </div>
-            </div>
-          </BentoCard>
-
-          {/* ===================================================
-              COLLABORATION
-          ==================================================== */}
-
-          <BentoCard
-            className="col-span-12 lg:col-span-5"
-            delay={0.32}
-          >
-            <CardHeader
-              title="Collaboration"
-              subtitle="Workspace invitations"
-              icon="!"
-            />
-
-            {user.invitations?.length > 0 ? (
-              <div className="mt-5">
-                <div className="flex items-center gap-3 rounded-xl bg-[#FFF9ED] p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#FFF0D0] text-[#C47A16]">
-                    !
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-semibold">
-                      Pending collaboration
-                    </p>
-
-                    <p className="mt-1 text-[9px] text-[#806A47]">
-                      {user.invitations.length} invitation
-                      {user.invitations.length > 1 ? "s" : ""} waiting
-                      for your response.
-                    </p>
-                  </div>
-                </div>
-
-                {user.invitations.slice(0, 1).map((invitation) => (
-                  <div
-                    key={invitation.token}
-                    className="mt-3 flex justify-end gap-2"
+              <div className="flex rounded-lg bg-[#F4F6F8] p-1">
+                {["24H", "7D", "30D"].map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setRange(item)}
+                    className={`rounded-md px-2.5 py-1.5 text-[8px] font-bold transition ${
+                      range === item
+                        ? "bg-[#11161D] text-white"
+                        : "text-[#858D97] hover:text-[#343B44]"
+                    }`}
                   >
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleInvitation(
-                          invitation.token,
-                          "decline"
-                        )
-                      }
-                      className="rounded-lg border border-[#DDE1E6] bg-white px-4 py-2 text-[9px] font-semibold text-[#68635C]"
-                    >
-                      Decline
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleInvitation(
-                          invitation.token,
-                          "accept"
-                        )
-                      }
-                      className="rounded-lg bg-[#FF5C35] px-4 py-2 text-[9px] font-semibold text-white"
-                    >
-                      Accept invitation
-                    </button>
-                  </div>
+                    {item}
+                  </button>
                 ))}
               </div>
-            ) : (
-              <div className="mt-5 flex min-h-[105px] items-center rounded-xl border border-dashed border-[#DDE1E6] bg-[#FAFBFC] px-4">
-                <div>
-                  <p className="text-[11px] font-semibold">
-                    No pending invitations
-                  </p>
+            </div>
 
-                  <p className="mt-1 text-[9px] leading-4 text-[#858D97]">
-                    Collaboration requests will appear here when
-                    someone invites you to a workspace.
-                  </p>
-                </div>
-              </div>
-            )}
-          </BentoCard>
+            <div className="mt-3 rounded-2xl bg-[#FAFBFC] p-3">
+              <ActivityChart values={activity} />
+            </div>
+
+
+          </motion.section>
         </div>
       </div>
     </div>
   );
 };
 
-/* =============================================================
-   BENTO CARD
-============================================================= */
-
-const BentoCard = ({
-  children,
-  className = "",
-  delay = 0,
-}) => {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay }}
-      className={`rounded-[20px] border border-[#E2E5E9] bg-white p-5 shadow-[0_1px_2px_rgba(17,24,39,0.02)] ${className}`}
-    >
-      {children}
-    </motion.section>
-  );
-};
-
-/* =============================================================
-   CARD HEADER
-============================================================= */
-
-const CardHeader = ({
-  title,
-  subtitle,
+const KpiCard = ({
   icon,
-}) => {
-  return (
-    <div className="flex items-start gap-3">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#FFF0EB] text-[12px] font-semibold text-[#FF5C35]">
-        {icon}
-      </div>
-
-      <div className="min-w-0">
-        <h2 className="text-[12px] font-semibold text-[#11161D]">
-          {title}
-        </h2>
-
-        <p className="mt-0.5 text-[9px] text-[#858D97]">
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-/* =============================================================
-   DONUT CHART
-============================================================= */
-
-const DonutChart = ({
-  percentage = 0,
-  centerValue,
-  centerLabel,
-  size = "normal",
-}) => {
-  const radius = size === "small" ? 31 : 42;
-  const circumference = 2 * Math.PI * radius;
-
-  const safePercentage = Math.max(
-    0,
-    Math.min(100, percentage)
-  );
-
-  const offset =
-    circumference -
-    (safePercentage / 100) * circumference;
-
-  const dimension = size === "small" ? 82 : 108;
-
-  return (
-    <div
-      className="relative shrink-0"
-      style={{
-        width: dimension,
-        height: dimension,
-      }}
-    >
-      <svg
-        width={dimension}
-        height={dimension}
-        viewBox={`0 0 ${dimension} ${dimension}`}
-        className="-rotate-90"
-      >
-        <circle
-          cx={dimension / 2}
-          cy={dimension / 2}
-          r={radius}
-          fill="none"
-          stroke="#EEF0F2"
-          strokeWidth={size === "small" ? 7 : 8}
-        />
-
-        <motion.circle
-          initial={{
-            strokeDashoffset: circumference,
-          }}
-          animate={{
-            strokeDashoffset: offset,
-          }}
-          transition={{
-            duration: 0.9,
-            ease: "easeOut",
-          }}
-          cx={dimension / 2}
-          cy={dimension / 2}
-          r={radius}
-          fill="none"
-          stroke="#FF5C35"
-          strokeWidth={size === "small" ? 7 : 8}
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-        />
-      </svg>
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span
-          className={
-            size === "small"
-              ? "text-[13px] font-semibold"
-              : "text-[20px] font-semibold"
-          }
-        >
-          {centerValue}
-        </span>
-
-        <span className="mt-0.5 text-[7px] text-[#858D97]">
-          {centerLabel}
-        </span>
-      </div>
-    </div>
-  );
-};
-
-/* =============================================================
-   MINI METRIC
-============================================================= */
-
-const MiniMetric = ({
   label,
   value,
-  dot,
-}) => {
-  return (
-    <div className="rounded-lg bg-[#FAFBFC] px-3 py-2.5">
-      <div className="flex items-center gap-1.5">
-        <span
-          className={`h-1.5 w-1.5 rounded-full ${dot}`}
-        />
+  detail,
+  badge,
+  warning = false,
+  progress,
+  dark = false,
+  onClick,
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`group relative min-h-[128px] overflow-hidden rounded-[20px] border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-lg ${
+      dark
+        ? "border-[#11161D] bg-[#11161D] text-white"
+        : "border-[#DEE3E7] bg-white"
+    }`}
+  >
+    <div className="flex items-start justify-between">
+      <span
+        className={`flex h-9 w-9 items-center justify-center rounded-xl text-sm ${
+          dark
+            ? "bg-white/10 text-[#FF704D]"
+            : "bg-[#FFF0EB] text-[#FF5C35]"
+        }`}
+      >
+        {icon}
+      </span>
 
-        <span className="text-[8px] text-[#858D97]">
-          {label}
-        </span>
-      </div>
-
-      <p className="mt-1 text-[15px] font-semibold">
-        {value}
-      </p>
+      <span
+        className={`rounded-full px-2 py-1 text-[8px] font-bold ${
+          dark
+            ? "bg-white/10 text-[#B0B7C0]"
+            : warning
+            ? "bg-[#FFF1E6] text-[#C56A24]"
+            : "bg-[#E6F7F0] text-[#16845D]"
+        }`}
+      >
+        {badge}
+      </span>
     </div>
-  );
-};
 
-/* =============================================================
-   PROJECT CARD
-============================================================= */
+    <p
+      className={`mt-4 text-[9px] font-bold uppercase tracking-[0.15em] ${
+        dark ? "text-[#8F99A5]" : "text-[#858D97]"
+      }`}
+    >
+      {label}
+    </p>
+
+    <p className="mt-0.5 text-[28px] font-semibold leading-none tracking-[-0.055em]">
+      {value}
+    </p>
+
+    <p
+      className={`mt-1.5 truncate text-[9px] ${
+        dark ? "text-[#8F99A5]" : "text-[#858D97]"
+      }`}
+    >
+      {detail}
+    </p>
+
+    {typeof progress === "number" && (
+      <div className="absolute bottom-0 left-0 h-1 w-full bg-[#EEF0F2]">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.8 }}
+          className="h-full rounded-r-full bg-[#FF5C35]"
+        />
+      </div>
+    )}
+  </button>
+);
+
+const CardHeader = ({ icon, title, subtitle }) => (
+  <div className="flex items-center gap-3">
+    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFF0EB] text-sm font-semibold text-[#FF5C35]">
+      {icon}
+    </div>
+
+    <div className="min-w-0">
+      <h2 className="text-[13px] font-semibold">{title}</h2>
+      <p className="mt-0.5 text-[9px] text-[#858D97]">{subtitle}</p>
+    </div>
+  </div>
+);
+
+const StatusRow = ({ label, value, ok }) => (
+  <div className="flex items-center justify-between rounded-xl bg-[#F8F9FA] px-3 py-2.5">
+    <div className="flex items-center gap-2.5">
+      <span
+        className={`h-2 w-2 rounded-full ${
+          ok ? "bg-[#24B47E]" : "bg-[#F0A34A]"
+        }`}
+      />
+      <span className="text-[10px] font-medium text-[#59626D]">{label}</span>
+    </div>
+
+    <span
+      className={`text-[9px] font-semibold ${
+        ok ? "text-[#16845D]" : "text-[#C56A24]"
+      }`}
+    >
+      {value}
+    </span>
+  </div>
+);
 
 const ProjectCard = ({
   project,
@@ -788,19 +562,20 @@ const ProjectCard = ({
   onSync,
   syncing,
 }) => {
-  const connected = project.github?.connected;
-
-  const status =
-    project.status?.toLowerCase() || "active";
+  const connected = Boolean(project.github?.connected);
+  const status = project.status?.toLowerCase() || "active";
 
   return (
-    <div className="group rounded-xl border border-[#E4E7EB] bg-[#FAFBFC] p-3.5 transition hover:border-[#D4D9DE] hover:bg-white hover:shadow-sm">
+    <motion.div
+      layout
+      whileHover={{ y: -2 }}
+      className="rounded-[16px] border border-[#E2E6EA] bg-[#FAFBFC] p-3.5 transition hover:bg-white hover:shadow-md"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="truncate text-[11px] font-semibold">
+          <h3 className="truncate text-[12px] font-semibold">
             {project.name}
           </h3>
-
           <p className="mt-1 line-clamp-1 text-[9px] text-[#7F8893]">
             {project.description || "No description added."}
           </p>
@@ -809,8 +584,8 @@ const ProjectCard = ({
         <span
           className={`shrink-0 rounded-full px-2 py-1 text-[7px] font-bold uppercase ${
             status === "active"
-              ? "bg-[#E8F7F1] text-[#16845D]"
-              : "bg-[#F1F2F4] text-[#737C87]"
+              ? "bg-[#E6F7F0] text-[#16845D]"
+              : "bg-[#F0F1F3] text-[#737C87]"
           }`}
         >
           {status}
@@ -818,17 +593,15 @@ const ProjectCard = ({
       </div>
 
       <div
-        className={`mt-3 flex items-center gap-2 rounded-lg px-2.5 py-2 ${
+        className={`mt-3 flex items-center gap-2 rounded-xl px-3 py-2.5 ${
           connected
             ? "bg-[#F0F8F4]"
-            : "border border-dashed border-[#DDE1E6]"
+            : "border border-dashed border-[#D9DEE3] bg-white"
         }`}
       >
         <span
-          className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-            connected
-              ? "bg-[#24B47E]"
-              : "bg-[#B5BBC2]"
+          className={`h-2 w-2 shrink-0 rounded-full ${
+            connected ? "bg-[#24B47E]" : "bg-[#B5BBC2]"
           }`}
         />
 
@@ -846,15 +619,13 @@ const ProjectCard = ({
         </span>
       </div>
 
-      <div className="mt-2.5 flex items-center justify-between">
+      <div className="mt-3 flex items-center justify-between">
         <button
           type="button"
           onClick={onGithub}
           className="text-[9px] font-semibold text-[#39424D] transition hover:text-[#FF5C35]"
         >
-          {connected
-            ? "Manage repository →"
-            : "Connect GitHub →"}
+          {connected ? "Manage repository →" : "Connect GitHub →"}
         </button>
 
         {connected && onSync && (
@@ -862,89 +633,134 @@ const ProjectCard = ({
             type="button"
             onClick={onSync}
             disabled={syncing}
-            className="text-[8px] font-semibold text-[#858D97] transition hover:text-[#11161D] disabled:opacity-50"
+            className="rounded-md px-2 py-1 text-[8px] font-semibold text-[#737C87] hover:bg-[#EEF0F2] hover:text-[#11161D] disabled:opacity-50"
           >
             {syncing ? "Syncing..." : "Sync"}
           </button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-/* =============================================================
-   ACTIVITY ITEM
-============================================================= */
-
-const ActivityItem = ({
-  icon,
-  title,
-  text,
-  time,
-  last,
-}) => {
-  return (
-    <div className="relative flex gap-3">
-      {!last && (
-        <div className="absolute left-[13px] top-8 h-[calc(100%+6px)] w-px bg-[#E8EAED]" />
-      )}
-
-      <div className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#F4F5F6] text-[10px] text-[#59626D]">
-        {icon}
+const EmptyProjects = ({ hasProjects, openProjectDialog }) => (
+  <div className="col-span-2 flex min-h-[180px] items-center justify-center rounded-2xl border border-dashed border-[#D9DEE3] bg-[#FAFBFC]">
+    <div className="text-center">
+      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF0EB] text-lg text-[#FF5C35]">
+        ◇
       </div>
 
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[10px] font-semibold">
-            {title}
-          </p>
+      <p className="mt-3 text-[12px] font-semibold">
+        {hasProjects ? "No projects match this filter" : "No projects yet"}
+      </p>
 
-          <span className="text-[8px] text-[#A0A7AF]">
-            {time}
-          </span>
-        </div>
+      <p className="mt-1 text-[9px] text-[#858D97]">
+        {hasProjects
+          ? "Try another filter."
+          : "Create your first project to start building."}
+      </p>
 
-        <p className="mt-0.5 text-[9px] leading-4 text-[#858D97]">
-          {text}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-/* =============================================================
-   EMPTY PROJECTS
-============================================================= */
-
-const EmptyProjects = ({
-  openProjectDialog,
-}) => {
-  return (
-    <div className="mt-5 flex min-h-[145px] items-center justify-center rounded-xl border border-dashed border-[#DDE1E6] bg-[#FAFBFC]">
-      <div className="text-center">
-        <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg bg-[#FFF0EB] text-sm text-[#FF5C35]">
-          ◇
-        </div>
-
-        <h3 className="mt-3 text-[11px] font-semibold">
-          No projects yet
-        </h3>
-
-        <p className="mt-1 text-[9px] text-[#858D97]">
-          Create your first project to start building.
-        </p>
-
+      {!hasProjects && (
         <button
           type="button"
           onClick={openProjectDialog}
-          className="mt-3 rounded-lg bg-[#11161D] px-3 py-2 text-[9px] font-semibold text-white transition hover:bg-[#252C35]"
+          className="mt-3 rounded-lg bg-[#11161D] px-3 py-2 text-[9px] font-semibold text-white"
         >
           Create project
         </button>
-      </div>
+      )}
+    </div>
+  </div>
+);
+
+const ActivityChart = ({ values }) => {
+  const width = 600;
+  const height = 180;
+  const px = 10;
+  const py = 12;
+
+  const points = values
+    .map((value, index) => {
+      const x =
+        px + (index / Math.max(values.length - 1, 1)) * (width - px * 2);
+      const y =
+        height - py - (value / 100) * (height - py * 2);
+
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  const area = `${px},${height - py} ${points} ${
+    width - px
+  },${height - py}`;
+
+  return (
+    <div className="h-[160px] w-full">
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="none"
+        className="h-full w-full"
+      >
+        {[25, 50, 75].map((line) => {
+          const y =
+            height - py - (line / 100) * (height - py * 2);
+
+          return (
+            <line
+              key={line}
+              x1={px}
+              x2={width - px}
+              y1={y}
+              y2={y}
+              stroke="#E6E9EC"
+              strokeWidth="1"
+              strokeDasharray="4 5"
+            />
+          );
+        })}
+
+        <polygon points={area} fill="rgba(255,92,53,0.08)" />
+
+        <polyline
+          points={points}
+          fill="none"
+          stroke="#FF5C35"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {values.map((value, index) => {
+          const x =
+            px + (index / Math.max(values.length - 1, 1)) * (width - px * 2);
+          const y =
+            height - py - (value / 100) * (height - py * 2);
+
+          return (
+            <g key={index}>
+              <circle
+                cx={x}
+                cy={y}
+                r="6"
+                fill="#FFFFFF"
+                stroke="#FF5C35"
+                strokeWidth="3"
+              />
+            </g>
+          );
+        })}
+      </svg>
     </div>
   );
 };
 
-export default DashboardOverview;
+const MetricPill = ({ label, value }) => (
+  <div className="rounded-xl bg-[#F7F8F9] px-3 py-2.5">
+    <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#9AA1A9]">
+      {label}
+    </p>
+    <p className="mt-0.5 text-[14px] font-semibold">{value}</p>
+  </div>
+);
 
+export default DashboardOverview;
