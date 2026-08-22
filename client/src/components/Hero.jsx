@@ -1,48 +1,105 @@
 import { motion } from "framer-motion";
 import useHeroAnimation from "../hooks/useHeroAnimation";
 import "../styles/hero.css";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { containerVariants, itemVariants } = useHeroAnimation();
 
+  const orbitItems = [
+    { label: "PLAN", icon: "⌘", color: "#ff6b35", delay: 0 },
+    { label: "BUILD", icon: "</>", color: "#7c5cff", delay: 0.4 },
+    { label: "SHIP", icon: "↗", color: "#16b98d", delay: 0.8 },
+    { label: "AI", icon: "✦", color: "#ff3d81", delay: 1.2 },
+  ];
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#FAF9F6] text-[#171717]">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="hero-glow absolute left-[45%] top-[-18%] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-orange-200/40 blur-[130px]" />
+    <section className="relative min-h-screen overflow-hidden bg-[#08090d] text-white">
+      {/* =========================================================
+          BACKGROUND
+      ========================================================== */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Ambient glow */}
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.35, 0.55, 0.35],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute left-[48%] top-[-25%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#ff5c35]/20 blur-[140px]"
+        />
 
-        <div className="hero-glow-secondary absolute bottom-[-15%] right-[-5%] h-[420px] w-[420px] rounded-full bg-indigo-200/25 blur-[130px]" />
+        <motion.div
+          animate={{
+            x: [0, 80, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-[-25%] right-[-10%] h-[550px] w-[550px] rounded-full bg-[#635bff]/20 blur-[150px]"
+        />
 
-        <div className="hero-grid absolute inset-0 opacity-70" />
+        {/* Grid */}
+        <div className="hero-grid-dark absolute inset-0 opacity-50" />
+
+        {/* Perspective floor */}
+        <div className="hero-perspective-floor absolute bottom-[-35%] left-1/2 h-[70%] w-[140%] -translate-x-1/2 rotate-x-[62deg]" />
       </div>
 
-      <div className="relative mx-auto min-h-screen max-w-7xl px-6 pt-24 pb-10 sm:px-10 lg:px-12 lg:pt-24 lg:pb-8">
+      {/* =========================================================
+          MAIN CONTENT
+      ========================================================== */}
+      <div className="relative mx-auto min-h-screen max-w-7xl px-6 pb-10 pt-24 sm:px-10 lg:px-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid w-full items-center gap-12 lg:min-h-[calc(100vh-7rem)] lg:-translate-y-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14"
+          className="grid min-h-[calc(100vh-7rem)] w-full items-center gap-12 lg:-translate-y-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14"
         >
-          <div className="max-w-2xl lg:-translate-x-10">
+          {/* =====================================================
+              LEFT CONTENT — KEPT IN SAME POSITION
+          ====================================================== */}
+          <div className="relative z-20 max-w-2xl lg:-translate-x-10">
             <motion.div
               variants={itemVariants}
-              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#E7E2DA] bg-white/80 px-4 py-2 text-sm font-medium text-[#5F5B55] shadow-sm backdrop-blur"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/70 shadow-lg backdrop-blur-xl"
             >
-              <span className="h-2 w-2 rounded-full bg-[#FF5C35]" />
+              <motion.span
+                animate={{
+                  scale: [1, 1.4, 1],
+                  opacity: [0.6, 1, 0.6],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+                className="h-2 w-2 rounded-full bg-[#ff5c35] shadow-[0_0_12px_#ff5c35]"
+              />
               AI-powered engineering workspace
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] text-[#171717] sm:text-6xl lg:text-[70px]"
+              className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[70px]"
             >
-              Your entire engineering 
-                <br />
-              <span className="text-[#FF5C35]">in sync.</span>
+              Your entire engineering
+              <br />
+              <span className="bg-gradient-to-r from-[#ff6840] via-[#ff5c35] to-[#ff8c66] bg-clip-text text-transparent">
+                in sync.
+              </span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="mt-6 max-w-xl text-base leading-7 text-[#6B6862] sm:text-lg"
+              className="mt-6 max-w-xl text-base leading-7 text-white/55 sm:text-lg"
             >
               Plan projects, collaborate with your team, connect GitHub,
               document your work, and get AI assistance — all from one
@@ -53,18 +110,28 @@ const Hero = () => {
               variants={itemVariants}
               className="mt-7 flex flex-col gap-3 sm:flex-row"
             >
-              <motion.button
-                whileHover={{ y: -2 }}
+              <motion.div
+                whileHover={{
+                  y: -3,
+                  scale: 1.02,
+                }}
                 whileTap={{ scale: 0.98 }}
-                className="rounded-xl bg-[#FF5C35] px-6 py-3.5 font-medium text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-[#E94B27] hover:shadow-xl hover:shadow-orange-500/25"
               >
-                Start Building — Free
-              </motion.button>
+                <Link
+                  to="/signup"
+                  className="inline-block rounded-xl bg-[#ff5c35] px-6 py-3.5 font-medium text-white shadow-[0_10px_30px_rgba(255,92,53,.18)] transition-all hover:shadow-[0_20px_50px_rgba(255,92,53,.3)]"
+                >
+                  Start Building — Free
+                </Link>
+              </motion.div>
 
               <motion.button
-                whileHover={{ y: -2 }}
+                whileHover={{
+                  y: -3,
+                  backgroundColor: "rgba(255,255,255,.08)",
+                }}
                 whileTap={{ scale: 0.98 }}
-                className="rounded-xl border border-[#DDD8D0] bg-white px-6 py-3.5 font-medium text-[#252321] transition-all hover:border-[#CFC8BE] hover:bg-[#F5F2ED]"
+                className="rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3.5 font-medium text-white transition-all backdrop-blur"
               >
                 Explore Syncora
               </motion.button>
@@ -72,7 +139,7 @@ const Hero = () => {
 
             <motion.div
               variants={itemVariants}
-              className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[#8A857D]"
+              className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/40"
             >
               <span>✓ Free to start</span>
               <span>✓ Built for developers</span>
@@ -80,154 +147,259 @@ const Hero = () => {
             </motion.div>
           </div>
 
+          {/* =====================================================
+              RIGHT SIDE — HEAVY 3D SYNCORA ANIMATION
+          ====================================================== */}
           <motion.div
             variants={itemVariants}
-            className="relative mx-auto w-full max-w-xl lg:-translate-y-2"
+            className="relative mx-auto flex h-[520px] w-full max-w-xl items-center justify-center lg:-translate-y-2"
           >
-            <div className="hero-dashboard relative">
-              <div className="absolute inset-8 rounded-[32px] bg-orange-300/20 blur-[70px]" />
+            {/* Outer glow */}
+            <motion.div
+              animate={{
+                scale: [1, 1.12, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute h-[350px] w-[350px] rounded-full bg-[#ff5c35]/30 blur-[100px]"
+            />
 
-              <div className="relative overflow-hidden rounded-[22px] border border-[#E2DED7] bg-white shadow-[0_30px_80px_rgba(40,35,30,0.12)]">
-                <div className="flex items-center justify-between border-b border-[#ECE8E2] px-5 py-4">
-                  <div className="flex gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#D8D3CB]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#D8D3CB]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#D8D3CB]" />
+            {/* =================================================
+                3D CORE
+            ================================================== */}
+            <motion.div
+              animate={{
+                rotateY: [0, 360],
+                rotateX: [8, -8, 8],
+              }}
+              transition={{
+                rotateY: {
+                  duration: 18,
+                  repeat: Infinity,
+                  ease: "linear",
+                },
+                rotateX: {
+                  duration: 7,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                perspective: 1400,
+              }}
+              className="relative h-[260px] w-[260px]"
+            >
+              {/* Main glass cube */}
+              <div
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "rotateX(12deg) rotateY(-25deg)",
+                }}
+                className="absolute inset-0"
+              >
+                {/* Front */}
+                <div className="absolute inset-0 translate-z-[130px] overflow-hidden rounded-[32px] border border-white/20 bg-white/[0.08] shadow-[inset_0_0_50px_rgba(255,255,255,.04),0_40px_100px_rgba(0,0,0,.4)] backdrop-blur-xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#ff5c35]/20 via-transparent to-[#635bff]/20" />
+
+                  {/* Syncora logo */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{
+                        rotate: [0, 180, 360],
+                        scale: [1, 1.08, 1],
+                      }}
+                      transition={{
+                        rotate: {
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "linear",
+                        },
+                        scale: {
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        },
+                      }}
+                      className="relative h-28 w-28"
+                    >
+                      <div className="absolute inset-0 rounded-[30px] border border-[#ff5c35]/40 bg-[#ff5c35]/10 shadow-[0_0_60px_rgba(255,92,53,.25)]" />
+
+                      <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[18px] bg-gradient-to-br from-[#ff7b58] to-[#ff3d21] shadow-[0_0_40px_rgba(255,92,53,.5)]" />
+
+                      <div className="absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-lg bg-[#08090d]" />
+                    </motion.div>
                   </div>
 
-                  <span className="text-xs font-medium text-[#A09A91]">
-                    syncora.dev
-                  </span>
-                </div>
-
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-[#A09A91]">Workspace</p>
-
-                      <h3 className="mt-1 text-lg font-semibold text-[#171717]">
-                        Engineering
-                      </h3>
-                    </div>
-
-                    <div className="rounded-lg bg-[#FFF0EB] px-3 py-1.5 text-xs font-semibold text-[#E94B27]">
-                      AI Active
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-3 gap-3">
-                    {[
-                      ["Projects", "12"],
-                      ["Tasks", "48"],
-                      ["Progress", "76%"],
-                    ].map(([label, value]) => (
-                      <div
-                        key={label}
-                        className="rounded-xl border border-[#ECE8E2] bg-[#FBFAF8] p-3"
-                      >
-                        <p className="text-[11px] text-[#A09A91]">{label}</p>
-
-                        <p className="mt-2 text-lg font-semibold text-[#171717]">
-                          {value}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 rounded-xl border border-[#ECE8E2] bg-[#FBFAF8] p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-xs text-[#A09A91]">
-                          Current Sprint
-                        </p>
-
-                        <p className="mt-1 text-sm font-medium text-[#252321]">
-                          Authentication & API
-                        </p>
-                      </div>
-
-                      <span className="text-sm font-semibold text-[#FF5C35]">
-                        76%
-                      </span>
-                    </div>
-
-                    <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#E8E4DE]">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: "76%" }}
-                        transition={{
-                          duration: 1.2,
-                          delay: 0.7,
-                          ease: "easeOut",
-                        }}
-                        className="h-full rounded-full bg-[#FF5C35]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-4 rounded-xl border border-[#E8E2F7] bg-[#F8F5FC] p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#ECE5FA] text-sm text-[#635BFF]">
-                        ✦
-                      </div>
-
-                      <div>
-                        <p className="text-xs font-semibold text-[#635BFF]">
-                          Syncora AI
-                        </p>
-
-                        <p className="mt-1 text-xs leading-5 text-[#716D78]">
-                          Sprint progress is strong. 4 tasks need attention
-                          before the next review.
-                        </p>
-                      </div>
-                    </div>
+                  {/* Core label */}
+                  <div className="absolute bottom-5 left-0 right-0 text-center">
+                    <p className="text-xs font-semibold tracking-[0.35em] text-white/60">
+                      SYNCORA
+                    </p>
                   </div>
                 </div>
+
+                {/* Back */}
+                <div className="absolute inset-0 -translate-z-[130px] rounded-[32px] border border-white/10 bg-[#635bff]/10" />
+
+                {/* Left */}
+                <div className="absolute left-0 top-0 h-full w-[260px] origin-left -rotate-y-90 rounded-[32px] border border-white/10 bg-[#ff5c35]/10" />
+
+                {/* Right */}
+                <div className="absolute right-0 top-0 h-full w-[260px] origin-right rotate-y-90 rounded-[32px] border border-white/10 bg-[#635bff]/10" />
+
+                {/* Top */}
+                <div className="absolute left-0 top-0 h-[260px] w-full origin-top rotate-x-90 rounded-[32px] border border-white/10 bg-white/[0.04]" />
+
+                {/* Bottom */}
+                <div className="absolute bottom-0 left-0 h-[260px] w-full origin-bottom -rotate-x-90 rounded-[32px] border border-white/10 bg-[#ff5c35]/5" />
               </div>
+            </motion.div>
 
+            {/* =================================================
+                ORBIT RING
+            ================================================== */}
+            <motion.div
+              animate={{ rotateZ: 360 }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-[420px] w-[420px] rounded-full border border-white/[0.08]"
+            >
               <motion.div
-                animate={{ y: [0, -5, 0] }}
+                animate={{ rotateZ: -360 }}
                 transition={{
-                  duration: 4,
+                  duration: 20,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "linear",
                 }}
-                className="absolute -right-4 top-16 hidden rounded-xl border border-[#E4DFD8] bg-white px-4 py-3 shadow-xl shadow-black/5 sm:block"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-[#635BFF]">✦</span>
+                className="absolute -top-3 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full bg-[#ff5c35] shadow-[0_0_25px_rgba(255,92,53,.8)]"
+              />
+            </motion.div>
 
-                  <span className="text-xs font-medium text-[#68635C]">
-                    AI analyzing project
-                  </span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 5, 0] }}
-                transition={{
-                  duration: 4.5,
+            {/* Second orbit */}
+            <motion.div
+              animate={{
+                rotateZ: [0, -360],
+                rotateX: [55, 55],
+              }}
+              transition={{
+                rotateZ: {
+                  duration: 25,
                   repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-                className="absolute -bottom-4 -left-4 hidden rounded-xl border border-[#E4DFD8] bg-white px-4 py-3 shadow-xl shadow-black/5 sm:block"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-[#20A464]" />
+                  ease: "linear",
+                },
+              }}
+              className="absolute h-[350px] w-[350px] rounded-full border border-[#635bff]/20"
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="absolute right-0 top-1/2 h-3 w-3 rounded-full bg-[#635bff] shadow-[0_0_20px_#635bff]" />
+            </motion.div>
 
-                  <span className="text-xs font-medium text-[#68635C]">
-                    GitHub synced
-                  </span>
-                </div>
-              </motion.div>
-            </div>
+            {/* =================================================
+                FLOATING ENGINEERING NODES
+            ================================================== */}
+            {orbitItems.map((item, index) => {
+              const positions = [
+                "left-[2%] top-[25%]",
+                "right-[0%] top-[15%]",
+                "right-[4%] bottom-[18%]",
+                "left-[5%] bottom-[12%]",
+              ];
+
+              return (
+                <motion.div
+                  key={item.label}
+                  animate={{
+                    y: [0, -12, 0],
+                    rotateZ: [0, 2, 0],
+                  }}
+                  transition={{
+                    duration: 4 + index,
+                    delay: item.delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className={`absolute ${positions[index]} hidden rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 shadow-2xl backdrop-blur-xl sm:block`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-9 w-9 items-center justify-center rounded-xl text-sm font-bold"
+                      style={{
+                        color: item.color,
+                        backgroundColor: `${item.color}18`,
+                        boxShadow: `0 0 25px ${item.color}18`,
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+
+                    <div>
+                      <p className="text-[10px] tracking-[0.2em] text-white/30">
+                        SYNCORA
+                      </p>
+
+                      <p className="text-xs font-semibold text-white/70">
+                        {item.label}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            {/* =================================================
+                AI PARTICLES
+            ================================================== */}
+            {Array.from({ length: 14 }).map((_, index) => {
+              const angle = (index / 14) * Math.PI * 2;
+              const radius = 180 + (index % 3) * 45;
+
+              return (
+                <motion.span
+                  key={index}
+                  animate={{
+                    x: [
+                      Math.cos(angle) * radius,
+                      Math.cos(angle + 0.4) * (radius + 15),
+                      Math.cos(angle) * radius,
+                    ],
+                    y: [
+                      Math.sin(angle) * radius,
+                      Math.sin(angle + 0.4) * (radius + 15),
+                      Math.sin(angle) * radius,
+                    ],
+                    opacity: [0.15, 0.7, 0.15],
+                    scale: [0.7, 1.2, 0.7],
+                  }}
+                  transition={{
+                    duration: 5 + (index % 4),
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.2,
+                  }}
+                  className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-[#ff5c35]"
+                />
+              );
+            })}
+
+            {/* AI connection lines */}
+            <div className="absolute h-[300px] w-[300px] rounded-full border border-dashed border-white/[0.06]" />
+            <div className="absolute h-[470px] w-[470px] rounded-full border border-dashed border-white/[0.04]" />
           </motion.div>
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#E5E0D8]" />
+      {/* Bottom border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10" />
     </section>
   );
 };

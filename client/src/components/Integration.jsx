@@ -6,36 +6,42 @@ const integrations = [
     description: "Repositories, commits, issues, and pull requests.",
     icon: "◉",
     status: "Connected",
+    accent: "#171717",
   },
   {
     name: "Slack",
     description: "Engineering conversations and updates in sync.",
     icon: "⌁",
     status: "Connect",
+    accent: "#E01E5A",
   },
   {
     name: "Jira",
     description: "Issues, sprint work, and project activity.",
     icon: "◆",
     status: "Connect",
+    accent: "#2684FF",
   },
   {
     name: "Figma",
     description: "Designs and product context closer to development.",
     icon: "◈",
     status: "Connect",
+    accent: "#F24E1E",
   },
   {
     name: "Linear",
     description: "Issues, cycles, projects, and development work.",
     icon: "↗",
     status: "Connect",
+    accent: "#5E6AD2",
   },
   {
     name: "Notion",
     description: "Documentation and team knowledge in context.",
     icon: "N",
     status: "Connect",
+    accent: "#171717",
   },
 ];
 
@@ -43,114 +49,393 @@ const Integrations = () => {
   return (
     <section
       id="integrations"
-      className="relative overflow-hidden border-y border-[#E5E0D8] bg-[#F7F6FC] px-6 py-12 sm:px-10 lg:px-12 lg:py-14"
+      className="relative overflow-hidden border-y border-white/10 bg-[#08090D] px-6 py-20 text-white sm:px-10 lg:px-12 lg:py-28"
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(#DDD9EC_1px,transparent_1px),linear-gradient(90deg,#DDD9EC_1px,transparent_1px)] [background-size:42px_42px]" />
+      {/* =====================================================
+          BACKGROUND
+      ====================================================== */}
 
-        <div className="absolute left-[5%] top-[10%] h-56 w-56 rounded-full bg-[#C8C2F5]/20 blur-[100px]" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Grid */}
+        <div className="absolute inset-0 opacity-[0.22] [background-image:linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-        <div className="absolute bottom-[5%] right-[8%] h-56 w-56 rounded-full bg-[#FFD0C1]/20 blur-[100px]" />
+        {/* Orange glow */}
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.1, 0.18, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute left-[20%] top-[-180px] h-[420px] w-[420px] rounded-full bg-[#FF5C35] blur-[150px]"
+        />
+
+        {/* Purple glow */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.06, 0.12, 0.06],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute bottom-[-180px] right-[10%] h-[420px] w-[420px] rounded-full bg-[#635BFF] blur-[160px]"
+        />
+
+        {/* Floating light */}
+        <motion.div
+          animate={{
+            y: ["0%", "100%"],
+            opacity: [0, 0.4, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute left-[8%] top-0 h-40 w-px bg-gradient-to-b from-transparent via-[#FF5C35] to-transparent"
+        />
       </div>
 
+      {/* =====================================================
+          CONTENT
+      ====================================================== */}
+
       <div className="relative mx-auto max-w-7xl">
+        {/* Heading */}
+
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          initial={{
+            opacity: 0,
+            y: 30,
+            filter: "blur(8px)",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FF5C35]">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FF6B46]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
+
             Integrations
           </span>
 
-          <h2 className="mt-2 text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-[#171717] sm:text-4xl lg:text-[42px]">
+          <h2 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-[-0.045em] sm:text-4xl lg:text-[48px]">
             Your tools.
-            <span className="text-[#FF5C35]"> One workspace.</span>
+            <br />
+
+            <span className="bg-gradient-to-r from-white via-white to-white/50 bg-clip-text text-transparent">
+              One connected workspace.
+            </span>
           </h2>
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[#6B6862] sm:text-base">
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-white/40 sm:text-base">
             Connect the tools your engineering team already uses and keep
             projects, code, communication, and documentation in sync.
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative mx-auto mt-7 h-16 max-w-4xl"
-        >
-          <div className="absolute left-1/2 top-1/2 hidden h-px w-[65%] -translate-x-1/2 bg-[#DDD8D0] lg:block" />
+        {/* =====================================================
+            CONNECTION SYSTEM
+        ====================================================== */}
 
-          <div className="absolute left-1/2 top-1/2 hidden h-full w-px -translate-x-1/2 -translate-y-1/2 bg-[#DDD8D0] lg:block" />
+        <div className="relative mx-auto mt-16 max-w-6xl">
+          {/* Desktop connection lines */}
 
-          <div className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-[#E2DDD5] bg-white shadow-[0_12px_30px_rgba(40,35,30,0.08)]">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF5C35] text-lg font-semibold text-white shadow-md shadow-orange-500/15">
-              S
-            </div>
-          </div>
-        </motion.div>
+          <div className="pointer-events-none absolute inset-0 hidden lg:block">
+            {/* horizontal center line */}
+            <div className="absolute left-[16%] right-[16%] top-1/2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        <div className="relative mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {integrations.map((integration, index) => (
-            <motion.article
-              key={integration.name}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.04,
-                ease: "easeOut",
+            {/* vertical center line */}
+            <div className="absolute bottom-[8%] left-1/2 top-[8%] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+
+            {/* diagonal lines */}
+            <div className="absolute left-[16%] top-[25%] h-px w-[34%] origin-left rotate-[20deg] bg-gradient-to-r from-white/10 to-transparent" />
+
+            <div className="absolute right-[16%] top-[25%] h-px w-[34%] origin-right -rotate-[20deg] bg-gradient-to-l from-white/10 to-transparent" />
+
+            <div className="absolute bottom-[25%] left-[16%] h-px w-[34%] origin-left -rotate-[20deg] bg-gradient-to-r from-white/10 to-transparent" />
+
+            <div className="absolute bottom-[25%] right-[16%] h-px w-[34%] origin-right rotate-[20deg] bg-gradient-to-l from-white/10 to-transparent" />
+
+            {/* Animated signal */}
+            <motion.div
+              animate={{
+                x: ["0%", "700%"],
+                opacity: [0, 1, 0],
               }}
-              whileHover={{ y: -2 }}
-              className="group rounded-xl border border-[#E5E0D8] bg-white/90 p-4 backdrop-blur-sm transition-all duration-300 hover:border-[#D8D0C6] hover:bg-white hover:shadow-[0_10px_28px_rgba(40,35,30,0.07)]"
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute left-[18%] top-1/2 h-1 w-16 -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-[#FF5C35] to-transparent blur-[2px]"
+            />
+          </div>
+
+          {/* =================================================
+              CENTER SYNCORA CORE
+          ================================================== */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.7,
+            }}
+            whileInView={{
+              opacity: 1,
+              scale: 1,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.9,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="relative z-20 mx-auto mb-12 flex h-28 w-28 items-center justify-center lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+          >
+            {/* Outer rotating ring */}
+
+            <motion.div
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 18,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-[-14px] rounded-full border border-dashed border-[#FF5C35]/30"
+            />
+
+            {/* Pulse ring */}
+
+            <motion.div
+              animate={{
+                scale: [1, 1.25, 1],
+                opacity: [0.5, 0, 0.5],
+              }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute inset-[-5px] rounded-full border border-[#FF5C35]/40"
+            />
+
+            {/* Glow */}
+
+            <div className="absolute inset-0 rounded-full bg-[#FF5C35]/20 blur-[35px]" />
+
+            {/* Core */}
+
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+              }}
+              className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-[#111217] shadow-[0_0_60px_rgba(255,92,53,0.25)]"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E0D8] bg-[#FFF0EB] text-sm font-semibold text-[#FF5C35] transition-all duration-300 group-hover:border-[#FF5C35] group-hover:bg-[#FF5C35] group-hover:text-white">
-                  {integration.icon}
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF6B46] to-[#E9431F] text-xl font-bold text-white shadow-[0_10px_30px_rgba(255,92,53,0.35)]">
+                S
+              </div>
+            </motion.div>
+
+            {/* Core label */}
+
+            <div className="absolute -bottom-10 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
+              Syncora Core
+            </div>
+          </motion.div>
+
+          {/* =================================================
+              INTEGRATION CARDS
+          ================================================== */}
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {integrations.map((integration, index) => (
+              <motion.article
+                key={integration.name}
+                initial={{
+                  opacity: 0,
+                  y: 35,
+                  rotateX: 10,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  rotateX: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{
+                  y: -8,
+                  scale: 1.015,
+                  rotateX: 2,
+                }}
+                style={{
+                  transformPerspective: 1000,
+                }}
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 backdrop-blur-xl transition-all duration-500 hover:border-white/[0.16] hover:bg-white/[0.06]"
+              >
+                {/* Hover glow */}
+
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  whileHover={{
+                    opacity: 1,
+                  }}
+                  className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full blur-[60px]"
+                  style={{
+                    backgroundColor: integration.accent,
+                  }}
+                />
+
+                {/* Top */}
+
+                <div className="relative z-10 flex items-center justify-between">
+                  <motion.div
+                    whileHover={{
+                      rotate: 8,
+                      scale: 1.1,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 15,
+                    }}
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-sm font-semibold"
+                    style={{
+                      color: integration.accent,
+                    }}
+                  >
+                    {integration.icon}
+                  </motion.div>
+
+                  <span
+                    className={
+                      integration.status === "Connected"
+                        ? "flex items-center gap-1.5 rounded-full border border-[#20A464]/20 bg-[#20A464]/10 px-2.5 py-1 text-[10px] font-medium text-[#55D990]"
+                        : "rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-white/30"
+                    }
+                  >
+                    {integration.status === "Connected" && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#20A464] shadow-[0_0_8px_#20A464]" />
+                    )}
+
+                    {integration.status}
+                  </span>
                 </div>
 
-                <span
-                  className={
-                    integration.status === "Connected"
-                      ? "rounded-full bg-[#F0F9F4] px-2 py-0.5 text-[10px] font-medium text-[#20A464]"
-                      : "rounded-full bg-[#F5F2ED] px-2 py-0.5 text-[10px] font-medium text-[#8A857D]"
-                  }
-                >
-                  {integration.status}
-                </span>
-              </div>
+                {/* Content */}
 
-              <h3 className="mt-4 text-sm font-semibold text-[#171717]">
-                {integration.name}
-              </h3>
+                <h3 className="relative z-10 mt-6 text-base font-semibold text-white">
+                  {integration.name}
+                </h3>
 
-              <p className="mt-1.5 text-xs leading-5 text-[#6B6862]">
-                {integration.description}
-              </p>
+                <p className="relative z-10 mt-2 text-xs leading-5 text-white/35 sm:text-sm">
+                  {integration.description}
+                </p>
 
-              <button className="mt-3 text-[11px] font-semibold text-[#8A857D] transition-colors group-hover:text-[#FF5C35]">
-                {integration.status === "Connected"
-                  ? "Manage →"
-                  : "Connect →"}
-              </button>
-            </motion.article>
-          ))}
+                {/* Action */}
+
+                <button className="relative z-10 mt-5 text-[11px] font-semibold text-white/30 transition-colors duration-300 group-hover:text-[#FF6840]">
+                  {integration.status === "Connected"
+                    ? "Manage integration"
+                    : "Connect integration"}{" "}
+                  →
+                </button>
+
+                {/* Bottom accent */}
+
+                <motion.div
+                  initial={{
+                    width: 0,
+                  }}
+                  whileHover={{
+                    width: "100%",
+                  }}
+                  transition={{
+                    duration: 0.45,
+                  }}
+                  className="absolute bottom-0 left-0 h-px"
+                  style={{
+                    backgroundColor: integration.accent,
+                    boxShadow: `0 0 20px ${integration.accent}`,
+                  }}
+                />
+              </motion.article>
+            ))}
+          </div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-6 text-center text-xs text-[#8A857D]"
+        {/* =====================================================
+            FOOTER
+        ====================================================== */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 15,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            delay: 0.5,
+            duration: 0.6,
+          }}
+          className="mt-12 flex items-center justify-center gap-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20"
         >
-          More integrations are coming to Syncora.
-        </motion.p>
+          <span className="h-px w-12 bg-white/10" />
+
+          <span className="flex items-center gap-2">
+            <motion.span
+              animate={{
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+              className="h-1.5 w-1.5 rounded-full bg-[#20A464] shadow-[0_0_10px_#20A464]"
+            />
+
+            More integrations coming
+          </span>
+
+          <span className="h-px w-12 bg-white/10" />
+        </motion.div>
       </div>
     </section>
   );

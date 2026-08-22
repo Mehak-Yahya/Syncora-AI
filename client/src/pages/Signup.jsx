@@ -1,15 +1,15 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logo from "../assets/logo.png";
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const steps = [
-  { label: "Plan", icon: "▦" },
-  { label: "Build", icon: "◉" },
-  { label: "AI", icon: "✦" },
-  { label: "Ship", icon: "↗" },
+  { label: "Plan", icon: "▦", color: "#FF5C35" },
+  { label: "Build", icon: "◉", color: "#8B5CF6" },
+  { label: "AI", icon: "✦", color: "#22C55E" },
+  { label: "Ship", icon: "↗", color: "#38BDF8" },
 ];
 
 const Signup = () => {
@@ -18,10 +18,50 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState(false);
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+
+  /* =====================================================
+     3D MOUSE INTERACTION
+  ===================================================== */
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const smoothX = useSpring(mouseX, {
+    stiffness: 80,
+    damping: 20,
+  });
+
+  const smoothY = useSpring(mouseY, {
+    stiffness: 80,
+    damping: 20,
+  });
+
+  const rotateX = useTransform(smoothY, [-500, 500], [7, -7]);
+  const rotateY = useTransform(smoothX, [-500, 500], [-7, 7]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  /* =====================================================
+     FORM VALIDATION
+  ===================================================== */
 
   const validations = {
     length: password.length >= 8,
@@ -37,6 +77,10 @@ const Signup = () => {
 
   const formValid = emailValid && passwordValid;
 
+  /* =====================================================
+     SIGNUP
+  ===================================================== */
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,26 +94,21 @@ const Signup = () => {
 
       const normalizedEmail = email.trim().toLowerCase();
 
-      const response = await fetch(
-        "http://localhost:5000/api/auth/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: normalizedEmail,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          password,
+        }),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setServerError(
-          data.message || "Unable to create your account."
-        );
+        setServerError(data.message || "Unable to create your account.");
         return;
       }
 
@@ -84,7 +123,7 @@ const Signup = () => {
       console.error("Signup error:", error);
 
       setServerError(
-        "Unable to connect to Syncora. Please make sure the server is running."
+        "Unable to connect to Syncora. Please make sure the server is running.",
       );
     } finally {
       setLoading(false);
@@ -92,313 +131,441 @@ const Signup = () => {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#FAF9F6] text-[#171717]">
-      <div className="relative mx-auto min-h-screen max-w-[1500px]">
+    <main
+      className="relative min-h-screen overflow-hidden bg-[#070708] text-white"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* =====================================================
+          BACKGROUND
+      ===================================================== */}
 
-        {/* ========================= */}
-        {/* BACKGROUND GLOW - LEFT */}
-        {/* ========================= */}
-
-        <motion.div
-          animate={{
-            x: [0, 40, -20, 0],
-            y: [0, -20, 15, 0],
-            scale: [1, 1.08, 0.96, 1],
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
-          transition={{
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="pointer-events-none absolute left-[8%] top-[18%] h-80 w-80 rounded-full bg-orange-200/30 blur-[120px]"
         />
 
-        {/* ========================= */}
-        {/* BACKGROUND GLOW - RIGHT */}
-        {/* ========================= */}
-
+        {/* Orange glow */}
         <motion.div
           animate={{
-            x: [0, -30, 20, 0],
-            y: [0, 20, -15, 0],
+            x: [0, 80, -40, 0],
+            y: [0, -40, 30, 0],
+            scale: [1, 1.15, 0.95, 1],
           }}
           transition={{
             duration: 16,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute bottom-[5%] right-[8%] h-72 w-72 rounded-full bg-indigo-200/20 blur-[120px]"
+          className="absolute left-[-12%] top-[8%] h-[500px] w-[500px] rounded-full bg-orange-600/15 blur-[140px]"
         />
 
-        {/* ========================= */}
-        {/* HEADER */}
-        {/* ========================= */}
+        {/* Purple glow */}
+        <motion.div
+          animate={{
+            x: [0, -70, 40, 0],
+            y: [0, 50, -30, 0],
+            scale: [1, 0.9, 1.12, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-[-15%] right-[-8%] h-[520px] w-[520px] rounded-full bg-indigo-600/15 blur-[150px]"
+        />
 
-        <header className="relative z-20 flex items-center px-6 py-6 sm:px-10 lg:px-12">
-          <Link
-            to="/"
-            className="flex items-center gap-2.5"
+        {/* Center glow */}
+        <motion.div
+          animate={{
+            opacity: [0.2, 0.5, 0.2],
+            scale: [0.9, 1.1, 0.9],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+          }}
+          className="absolute left-[45%] top-[40%] h-48 w-48 rounded-full bg-orange-500/10 blur-[100px]"
+        />
+      </div>
+
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
+
+      <header className="relative z-30 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-12">
+        <Link to="/" className="group flex items-center gap-3">
+          <motion.div
+            whileHover={{
+              scale: 1.08,
+              rotate: -4,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 20,
+            }}
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(255,92,53,.25)]"
           >
-            <motion.div
-              whileHover={{
-                rotate: -5,
-                scale: 1.05,
-              }}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white shadow-md shadow-orange-500/20"
-            >
-              S
-            </motion.div>
+            <img
+              src={logo}
+              alt="Syncora"
+              className="h-full w-full object-contain"
+            />
+          </motion.div>
 
-            <span className="text-xl font-semibold tracking-[-0.02em]">
-              Syncora
-            </span>
-          </Link>
-        </header>
+          <span className="text-xl font-semibold tracking-[-0.03em] text-white">
+            Syncora
+          </span>
+        </Link>
+      </header>
+      {/* =====================================================
+          MAIN
+      ===================================================== */}
 
-        {/* ========================= */}
-        {/* MAIN CONTENT */}
-        {/* ========================= */}
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-78px)] max-w-[1450px] items-start gap-12 px-6 pb-8 pt-0 lg:grid-cols-[1fr_440px] lg:px-12">
+    
 
-        <div className="relative grid min-h-[calc(100vh-78px)] items-start px-6 pb-8 pt-2 sm:px-10 lg:grid-cols-2 lg:px-12 lg:py-4">
+        <section className="hidden lg:block">
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: -50,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+            }}
+            className="relative mx-auto max-w-2xl"
+          >
+            {/* Heading */}
 
-          {/* ========================= */}
-          {/* LEFT SIDE */}
-          {/* ========================= */}
+            <div className="max-w-2xl">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 15,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.2,
+                }}
+                className="mb-4 flex items-center gap-2"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
 
-          <section className="hidden lg:block">
-            <motion.div
-              initial={{
-                opacity: 0,
-                x: -40,
-              }}
-              animate={{
-                opacity: 1,
-                x: 0,
-              }}
-              transition={{
-                duration: 0.7,
-                ease: "easeOut",
-              }}
-              className="mx-auto max-w-xl"
-            >
+                <span className="text-xs font-medium uppercase tracking-[0.22em] text-white/40">
+                  Engineering workspace
+                </span>
+              </motion.div>
 
-            
+              {/* ONE LINE HEADING */}
 
-              {/* Main Heading */}
-              <h1 className="mt-4 text-6xl font-semibold leading-[0.98] tracking-[-0.055em]">
-                Build smarter.
-                <br />
-                <span className="text-[#FF5C35]">
+              <h1 className="whitespace-nowrap text-[clamp(2.6rem,4.3vw,4.7rem)] font-semibold leading-none tracking-[-0.065em]">
+                Build smarter.{" "}
+                <span className="bg-gradient-to-r from-[#FF5C35] via-orange-400 to-[#FF7A5C] bg-clip-text text-transparent">
                   Stay in sync.
                 </span>
               </h1>
 
-              {/* Description */}
-              <p className="mt-6 max-w-lg text-base leading-7 text-[#6B6862]">
-                Your projects, development workflow, team collaboration,
-                and AI assistance — connected in one workspace.
+              <p className="mt-5 max-w-lg text-[14px] leading-6 text-white/45">
+                Your projects, development workflow, team collaboration, and AI
+                assistance — connected in one intelligent workspace.
               </p>
+            </div>
 
-              {/* ========================= */}
-              {/* WORKFLOW STEPS */}
-              {/* ========================= */}
+            {/* =================================================
+                3D SCENE
+            ================================================= */}
 
-              <div className="relative mt-14 px-2">
-
-                {/* Animated Connection Line */}
-                <div className="absolute left-[11%] right-[11%] top-8 h-px overflow-hidden bg-[#DDD8D0]">
-                  <motion.div
-                    animate={{
-                      x: ["-100%", "400%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="h-full w-1/3 bg-gradient-to-r from-transparent via-[#FF5C35] to-transparent"
-                  />
-                </div>
-
-                <div className="grid grid-cols-4 gap-5">
-                  {steps.map((step, index) => (
-                    <motion.div
-                      key={step.label}
-                      initial={{
-                        opacity: 0,
-                        y: 25,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      transition={{
-                        duration: 0.5,
-                        delay: 0.3 + index * 0.15,
-                      }}
-                      className="relative z-10 flex flex-col items-center"
-                    >
-
-                      {/* Step Icon */}
-                      <motion.div
-                        animate={{
-                          y: [0, -8, 0],
-                          boxShadow: [
-                            "0 10px 25px rgba(40,35,30,0.06)",
-                            "0 18px 35px rgba(255,92,53,0.16)",
-                            "0 10px 25px rgba(40,35,30,0.06)",
-                          ],
-                        }}
-                        transition={{
-                          duration: 3,
-                          delay: index * 0.45,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                        className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#E2DDD5] bg-white text-lg text-[#FF5C35]"
-                      >
-                        {step.icon}
-                      </motion.div>
-
-                      {/* Step Label */}
-                      <motion.span
-                        animate={{
-                          opacity: [0.55, 1, 0.55],
-                        }}
-                        transition={{
-                          duration: 3,
-                          delay: index * 0.45,
-                          repeat: Infinity,
-                        }}
-                        className="mt-3 text-xs font-medium text-[#68635C]"
-                      >
-                        {step.label}
-                      </motion.span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* ========================= */}
-              {/* SYNCORA AI CARD */}
-              {/* ========================= */}
+            <div
+              className="relative mt-5 h-[265px]"
+              style={{
+                perspective: "1200px",
+              }}
+            >
+              {/* Main 3D group */}
 
               <motion.div
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
+                style={{
+                  rotateX,
+                  rotateY,
                 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                }}
-                transition={{
-                  delay: 1,
-                  duration: 0.5,
-                }}
-                className="mt-10 flex items-center gap-3 rounded-2xl border border-[#E5E0D8] bg-white/80 p-4 shadow-[0_15px_40px_rgba(40,35,30,0.06)] backdrop-blur"
+                className="absolute left-1/2 top-1/2 h-[220px] w-[420px] -translate-x-1/2 -translate-y-1/2"
               >
+                {/* Outer ring */}
+
+                <div className="absolute inset-0 rounded-[50%] border border-white/[0.07]" />
+
+                {/* Orange ring */}
+
                 <motion.div
                   animate={{
                     rotate: 360,
                   }}
                   transition={{
-                    duration: 8,
+                    duration: 12,
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFF0EB] text-[#FF5C35]"
+                  className="absolute inset-[18px] rounded-[50%] border border-orange-500/10"
+                />
+
+                {/* Inner ring */}
+
+                <div className="absolute inset-[42px] rounded-[50%] border border-white/[0.05]" />
+
+                {/* Center */}
+
+                <motion.div
+                  animate={{
+                    y: [0, -8, 0],
+                    rotateY: [0, 360],
+                  }}
+                  transition={{
+                    y: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                    rotateY: {
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                  }}
+                  className="absolute left-1/2 top-1/2 flex h-[82px] w-[82px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-orange-400/20 bg-[#111113]/95 shadow-[0_0_70px_rgba(255,92,53,0.18)] backdrop-blur-xl"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
                 >
-                  ✦
+                  <span className="text-3xl text-[#FF5C35]">✦</span>
+
+                  <div className="absolute inset-2 rounded-2xl border border-white/[0.04]" />
                 </motion.div>
 
-                <div>
-                  <p className="text-xs font-semibold">
-                    Syncora AI
-                  </p>
+                {/* Orbiting objects */}
 
-                  <p className="mt-0.5 text-[11px] text-[#8A857D]">
-                    Your engineering context, always connected.
-                  </p>
-                </div>
+                {steps.map((step, index) => {
+                  const positions = [
+                    {
+                      left: "0%",
+                      top: "34%",
+                    },
+                    {
+                      left: "27%",
+                      top: "0%",
+                    },
+                    {
+                      right: "27%",
+                      top: "0%",
+                    },
+                    {
+                      right: "0%",
+                      top: "34%",
+                    },
+                  ];
 
+                  return (
+                    <motion.div
+                      key={step.label}
+                      animate={{
+                        y: [0, -10, 0],
+                        rotateZ: [
+                          index % 2 === 0 ? -2 : 2,
+                          index % 2 === 0 ? 2 : -2,
+                          index % 2 === 0 ? -2 : 2,
+                        ],
+                      }}
+                      transition={{
+                        duration: 4 + index * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.3,
+                      }}
+                      className="absolute"
+                      style={positions[index]}
+                    >
+                      <motion.div
+                        whileHover={{
+                          scale: 1.15,
+                          rotateY: 18,
+                          rotateX: -10,
+                        }}
+                        className="group relative flex h-[68px] w-[68px] cursor-pointer items-center justify-center rounded-2xl border border-white/10 bg-[#111113]/95 shadow-2xl backdrop-blur-xl"
+                        style={{
+                          color: step.color,
+                          transformStyle: "preserve-3d",
+                        }}
+                      >
+                        {/* Glow */}
+
+                        <div
+                          className="absolute inset-0 rounded-2xl opacity-20 blur-xl transition-opacity duration-300 group-hover:opacity-50"
+                          style={{
+                            background: step.color,
+                          }}
+                        />
+
+                        <div className="relative z-10 text-xl">{step.icon}</div>
+
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-white/35">
+                          {step.label}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+
+                {/* Energy ring */}
+
+                <motion.div
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="absolute left-1/2 top-1/2 h-[195px] w-[195px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-orange-500/10"
+                />
+              </motion.div>
+            </div>
+
+            {/* AI STATUS */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.9,
+              }}
+              className="relative -mt-1 flex max-w-lg items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.035] p-3.5 backdrop-blur-xl"
+            >
+              <motion.div
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-orange-400/10 bg-orange-500/10 text-orange-400"
+              >
+                ✦
+              </motion.div>
+
+              <div>
+                <p className="text-xs font-semibold text-white">Syncora AI</p>
+
+                <p className="mt-1 text-[10px] text-white/35">
+                  Your engineering context, always connected.
+                </p>
+              </div>
+
+              <div className="ml-auto flex items-center gap-2">
                 <motion.span
                   animate={{
-                    opacity: [0.3, 1, 0.3],
+                    scale: [1, 1.5, 1],
+                    opacity: [0.4, 1, 0.4],
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
                   }}
-                  className="ml-auto h-2 w-2 rounded-full bg-[#20A464]"
+                  className="h-1.5 w-1.5 rounded-full bg-emerald-400"
                 />
-              </motion.div>
-            </motion.div>
-          </section>
 
-          {/* ========================= */}
-          {/* RIGHT SIDE */}
-          {/* ========================= */}
-
-          <section className="flex -translate-y-12 justify-center lg:-translate-y-12">
-            <motion.div
-              initial={{
-                opacity: 0,
-                x: 40,
-              }}
-              animate={{
-                opacity: 1,
-                x: 0,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 0.15,
-                ease: "easeOut",
-              }}
-              className="w-full max-w-md"
-            >
-
-              {/* ========================= */}
-              {/* MOBILE LOGO */}
-              {/* ========================= */}
-
-              <div className="mb-7 lg:hidden">
-                <Link
-                  to="/"
-                  className="flex items-center gap-2.5"
-                >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white">
-                    S
-                  </div>
-
-                  <span className="text-xl font-semibold">
-                    Syncora
-                  </span>
-                </Link>
+                <span className="text-[10px] text-white/30">Online</span>
               </div>
+            </motion.div>
+          </motion.div>
+        </section>
 
-              {/* ========================= */}
-              {/* SIGNUP CARD */}
-              {/* ========================= */}
+        {/* =================================================
+            RIGHT — SIGNUP
+            MOVED HIGHER
+        ================================================= */}
 
-              <div className="rounded-[24px] border border-[#E4DFD8] bg-white p-[22px] shadow-[0_25px_70px_rgba(40,35,30,0.08)] sm:p-6">
+        <section className="flex justify-center lg:-mt-10">
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 50,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.15,
+              ease: "easeOut",
+            }}
+            className="w-full max-w-[440px]"
+          >
+            {/* Mobile logo */}
 
-                {/* Card Heading */}
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+            <div className="mb-6 lg:hidden">
+              <Link to="/" className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF5C35] font-bold text-white">
+                  S
+                </div>
+
+                <span className="text-xl font-semibold">Syncora</span>
+              </Link>
+            </div>
+
+            {/* CARD */}
+
+            <motion.div
+              style={{
+                rotateX,
+                rotateY,
+              }}
+              className="relative overflow-hidden rounded-[26px] border border-white/[0.1] bg-[#101012]/95 p-6 shadow-[0_35px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-7"
+            >
+              {/* Card glow */}
+
+              <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-orange-500/10 blur-[70px]" />
+
+              <div className="relative z-10">
+                {/* Header */}
+
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FF5C35]">
                   Get started
                 </p>
 
-                <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">
+                <h2 className="mt-2 text-3xl font-semibold tracking-[-0.045em] text-white">
                   Create your account
                 </h2>
 
-                <p className="mt-2 text-sm leading-6 text-[#77716A]">
+                <p className="mt-2 text-sm text-white/40">
                   Start building with Syncora.
                 </p>
 
-                {/* ========================= */}
-                {/* SERVER ERROR */}
-                {/* ========================= */}
+                {/* Server error */}
 
                 {serverError && (
                   <motion.div
@@ -410,24 +577,19 @@ const Signup = () => {
                       opacity: 1,
                       y: 0,
                     }}
-                    className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs leading-5 text-red-600"
+                    className="mt-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-xs leading-5 text-red-400"
                   >
                     {serverError}
                   </motion.div>
                 )}
 
-                {/* ========================= */}
-                {/* SIGNUP FORM */}
-                {/* ========================= */}
+                {/* FORM */}
 
-                <form
-                  onSubmit={handleSubmit}
-                  className="mt-6 space-y-3"
-                >
+                <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
+                  {/* EMAIL */}
 
-                  {/* Email */}
                   <div>
-                    <label className="mb-1 block text-xs font-medium text-[#4F4B46]">
+                    <label className="mb-1.5 block text-xs font-medium text-white/60">
                       Work email
                     </label>
 
@@ -440,53 +602,39 @@ const Signup = () => {
                       }}
                       placeholder="you@company.com"
                       autoComplete="email"
-                      className={`w-full rounded-xl border bg-[#FBFAF8] px-4 py-3 text-sm outline-none transition-all placeholder:text-[#B1ABA2] focus:bg-white focus:ring-4 focus:ring-orange-500/10 ${
+                      className={`w-full rounded-xl border bg-white/[0.035] px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-white/20 focus:bg-white/[0.055] focus:ring-4 focus:ring-orange-500/10 ${
                         touched && !emailValid
-                          ? "border-red-400 focus:border-red-400"
-                          : "border-[#DDD8D0] focus:border-[#FF5C35]"
+                          ? "border-red-500/60"
+                          : "border-white/10 focus:border-[#FF5C35]/60"
                       }`}
                     />
 
                     {touched && !emailValid && (
-                      <p className="mt-1.5 text-[11px] text-red-500">
+                      <p className="mt-1.5 text-[11px] text-red-400">
                         Enter a valid email address.
                       </p>
                     )}
                   </div>
 
-                  {/* Password */}
+                  {/* PASSWORD */}
+
                   <div>
-                    <div className="mb-1 flex items-center justify-between">
-                      <label className="text-xs font-medium text-[#4F4B46]">
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <label className="text-xs font-medium text-white/60">
                         Password
                       </label>
 
-                      <div className="flex items-center gap-1.5">
-                        <span
-                          className={`text-[11px] ${
-                            passwordValid
-                              ? "text-[#20A464]"
-                              : "text-[#A09A91]"
-                          }`}
-                        >
-                          {passwordValid
-                            ? "Strong password"
-                            : "Strong password required"}
-                        </span>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setShowPasswordRequirements((prev) => !prev)
-                          }
-                          aria-label="Show password requirements"
-                          aria-expanded={showPasswordRequirements}
-                          title="Password requirements"
-                          className="flex h-4 w-4 items-center justify-center rounded-full text-[11px] text-[#A09A91] transition-colors hover:bg-[#F1EEE9] hover:text-[#FF5C35]"
-                        >
-                          i
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowPasswordRequirements((prev) => !prev)
+                        }
+                        className="text-[11px] text-white/30 transition-colors hover:text-orange-400"
+                      >
+                        {passwordValid
+                          ? "Strong password"
+                          : "Password requirements"}
+                      </button>
                     </div>
 
                     <div className="relative">
@@ -502,57 +650,62 @@ const Signup = () => {
                         onBlur={() => setTouched(true)}
                         placeholder="Create a strong password"
                         autoComplete="new-password"
-                        className={`w-full rounded-xl border bg-[#FBFAF8] px-4 py-3 pr-12 text-sm outline-none transition-all placeholder:text-[#B1ABA2] focus:bg-white focus:ring-4 focus:ring-orange-500/10 ${
+                        className={`w-full rounded-xl border bg-white/[0.035] px-4 py-3.5 pr-12 text-sm text-white outline-none transition-all placeholder:text-white/20 focus:bg-white/[0.055] focus:ring-4 focus:ring-orange-500/10 ${
                           touched && !passwordValid
-                            ? "border-red-400 focus:border-red-400"
-                            : "border-[#DDD8D0] focus:border-[#FF5C35]"
+                            ? "border-red-500/60"
+                            : "border-white/10 focus:border-[#FF5C35]/60"
                         }`}
                       />
 
                       <button
                         type="button"
-                        onClick={() =>
-                          setShowPassword((prev) => !prev)
-                        }
-                        aria-label={
-                          showPassword
-                            ? "Hide password"
-                            : "Show password"
-                        }
-                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#8A857D] transition-colors hover:bg-[#F3F0EB] hover:text-[#171717]"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-xs text-white/30 transition hover:bg-white/5 hover:text-white"
                       >
                         {showPassword ? "◉" : "◌"}
                       </button>
                     </div>
 
-                    {showPasswordRequirements && (
-                      <div className="mt-1.5 grid grid-cols-3 gap-x-3 gap-y-1">
+                    {/* REQUIREMENTS */}
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: showPasswordRequirements ? "auto" : 0,
+                        opacity: showPasswordRequirements ? 1 : 0,
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-2.5 grid grid-cols-2 gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.025] p-2.5">
                         {[
                           ["length", "8+ characters"],
-                          ["uppercase", "Uppercase letter"],
-                          ["lowercase", "Lowercase letter"],
+                          ["uppercase", "Uppercase"],
+                          ["lowercase", "Lowercase"],
                           ["number", "Number"],
                           ["special", "Special character"],
                         ].map(([key, label]) => (
                           <div
                             key={key}
-                            className="flex min-w-0 items-center gap-1 text-[10px]"
+                            className="flex items-center gap-2 text-[10px]"
                           >
-                            <span
-                              className={`flex h-3 w-3 shrink-0 items-center justify-center rounded-full text-[7px] ${
+                            <motion.span
+                              animate={{
+                                scale: validations[key] ? [1, 1.2, 1] : 1,
+                              }}
+                              className={`flex h-4 w-4 items-center justify-center rounded-full text-[8px] ${
                                 validations[key]
-                                  ? "bg-[#E8F7EF] text-[#20A464]"
-                                  : "bg-[#F1EEE9] text-[#A09A91]"
+                                  ? "bg-emerald-500/15 text-emerald-400"
+                                  : "bg-white/5 text-white/25"
                               }`}
                             >
                               {validations[key] ? "✓" : "•"}
-                            </span>
+                            </motion.span>
 
                             <span
                               className={
                                 validations[key]
-                                  ? "truncate text-[#20A464]"
-                                  : "truncate text-[#8A857D]"
+                                  ? "text-emerald-400"
+                                  : "text-white/30"
                               }
                             >
                               {label}
@@ -560,17 +713,17 @@ const Signup = () => {
                           </div>
                         ))}
                       </div>
-                    )}
+                    </motion.div>
                   </div>
 
-                  {/* Create Account Button */}
+                  {/* CREATE ACCOUNT */}
+
                   <motion.button
                     whileHover={
                       formValid && !loading
                         ? {
                             y: -2,
-                            boxShadow:
-                              "0 12px 30px rgba(255,92,53,0.22)",
+                            scale: 1.01,
                           }
                         : {}
                     }
@@ -583,35 +736,43 @@ const Signup = () => {
                     }
                     type="submit"
                     disabled={!formValid || loading}
-                    className={`mt-1 flex w-full items-center justify-center rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-all ${
+                    className={`relative mt-1 flex w-full items-center justify-center overflow-hidden rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-all ${
                       formValid && !loading
-                        ? "bg-[#FF5C35] hover:bg-[#E94B27]"
-                        : "cursor-not-allowed bg-[#D8D3CC]"
+                        ? "bg-[#FF5C35] shadow-[0_12px_35px_rgba(255,92,53,0.18)] hover:bg-[#FF6845]"
+                        : "cursor-not-allowed bg-white/10 text-white/30"
                     }`}
                   >
-                    {loading
-                      ? "Creating account..."
-                      : "Create account →"}
+                    {formValid && !loading && (
+                      <motion.div
+                        animate={{
+                          x: ["-100%", "200%"],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      />
+                    )}
+
+                    <span className="relative">
+                      {loading ? "Creating account..." : "Create account →"}
+                    </span>
                   </motion.button>
                 </form>
 
-                {/* ========================= */}
                 {/* DIVIDER */}
-                {/* ========================= */}
 
-                <div className="my-3 flex items-center gap-3">
-                  <div className="h-px flex-1 bg-[#E8E3DC]" />
+                <div className="my-4 flex items-center gap-3">
+                  <div className="h-px flex-1 bg-white/[0.07]" />
 
-                  <span className="text-[11px] text-[#A09A91]">
-                    OR
-                  </span>
+                  <span className="text-[10px] text-white/25">OR</span>
 
-                  <div className="h-px flex-1 bg-[#E8E3DC]" />
+                  <div className="h-px flex-1 bg-white/[0.07]" />
                 </div>
 
-                {/* ========================= */}
-                {/* GOOGLE BUTTON */}
-                {/* ========================= */}
+                {/* GOOGLE */}
 
                 <motion.button
                   whileHover={{
@@ -624,49 +785,62 @@ const Signup = () => {
                   onClick={() => {
                     window.location.href = `${API_URL}/api/auth/google`;
                   }}
-                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-[#DDD8D0] bg-white px-4 py-3 text-sm font-medium transition-all hover:bg-[#F8F6F2] hover:shadow-sm"
+                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3.5 text-sm font-medium text-white transition-all hover:border-white/20 hover:bg-white/[0.06]"
                 >
-                  <span className="font-semibold">
-                    G
-                  </span>
-
+                  <span className="font-semibold">G</span>
                   Continue with Google
                 </motion.button>
 
-                {/* ========================= */}
                 {/* TERMS */}
-                {/* ========================= */}
 
-                <p className="mt-3 text-center text-[11px] leading-5 text-[#969087]">
+                <p className="mt-4 text-center text-[10px] leading-5 text-white/25">
                   By creating an account, you agree to our{" "}
-                  <span className="font-medium text-[#68635C]">
-                    Terms
-                  </span>{" "}
-                  and{" "}
-                  <span className="font-medium text-[#68635C]">
-                    Privacy Policy
-                  </span>
-                  .
+                  <span className="text-white/50">Terms</span> and{" "}
+                  <span className="text-white/50">Privacy Policy</span>.
                 </p>
 
-                {/* ========================= */}
-                {/* LOGIN - INSIDE CARD */}
-                {/* ========================= */}
+                {/* LOGIN */}
 
-                <p className="mt-3 border-t border-[#E8E3DC] pt-3 text-center text-sm text-[#77716A]">
+                <p className="mt-4 border-t border-white/[0.07] pt-4 text-center text-sm text-white/35">
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="font-semibold text-[#FF5C35] transition-colors hover:text-[#E94B27]"
+                    className="font-semibold text-[#FF5C35] transition-colors hover:text-orange-400"
                   >
                     Log in
                   </Link>
                 </p>
               </div>
             </motion.div>
-          </section>
-        </div>
+          </motion.div>
+        </section>
       </div>
+
+      {/* =====================================================
+          FLOATING PARTICLES
+      ===================================================== */}
+
+      {[...Array(12)].map((_, index) => (
+        <motion.span
+          key={index}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, index % 2 === 0 ? 15 : -15, 0],
+            opacity: [0.15, 0.5, 0.15],
+          }}
+          transition={{
+            duration: 4 + (index % 4),
+            repeat: Infinity,
+            delay: index * 0.35,
+            ease: "easeInOut",
+          }}
+          className="pointer-events-none absolute h-1 w-1 rounded-full bg-white"
+          style={{
+            left: `${8 + ((index * 17) % 85)}%`,
+            top: `${12 + ((index * 23) % 75)}%`,
+          }}
+        />
+      ))}
     </main>
   );
 };

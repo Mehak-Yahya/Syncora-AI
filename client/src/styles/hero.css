@@ -57,3 +57,117 @@
     animation: none;
   }
 }
+
+.hero-grid-dark {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 45%,
+    transparent 100%
+  );
+}
+
+.hero-perspective-floor {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 70px 70px;
+  transform: translateX(-50%) perspective(600px) rotateX(62deg);
+  transform-origin: center top;
+  opacity: 0.35;
+}
+
+.rotate-x-\[62deg\] {
+  transform: rotateX(62deg);
+}
+
+.translate-z-\[130px\] {
+  transform: translateZ(130px);
+}
+
+.-translate-z-\[130px\] {
+  transform: translateZ(-130px);
+}
+
+.-rotate-y-90 {
+  transform: rotateY(-90deg);
+}
+
+.rotate-y-90 {
+  transform: rotateY(90deg);
+}
+
+.rotate-x-90 {
+  transform: rotateX(90deg);
+}
+
+.-rotate-x-90 {
+  transform: rotateX(-90deg);
+}
+
+@media (max-width: 640px) {
+  .hero-perspective-floor {
+    opacity: 0.2;
+  }
+}
+
+/* Feature: Hero Grid */
+.features-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 90%
+  );
+}
+
+/* AI section */
+.ai-section-grid {
+  background-image:
+    linear-gradient(rgba(220, 205, 195, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 205, 195, 0.35) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 0%,
+    transparent 75%
+  );
+}
+
+/* Gives the AI scene subtle depth */
+#ai {
+  perspective: 1400px;
+}
+
+#ai .relative.z-20 {
+  transform-style: preserve-3d;
+}
+
+/* Smooth GPU rendering */
+#ai .absolute {
+  will-change: transform;
+}
+
+/* Reduce animation for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #ai *,
+  #ai *::before,
+  #ai *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
