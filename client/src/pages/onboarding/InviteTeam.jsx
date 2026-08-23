@@ -1,8 +1,140 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+/* -------------------------------------------------------
+   API
+------------------------------------------------------- */
+
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+/* -------------------------------------------------------
+   Icons
+------------------------------------------------------- */
+
+const MailIcon = ({ size = 17 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="m3 7 9 6 9-6" />
+  </svg>
+);
+
+const UsersIcon = ({ size = 17 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const ArrowRightIcon = ({ size = 15 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 12h14" />
+    <path d="m13 6 6 6-6 6" />
+  </svg>
+);
+
+const ArrowLeftIcon = ({ size = 15 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M19 12H5" />
+    <path d="m11 18-6-6 6-6" />
+  </svg>
+);
+
+const XIcon = ({ size = 14 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6 6l12 12" />
+    <path d="M18 6 6 18" />
+  </svg>
+);
+
+/* -------------------------------------------------------
+   Animation presets
+------------------------------------------------------- */
+
+const pageTransition = {
+  hidden: {
+    opacity: 0,
+    y: 18,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const itemTransition = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+  },
+
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay,
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
+/* -------------------------------------------------------
+   Component
+------------------------------------------------------- */
 
 const InviteTeam = () => {
   const navigate = useNavigate();
@@ -10,19 +142,21 @@ const InviteTeam = () => {
   const [email, setEmail] = useState("");
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
-  // Protect onboarding route
+  /* -------------------------------------------------------
+     Protect onboarding route
+  ------------------------------------------------------- */
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
 
-    // User must be authenticated
     if (!token) {
       navigate("/login", { replace: true });
       return;
     }
 
-    // Completed users should never see onboarding again
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
@@ -39,34 +173,47 @@ const InviteTeam = () => {
     }
   }, [navigate]);
 
-  // Add teammate email
+  /* -------------------------------------------------------
+     Add teammate
+  ------------------------------------------------------- */
+
   const handleAddInvite = () => {
     const trimmedEmail = email.trim().toLowerCase();
 
-    if (!trimmedEmail) return;
-
-    // Basic email validation
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+    if (!trimmedEmail) {
+      setEmailError("Enter a teammate email address.");
       return;
     }
 
-    // Prevent duplicate invitations
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setEmailError("Enter a valid email address.");
+      return;
+    }
+
     if (invites.includes(trimmedEmail)) {
+      setEmailError("This teammate has already been added.");
       return;
     }
 
     setInvites((prev) => [...prev, trimmedEmail]);
     setEmail("");
+    setEmailError("");
   };
 
-  // Remove teammate email
+  /* -------------------------------------------------------
+     Remove teammate
+  ------------------------------------------------------- */
+
   const handleRemoveInvite = (emailToRemove) => {
     setInvites((prev) =>
       prev.filter((invite) => invite !== emailToRemove)
     );
   };
 
-  // Finish onboarding
+  /* -------------------------------------------------------
+     Finish onboarding
+  ------------------------------------------------------- */
+
   const handleComplete = async () => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -77,6 +224,7 @@ const InviteTeam = () => {
     }
 
     setLoading(true);
+    setEmailError("");
 
     try {
       const user = JSON.parse(storedUser);
@@ -85,15 +233,19 @@ const InviteTeam = () => {
         `${API_URL}/api/auth/onboarding/complete`,
         {
           method: "POST",
+
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             workspace: JSON.parse(
               localStorage.getItem("onboardingWorkspace") || "{}"
             ),
+
             invites,
+
             createNewWorkspace:
               localStorage.getItem("creatingAdditionalWorkspace") === "1",
           }),
@@ -103,18 +255,10 @@ const InviteTeam = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Unable to complete onboarding.");
+        throw new Error(
+          data.message || "Unable to complete onboarding."
+        );
       }
-
-      /*
-       * Temporary onboarding completion.
-       *
-       * Later this will be replaced with:
-       * POST /api/onboarding/complete
-       *
-       * The backend will then become the source of truth
-       * for onboardingCompleted.
-       */
 
       const profileData =
         localStorage.getItem("onboardingProfile");
@@ -122,7 +266,10 @@ const InviteTeam = () => {
       const workspaceData =
         localStorage.getItem("onboardingWorkspace");
 
-      // Mark onboarding as completed
+      /* -----------------------------------------------------
+         Update local user
+      ----------------------------------------------------- */
+
       const updatedUser = {
         ...user,
         ...data.user,
@@ -133,12 +280,18 @@ const InviteTeam = () => {
         JSON.stringify(updatedUser)
       );
 
-      // Save onboarding information temporarily
+      /* -----------------------------------------------------
+         Save onboarding invites
+      ----------------------------------------------------- */
+
       localStorage.setItem(
         "onboardingInvites",
         JSON.stringify(invites)
       );
-      localStorage.removeItem("creatingAdditionalWorkspace");
+
+      localStorage.removeItem(
+        "creatingAdditionalWorkspace"
+      );
 
       if (profileData) {
         localStorage.setItem(
@@ -154,181 +307,1098 @@ const InviteTeam = () => {
         );
       }
 
-      // Small transition delay
       await new Promise((resolve) =>
-        setTimeout(resolve, 300)
+        setTimeout(resolve, 350)
       );
 
-      // FINAL DESTINATION
-      navigate("/dashboard", { replace: true });
+      navigate("/dashboard", {
+        replace: true,
+      });
     } catch (error) {
       console.error(
         "Unable to complete onboarding:",
         error
+      );
+
+      setEmailError(
+        error.message ||
+          "Unable to complete onboarding. Please try again."
       );
     } finally {
       setLoading(false);
     }
   };
 
+  /* -------------------------------------------------------
+     Render
+  ------------------------------------------------------- */
+
   return (
-    <main className="min-h-screen bg-[#FAF9F6] px-5 py-8 text-[#171717] sm:px-8">
-      <div className="mx-auto max-w-3xl">
+    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-white sm:px-6 lg:px-8">
 
-        {/* Header */}
-        <header className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white shadow-sm">
-              S
-            </div>
+      {/* =====================================================
+          BACKGROUND
+      ===================================================== */}
 
-            <span className="text-lg font-semibold tracking-[-0.02em]">
-              Syncora
-            </span>
-          </div>
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
 
-          <span className="text-xs font-medium text-[#9A948B]">
-            Step 3 of 3
-          </span>
-        </header>
+        {/* Central orange glow */}
 
-        {/* Progress */}
-        <div className="mt-7 h-1.5 overflow-hidden rounded-full bg-[#E8E3DC]">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 0.6 }}
-            className="h-full rounded-full bg-[#FF5C35]"
-          />
-        </div>
+        <motion.div
+          animate={{
+            scale: [1, 1.08, 1],
+            opacity: [0.15, 0.25, 0.15],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="
+            absolute
+            left-1/2
+            top-[32%]
+            h-[520px]
+            w-[520px]
+            -translate-x-1/2
+            rounded-full
+            bg-[#FF5C35]/10
+            blur-[140px]
+          "
+        />
 
-        {/* Main Card */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mt-8 rounded-3xl border border-[#E4DFD8] bg-white p-6 shadow-[0_20px_60px_rgba(40,35,30,0.06)] sm:p-9"
+        {/* Blue ambient glow */}
+
+        <motion.div
+          animate={{
+            x: [-70, 90, -70],
+            y: [20, -30, 20],
+            opacity: [0.03, 0.075, 0.03],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="
+            absolute
+            right-[5%]
+            top-[18%]
+            h-[300px]
+            w-[300px]
+            rounded-full
+            bg-[#5965FF]
+            blur-[120px]
+          "
+        />
+
+        {/* Bottom glow */}
+
+        <motion.div
+          animate={{
+            x: [0, -50, 0],
+            opacity: [0.025, 0.06, 0.025],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="
+            absolute
+            bottom-[-180px]
+            left-[20%]
+            h-[400px]
+            w-[400px]
+            rounded-full
+            bg-[#FF5C35]
+            blur-[130px]
+          "
+        />
+
+        {/* Grid */}
+
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                rgba(255,255,255,0.7) 1px,
+                transparent 1px
+              ),
+              linear-gradient(
+                90deg,
+                rgba(255,255,255,0.7) 1px,
+                transparent 1px
+              )
+            `,
+            backgroundSize: "56px 56px",
+          }}
+        />
+
+        {/* Fade */}
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#07090D]/20 to-[#07090D]" />
+
+        {/* Vignette */}
+
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#07090D_92%)]" />
+      </div>
+
+      {/* =====================================================
+          DECORATIVE ICONS
+      ===================================================== */}
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          scale: 0.8,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: [0, -5, 0],
+        }}
+        transition={{
+          opacity: {
+            duration: 0.7,
+            delay: 0.5,
+          },
+          scale: {
+            duration: 0.7,
+            delay: 0.5,
+          },
+          y: {
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
+        }}
+        className="
+          pointer-events-none
+          absolute
+          left-[6%]
+          top-[27%]
+          hidden
+          lg:block
+        "
+      >
+        <div
+          className="
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-2xl
+            border
+            border-white/[0.08]
+            bg-white/[0.025]
+            text-[#FF6847]
+            shadow-[0_20px_60px_rgba(0,0,0,0.3)]
+          "
         >
-          {/* Intro */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
-              Your team
-            </p>
+          <UsersIcon size={17} />
+        </div>
+      </motion.div>
 
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">
-              Invite your teammates.
-            </h1>
+      <motion.div
+        initial={{
+          opacity: 0,
+          scale: 0.8,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: [0, 5, 0],
+        }}
+        transition={{
+          opacity: {
+            duration: 0.7,
+            delay: 0.65,
+          },
+          scale: {
+            duration: 0.7,
+            delay: 0.65,
+          },
+          y: {
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
+        }}
+        className="
+          pointer-events-none
+          absolute
+          right-[7%]
+          top-[22%]
+          hidden
+          lg:block
+        "
+      >
+        <div
+          className="
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-2xl
+            border
+            border-white/[0.08]
+            bg-white/[0.025]
+            text-[#FF6847]
+            shadow-[0_20px_60px_rgba(0,0,0,0.3)]
+          "
+        >
+          <MailIcon size={17} />
+        </div>
+      </motion.div>
 
-            <p className="mt-3 max-w-xl text-sm leading-6 text-[#77716A]">
-              Syncora works better when your engineering team is
-              connected. Invite teammates now or skip this step and
-              invite them later.
-            </p>
-          </div>
+      {/* =====================================================
+          PAGE
+      ===================================================== */}
 
-          {/* Invite Form */}
-          <div className="mt-8">
-            <label className="mb-1.5 block text-xs font-medium text-[#4F4B46]">
-              Teammate email
-            </label>
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-40px)] w-full max-w-4xl items-center justify-center">
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleAddInvite();
-                  }
-                }}
-                placeholder="teammate@example.com"
-                className="w-full rounded-xl border border-[#DDD8D0] bg-[#FBFAF8] px-4 py-3 text-sm outline-none transition focus:border-[#FF5C35] focus:bg-white focus:ring-4 focus:ring-orange-500/10"
-              />
+        <motion.div
+          variants={pageTransition}
+          initial="hidden"
+          animate="visible"
+          className="w-full"
+        >
 
-              <button
-                type="button"
-                onClick={handleAddInvite}
-                className="rounded-xl border border-[#DDD8D0] bg-white px-5 py-3 text-sm font-semibold transition hover:bg-[#F8F6F2]"
+          {/* =================================================
+              HEADER
+          ================================================= */}
+
+          <header className="mb-5 flex items-center justify-between">
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: -10,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.15,
+              }}
+              className="flex items-center gap-2.5"
+            >
+              <div
+                className="
+                  flex
+                  h-9
+                  w-9
+                  items-center
+                  justify-center
+                  rounded-xl
+                  border
+                  border-white/[0.09]
+                  bg-white/[0.045]
+                  shadow-lg
+                "
               >
-                Add
-              </button>
-            </div>
-
-            <p className="mt-1.5 text-[11px] text-[#9A948B]">
-              You can invite more teammates later from your workspace.
-            </p>
-          </div>
-
-          {/* Invitations */}
-          {invites.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-[#E8E3DC] bg-[#FBFAF8] p-4">
-              <p className="text-xs font-semibold text-[#4F4B46]">
-                Invitations
-              </p>
-
-              <div className="mt-3 space-y-2">
-                {invites.map((invite) => (
-                  <div
-                    key={invite}
-                    className="flex items-center justify-between rounded-xl border border-[#E4DFD8] bg-white px-4 py-3"
-                  >
-                    <span className="truncate text-sm text-[#4F4B46]">
-                      {invite}
-                    </span>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleRemoveInvite(invite)
-                      }
-                      className="ml-4 text-xs font-medium text-[#9A948B] transition hover:text-[#FF5C35]"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
+                <span className="text-sm font-bold text-[#FF6847]">
+                  S
+                </span>
               </div>
-            </div>
-          )}
 
-          {/* Actions */}
-          <div className="mt-9 border-t border-[#E8E3DC] pt-6">
-            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold tracking-[-0.02em] text-white">
+                  Syncora
+                </p>
 
-              {/* Skip */}
-              <button
-                type="button"
-                onClick={handleComplete}
-                disabled={loading}
-                className="rounded-xl px-5 py-3 text-sm font-medium text-[#77716A] transition hover:bg-[#F5F2ED] disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Skip for now
-              </button>
+                <p className="text-[8px] font-medium uppercase tracking-[0.18em] text-[#737C89]">
+                  Engineering workspace
+                </p>
+              </div>
+            </motion.div>
 
-              {/* Finish */}
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                type="button"
-                onClick={handleComplete}
-                disabled={loading}
-                className="rounded-xl bg-[#FF5C35] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#E94B27] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {loading
-                  ? "Setting up..."
-                  : "Finish setup →"}
-              </motion.button>
+            <motion.span
+              initial={{
+                opacity: 0,
+                x: 10,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+              }}
+              className="text-[10px] font-medium text-[#737C89]"
+            >
+              Step 3 of 3
+            </motion.span>
+          </header>
 
-            </div>
+          {/* =================================================
+              PROGRESS
+          ================================================= */}
+
+          <div className="relative mt-6 h-1 overflow-hidden rounded-full bg-white/[0.07]">
+
+            <motion.div
+              initial={{
+                width: 0,
+              }}
+              animate={{
+                width: "100%",
+              }}
+              transition={{
+                duration: 0.8,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="
+                relative
+                h-full
+                rounded-full
+                bg-[#FF5C35]
+                shadow-[0_0_12px_rgba(255,92,53,0.45)]
+              "
+            >
+              <motion.div
+                animate={{
+                  x: ["-100%", "300%"],
+                }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatDelay: 1.5,
+                }}
+                className="
+                  absolute
+                  inset-y-0
+                  w-20
+                  bg-gradient-to-r
+                  from-transparent
+                  via-white/30
+                  to-transparent
+                "
+              />
+            </motion.div>
           </div>
-        </motion.section>
 
-        {/* Footer */}
-        <p className="mt-6 text-center text-xs text-[#A09A91]">
-          You can invite and manage teammates anytime from your workspace.
-        </p>
+          {/* =================================================
+              MAIN CARD
+          ================================================= */}
+
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.7,
+              delay: 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              relative
+              mt-7
+              overflow-hidden
+              rounded-[24px]
+              border
+              border-white/[0.085]
+              bg-[#0C0F14]
+              shadow-[0_30px_90px_rgba(0,0,0,0.45)]
+            "
+          >
+
+            {/* Top highlight */}
+
+            <motion.div
+              animate={{
+                opacity: [0.25, 0.7, 0.25],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="
+                pointer-events-none
+                absolute
+                left-[10%]
+                right-[10%]
+                top-0
+                h-px
+                bg-gradient-to-r
+                from-transparent
+                via-[#FF5C35]
+                to-transparent
+              "
+            />
+
+            {/* Inner glow */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-24
+                -top-24
+                h-64
+                w-64
+                rounded-full
+                bg-[#FF5C35]/[0.035]
+                blur-[80px]
+              "
+            />
+
+            <div className="relative p-5 sm:p-8 lg:p-9">
+
+              {/* =================================================
+                  INTRO
+              ================================================= */}
+
+              <motion.div
+                variants={itemTransition}
+                initial="hidden"
+                animate="visible"
+                custom={0.25}
+              >
+                <div className="flex items-center gap-2">
+
+                  <span
+                    className="
+                      flex
+                      h-6
+                      w-6
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-lg
+                      bg-[#FF5C35]/10
+                      text-[#FF6847]
+                    "
+                  >
+                    <UsersIcon size={13} />
+                  </span>
+
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF6847]">
+                    Your team
+                  </span>
+                </div>
+
+                <h1
+                  className="
+                    mt-3
+                    text-[30px]
+                    font-semibold
+                    leading-[1.08]
+                    tracking-[-0.045em]
+                    text-white
+                    sm:text-[38px]
+                  "
+                >
+                  Invite your teammates.
+                </h1>
+
+                <p
+                  className="
+                    mt-2.5
+                    max-w-xl
+                    text-[11px]
+                    leading-5
+                    text-[#9AA3B0]
+                    sm:text-xs
+                  "
+                >
+                  Syncora works better when your engineering team
+                  is connected. Invite teammates now or skip this
+                  step and invite them later.
+                </p>
+              </motion.div>
+
+              {/* =================================================
+                  EMAIL INPUT + ADD BUTTON
+              ================================================= */}
+
+              <motion.div
+                variants={itemTransition}
+                initial="hidden"
+                animate="visible"
+                custom={0.38}
+                className="mt-7"
+              >
+
+                {/* Label */}
+
+                <div className="mb-2 flex h-5 items-center gap-2">
+
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[#8D96A3]">
+                    <MailIcon size={14} />
+                  </span>
+
+                  <label
+                    htmlFor="teammate-email"
+                    className="
+                      text-[10px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.08em]
+                      text-[#A3ABB7]
+                    "
+                  >
+                    Teammate email
+                  </label>
+
+                </div>
+
+                {/* Input + Button SAME ROW */}
+
+                <div className="flex w-full items-center gap-2">
+
+                  <input
+                    id="teammate-email"
+                    type="email"
+                    value={email}
+                    placeholder="name@company.com"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+
+                      if (emailError) {
+                        setEmailError("");
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddInvite();
+                      }
+                    }}
+                    className="
+                      h-11
+                      min-w-0
+                      flex-1
+                      rounded-xl
+                      border
+                      border-white/[0.09]
+                      bg-white/[0.025]
+                      px-4
+                      text-xs
+                      text-white
+                      placeholder:text-[#4F5865]
+                      outline-none
+                      transition-all
+                      duration-200
+                      hover:border-white/[0.16]
+                      hover:bg-white/[0.035]
+                      focus:border-[#FF5C35]/60
+                      focus:bg-[#FF5C35]/[0.025]
+                      focus:ring-4
+                      focus:ring-[#FF5C35]/[0.06]
+                    "
+                  />
+
+                  <motion.button
+                    whileHover={{
+                      y: -1,
+                    }}
+                    whileTap={{
+                      scale: 0.97,
+                    }}
+                    type="button"
+                    onClick={handleAddInvite}
+                    disabled={loading}
+                    className="
+                      h-11
+                      shrink-0
+                      rounded-xl
+                      bg-[#FF5C35]
+                      px-4
+                      text-[12px]
+                      font-semibold
+                      text-white
+                      shadow-[0_8px_24px_rgba(255,92,53,0.16)]
+                      transition-all
+                      duration-200
+                      hover:bg-[#FF6847]
+                      hover:shadow-[0_12px_30px_rgba(255,92,53,0.24)]
+                      disabled:cursor-not-allowed
+                      disabled:opacity-50
+                      sm:px-5
+                    "
+                  >
+                    Add teammate
+                  </motion.button>
+
+                </div>
+
+                {/* Error / hint */}
+
+                <AnimatePresence mode="wait">
+                  {emailError ? (
+                    <motion.p
+                      key="error"
+                      initial={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      className="mt-2 text-[9px] text-red-400"
+                    >
+                      {emailError}
+                    </motion.p>
+                  ) : (
+                    <motion.p
+                      key="hint"
+                      initial={{
+                        opacity: 0,
+                      }}
+                      animate={{
+                        opacity: 1,
+                      }}
+                      className="mt-1.5 text-[10px] text-[#747E8C]"
+                    >
+                      Press Enter or click Add teammate to add an invitation.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
+              </motion.div>
+
+              {/* =================================================
+                  ADDED TEAMMATES
+              ================================================= */}
+
+              <AnimatePresence>
+                {invites.length > 0 && (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      height: 0,
+                      y: 8,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      height: "auto",
+                      y: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      height: 0,
+                      y: -5,
+                    }}
+                    transition={{
+                      duration: 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="mt-5 overflow-hidden"
+                  >
+
+                    <div
+                      className="
+                        rounded-2xl
+                        border
+                        border-white/[0.06]
+                        bg-white/[0.018]
+                        p-3.5
+                      "
+                    >
+
+                      <div className="flex items-center justify-between">
+
+                        <div className="flex items-center gap-2">
+
+                          <span
+                            className="
+                              flex
+                              h-6
+                              w-6
+                              shrink-0
+                              items-center
+                              justify-center
+                              rounded-lg
+                              bg-[#FF5C35]/10
+                              text-[#FF6847]
+                            "
+                          >
+                            <UsersIcon size={12} />
+                          </span>
+
+                          <p className="text-[11px] font-semibold text-[#A3ABB7]">
+                            Invitations
+                          </p>
+
+                        </div>
+
+                        <span
+                          className="
+                            rounded-full
+                            bg-white/[0.05]
+                            px-2
+                            py-1
+                            text-[10px]
+                            font-medium
+                            text-[#747E8C]
+                          "
+                        >
+                          {invites.length}{" "}
+                          {invites.length === 1
+                            ? "teammate"
+                            : "teammates"}
+                        </span>
+
+                      </div>
+
+                      <div className="mt-3 space-y-2">
+
+                        <AnimatePresence initial={false}>
+                          {invites.map((invite) => (
+                            <motion.div
+                              key={invite}
+                              initial={{
+                                opacity: 0,
+                                x: -10,
+                                scale: 0.98,
+                              }}
+                              animate={{
+                                opacity: 1,
+                                x: 0,
+                                scale: 1,
+                              }}
+                              exit={{
+                                opacity: 0,
+                                x: 10,
+                                scale: 0.98,
+                              }}
+                              transition={{
+                                duration: 0.25,
+                              }}
+                              className="
+                                flex
+                                min-h-[44px]
+                                items-center
+                                justify-between
+                                rounded-xl
+                                border
+                                border-white/[0.07]
+                                bg-white/[0.025]
+                                px-3
+                                py-2
+                              "
+                            >
+
+                              <div className="flex min-w-0 items-center gap-2.5">
+
+                                <div
+                                  className="
+                                    flex
+                                    h-7
+                                    w-7
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    bg-[#FF5C35]/10
+                                    text-[#FF6847]
+                                  "
+                                >
+                                  <MailIcon size={12} />
+                                </div>
+
+                                <span className="truncate text-[10px] text-[#A3ABB7]">
+                                  {invite}
+                                </span>
+
+                              </div>
+
+                              <motion.button
+                                whileHover={{
+                                  scale: 1.08,
+                                }}
+                                whileTap={{
+                                  scale: 0.9,
+                                }}
+                                type="button"
+                                onClick={() =>
+                                  handleRemoveInvite(invite)
+                                }
+                                className="
+                                  ml-3
+                                  flex
+                                  h-7
+                                  w-7
+                                  shrink-0
+                                  items-center
+                                  justify-center
+                                  rounded-lg
+                                  text-[#68717D]
+                                  transition-colors
+                                  duration-200
+                                  hover:bg-red-500/10
+                                  hover:text-red-400
+                                "
+                                aria-label={`Remove ${invite}`}
+                              >
+                                <XIcon size={13} />
+                              </motion.button>
+
+                            </motion.div>
+                          ))}
+                        </AnimatePresence>
+
+                      </div>
+                    </div>
+
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* =================================================
+                  INFO
+              ================================================= */}
+
+              <motion.div
+                variants={itemTransition}
+                initial="hidden"
+                animate="visible"
+                custom={0.5}
+                className="
+                  mt-5
+                  flex
+                  items-center
+                  gap-2
+                  rounded-xl
+                  border
+                  border-white/[0.05]
+                  bg-white/[0.015]
+                  px-3
+                  py-2.5
+                "
+              >
+                <span
+                  className="
+                    h-1.5
+                    w-1.5
+                    shrink-0
+                    rounded-full
+                    bg-[#FF5C35]
+                    shadow-[0_0_8px_rgba(255,92,53,0.7)]
+                  "
+                />
+
+                <p className="text-[10px] leading-4 text-[#747E8C]">
+                  Invitations can be managed anytime from your
+                  workspace settings.
+                </p>
+              </motion.div>
+
+              {/* =================================================
+                  ACTIONS
+              ================================================= */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 8,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.65,
+                  duration: 0.45,
+                }}
+                className="
+                  mt-7
+                  flex
+                  flex-col-reverse
+                  gap-3
+                  border-t
+                  border-white/[0.06]
+                  pt-5
+                  sm:flex-row
+                  sm:items-center
+                  sm:justify-between
+                "
+              >
+
+                {/* Back */}
+
+                <motion.button
+                  whileHover={{
+                    x: -2,
+                  }}
+                  whileTap={{
+                    scale: 0.97,
+                  }}
+                  type="button"
+                  onClick={() =>
+                    navigate("/onboarding/workspace")
+                  }
+                  disabled={loading}
+                  className="
+                    group
+                    flex
+                    items-center
+                    gap-2
+                    self-start
+                    rounded-xl
+                    px-2
+                    py-2
+                    text-[10px]
+                    font-medium
+                    text-[#7D8795]
+                    transition-colors
+                    duration-200
+                    hover:text-white
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                  "
+                >
+                  <ArrowLeftIcon size={13} />
+                  <span>Back</span>
+                </motion.button>
+
+                {/* Finish actions */}
+
+                <div className="flex items-center justify-between gap-3 sm:justify-end">
+
+                  {/* Skip */}
+
+                  <motion.button
+                    whileHover={{
+                      y: -1,
+                    }}
+                    whileTap={{
+                      scale: 0.97,
+                    }}
+                    type="button"
+                    onClick={handleComplete}
+                    disabled={loading}
+                    className="
+                      rounded-xl
+                      px-3
+                      py-3
+                      text-[11px]
+                      font-medium
+                      text-[#7D8795]
+                      transition-all
+                      duration-200
+                      hover:bg-white/[0.035]
+                      hover:text-white
+                      disabled:cursor-not-allowed
+                      disabled:opacity-50
+                    "
+                  >
+                    Skip for now
+                  </motion.button>
+
+                  {/* Finish */}
+
+                  <motion.button
+                    whileHover={{
+                      y: -2,
+                    }}
+                    whileTap={{
+                      scale: 0.97,
+                    }}
+                    type="button"
+                    onClick={handleComplete}
+                    disabled={loading}
+                    className="
+                      group
+                      relative
+                      overflow-hidden
+                      rounded-xl
+                      bg-[#FF5C35]
+                      px-5
+                      py-3
+                      text-[12px]
+                      font-semibold
+                      text-white
+                      shadow-[0_10px_30px_rgba(255,92,53,0.18)]
+                      transition-all
+                      duration-200
+                      hover:bg-[#FF6847]
+                      hover:shadow-[0_14px_40px_rgba(255,92,53,0.28)]
+                      disabled:cursor-not-allowed
+                      disabled:opacity-60
+                    "
+                  >
+
+                    <span
+                      className="
+                        pointer-events-none
+                        absolute
+                        inset-0
+                        -translate-x-full
+                        bg-gradient-to-r
+                        from-transparent
+                        via-white/20
+                        to-transparent
+                        transition-transform
+                        duration-700
+                        group-hover:translate-x-full
+                      "
+                    />
+
+                    <span className="relative z-10 flex items-center gap-2">
+
+                      {loading
+                        ? "Setting up..."
+                        : "Finish setup"}
+
+                      {!loading && (
+                        <span className="transition-transform duration-200 group-hover:translate-x-1">
+                          <ArrowRightIcon size={13} />
+                        </span>
+                      )}
+
+                    </span>
+                  </motion.button>
+
+                </div>
+              </motion.div>
+
+            </div>
+          </motion.section>
+
+          {/* =================================================
+              FOOTER
+          ================================================= */}
+
+          <motion.p
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              delay: 0.9,
+              duration: 0.5,
+            }}
+            className="mt-4 text-center text-[9px] text-[#59616D]"
+          >
+            You can invite and manage teammates anytime from
+            your workspace.
+          </motion.p>
+
+        </motion.div>
       </div>
     </main>
   );

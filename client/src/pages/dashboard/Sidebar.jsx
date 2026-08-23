@@ -1,383 +1,600 @@
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  LayoutDashboard,
+  FolderKanban,
+  Users,
+  Bot,
+  Settings,
+  Search,
+  Bell,
+  MoreHorizontal,
+  ChevronDown,
+  ChevronRight,
+  LogOut,
+  Copy,
+  UserPlus,
+  Plus,
+  Trash2,
+  Menu,
+  X,
+  Building2,
+  Sparkles,
+} from "lucide-react";
+
+import logo from "../../assets/logo.png";
+
 const Sidebar = ({ dashboard, children, modals }) => {
-  const { activeNav, handleCopyWorkspaceSlug, handleDeleteWorkspace, handleLogout, handleNavClick, navigate, navItems, openWorkspaceEditor, overflowOpen, selectedWorkspaceId, setInviteDialogOpen, setOverflowOpen, setSelectedWorkspaceId, setSidebarOpen, setUser, sidebarOpen, user, workspaceName, workspaces } = dashboard;
+  const {
+    activeNav,
+    handleCopyWorkspaceSlug,
+    handleDeleteWorkspace,
+    handleLogout,
+    handleNavClick,
+    navigate,
+    navItems,
+    openWorkspaceEditor,
+    overflowOpen,
+    selectedWorkspaceId,
+    setInviteDialogOpen,
+    setOverflowOpen,
+    setSelectedWorkspaceId,
+    setSidebarOpen,
+    setUser,
+    sidebarOpen,
+    user,
+    workspaceName,
+    workspaces,
+  } = dashboard;
+
+  const iconMap = {
+    Dashboard: LayoutDashboard,
+    Overview: LayoutDashboard,
+    Projects: FolderKanban,
+    Team: Users,
+    "AI workspace": Bot,
+    Workspace: Building2,
+    Settings,
+  };
+
+  const getIcon = (label) => {
+    const Icon = iconMap[label] || LayoutDashboard;
+    return Icon;
+  };
 
   return (
     <main className="min-h-screen bg-[#F5F6F8] text-[#171717]">
       <div className="flex min-h-screen">
 
-        {/* =====================================================
+        {/* =========================================================
             SIDEBAR
-        ===================================================== */}
+        ========================================================== */}
 
-        <aside
-          className={`hidden shrink-0 flex-col overflow-hidden bg-[#11161D] py-5 text-[#B8C0CB] transition-all duration-200 md:flex ${
-            sidebarOpen
-              ? "w-[238px] px-4"
-              : "w-0 px-0"
-          }`}
+        <motion.aside
+          initial={false}
+          animate={{
+            width: sidebarOpen ? 248 : 0,
+          }}
+          transition={{
+            duration: 0.28,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="hidden shrink-0 overflow-hidden bg-[#0D1117] text-[#AAB3BF] md:flex md:flex-col"
         >
           <div
-            className={`flex items-center border-b border-white/10 pb-6 ${
-              sidebarOpen
-                ? "gap-3 px-2"
-                : "justify-center"
-            }`}
+            className={`flex h-full w-[248px] flex-col px-3 py-4 ${
+              sidebarOpen ? "opacity-100" : "opacity-0"
+            } transition-opacity duration-200`}
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white">
-              S
+
+            {/* BRAND */}
+
+            <div className="relative mb-5">
+              <div className="absolute inset-0 -z-0 rounded-2xl bg-[#FF5C35]/10 blur-2xl" />
+
+              <div className="relative flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.035] px-3 py-3">
+                <motion.div
+                  whileHover={{
+                    rotate: -4,
+                    scale: 1.05,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 15,
+                  }}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-[0_6px_20px_rgba(0,0,0,0.25)]"
+                >
+                  <img
+                    src={logo}
+                    alt="Syncora"
+                    className="h-full w-full object-contain"
+                  />
+                </motion.div>
+
+                <div className="min-w-0">
+                  <p className="text-[14px] font-semibold tracking-[-0.02em] text-white">
+                    Syncora
+                  </p>
+
+                  <p className="mt-0.5 text-[10px] text-[#697585]">
+                    Engineering OS
+                  </p>
+                </div>
+
+                <div className="ml-auto">
+                  <span className="block h-2 w-2 rounded-full bg-[#35D399] shadow-[0_0_10px_rgba(53,211,153,0.7)]" />
+                </div>
+              </div>
             </div>
 
-            {sidebarOpen && (
-              <div>
-                <p className="text-sm font-semibold text-white">
-                  Syncora
-                </p>
-                <p className="text-[11px] text-[#7F8996]">
-                  Engineering OS
-                </p>
-              </div>
-            )}
-          </div>
+            {/* WORKSPACE */}
 
-          {sidebarOpen && (
-            <div className="mt-7 px-2">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#667180]">
+            <div className="mb-5">
+              <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#596473]">
                 Workspace
               </p>
 
-              <div className="mt-3 flex items-center gap-2 rounded-lg bg-white/[0.07] px-3 py-2.5 text-xs text-white">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#FF5C35] text-[11px] font-bold">
-                  {workspaceName
-                    .charAt(0)
-                    .toUpperCase()}
-                </span>
+              <button
+                type="button"
+                className="group flex w-full items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.045] px-3 py-2.5 text-left transition hover:border-white/[0.1] hover:bg-white/[0.07]"
+              >
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF704D] to-[#FF4F2B] text-[10px] font-bold text-white shadow-[0_4px_12px_rgba(255,92,53,0.2)]">
+                  {(workspaceName || "W").charAt(0).toUpperCase()}
+                </div>
 
-                <span className="min-w-0 flex-1 truncate">
-                  {workspaceName}
-                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[11px] font-semibold text-white">
+                    {workspaceName || "Workspace"}
+                  </p>
 
-                <span className="text-[#7F8996]">
-                  ⌄
-                </span>
-              </div>
+                  <p className="mt-0.5 text-[9px] text-[#667180]">
+                    Current workspace
+                  </p>
+                </div>
+
+                <ChevronDown
+                  size={14}
+                  strokeWidth={1.8}
+                  className="text-[#687383] transition group-hover:text-white"
+                />
+              </button>
             </div>
-          )}
 
-          <nav
-            className={`${
-              sidebarOpen ? "mt-8" : "mt-7"
-            } space-y-1`}
-          >
-            {navItems.map(
-              ([label, icon]) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() =>
-                    handleNavClick(label)
-                  }
-                  title={
-                    !sidebarOpen
-                      ? label
-                      : undefined
-                  }
-                  className={`flex w-full items-center rounded-lg py-2.5 text-xs font-medium transition ${
-                    sidebarOpen
-                      ? "gap-3 px-3 text-left"
-                      : "justify-center px-0"
-                  } ${
-                    activeNav === label
-                      ? "bg-[#FF5C35] text-white"
-                      : "text-[#9DA7B4] hover:bg-white/[0.06] hover:text-white"
-                  }`}
-                >
-                  <span className="flex w-5 justify-center text-sm">
-                    {icon}
-                  </span>
+            {/* NAVIGATION */}
 
-                  {sidebarOpen && label}
-                </button>
-              )
-            )}
-          </nav>
+            <div>
+              <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#596473]">
+                Navigation
+              </p>
 
-          <div className="mt-auto border-t border-white/10 pt-4">
-            <button
-              type="button"
-              onClick={handleLogout}
-              title={
-                !sidebarOpen
-                  ? "Log out"
-                  : undefined
-              }
-              className={`flex w-full items-center rounded-lg py-2.5 text-xs font-medium text-[#9DA7B4] transition hover:bg-white/[0.06] hover:text-white ${
-                sidebarOpen
-                  ? "gap-3 px-3 text-left"
-                  : "justify-center px-0"
-              }`}
-            >
-              <span className="w-5 text-center">
-                ↪
-              </span>
+              <nav className="space-y-1">
+                {navItems.map(([label]) => {
+                  const Icon = getIcon(label);
+                  const active = activeNav === label;
 
-              {sidebarOpen && "Log out"}
-            </button>
-          </div>
-        </aside>
+                  return (
+                    <motion.button
+                      key={label}
+                      type="button"
+                      onClick={() => handleNavClick(label)}
+                      whileHover={{ x: active ? 0 : 3 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[11px] font-medium transition ${
+                        active
+                          ? "bg-[#FF5C35] text-white shadow-[0_6px_18px_rgba(255,92,53,0.18)]"
+                          : "text-[#8D98A6] hover:bg-white/[0.055] hover:text-white"
+                      }`}
+                    >
+                      {active && (
+                        <motion.div
+                          layoutId="activeNavIndicator"
+                          className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-white"
+                        />
+                      )}
 
-        <div className="min-w-0 flex-1">
+                      <span
+                        className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+                          active
+                            ? "bg-white/10"
+                            : "bg-transparent group-hover:bg-white/[0.06]"
+                        }`}
+                      >
+                        <Icon
+                          size={16}
+                          strokeWidth={active ? 2.2 : 1.8}
+                        />
+                      </span>
 
-          {/* =====================================================
-              HEADER
-          ===================================================== */}
+                      <span>{label}</span>
 
-          <header className="sticky top-0 z-20 flex h-[70px] items-center justify-between border-b border-[#E1E5EA] bg-white/95 px-4 backdrop-blur sm:px-7">
+                      {active && (
+                        <ChevronRight
+                          size={13}
+                          className="ml-auto opacity-70"
+                        />
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </nav>
+            </div>
 
-            <div className="flex min-w-0 items-center gap-3">
+            {/* BOTTOM */}
+
+            <div className="mt-auto">
+
+              <div className="mb-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FF5C35]/10 text-[#FF704D]">
+                    <Sparkles size={15} />
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold text-white">
+                      AI workspace
+                    </p>
+
+                    <p className="text-[8px] text-[#687383]">
+                      Ready to assist
+                    </p>
+                  </div>
+
+                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#35D399]" />
+                </div>
+              </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setSidebarOpen(
-                    (open) => !open
-                  )
-                }
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#DCE1E7] text-base text-[#697381] transition hover:bg-[#F5F6F8]"
-                title={
-                  sidebarOpen
-                    ? "Close navigation"
-                    : "Open navigation"
-                }
+                onClick={handleLogout}
+                className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[11px] font-medium text-[#8D98A6] transition hover:bg-red-500/10 hover:text-red-300"
               >
-                ☰
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg group-hover:bg-red-500/10">
+                  <LogOut size={16} strokeWidth={1.8} />
+                </span>
+
+                Log out
               </button>
 
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white md:hidden">
-                S
+              <div className="mt-3 border-t border-white/[0.06] pt-3">
+                <p className="px-3 text-[8px] text-[#4F5967]">
+                  Syncora · Engineering OS
+                </p>
               </div>
+            </div>
+          </div>
+        </motion.aside>
 
-              {!sidebarOpen && (
-                <div className="hidden items-center gap-2 md:flex">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF5C35] text-sm font-bold text-white">
-                    S
-                  </div>
+        {/* =========================================================
+            MAIN
+        ========================================================== */}
 
-                  <span className="text-sm font-semibold text-[#20252C]">
-                    Syncora
-                  </span>
-                </div>
-              )}
+        <div className="min-w-0 flex-1">
+
+          {/* HEADER */}
+
+          <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-[#E3E7EB] bg-white/90 px-4 backdrop-blur-xl sm:px-7">
+
+            <div className="flex min-w-0 items-center gap-3">
+
+              {/* SIDEBAR TOGGLE */}
+
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSidebarOpen((open) => !open)}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#DCE1E7] bg-white text-[#66717E] transition hover:border-[#C8CED5] hover:bg-[#F7F8F9]"
+                title={sidebarOpen ? "Close navigation" : "Open navigation"}
+              >
+                {sidebarOpen ? (
+                  <X size={17} strokeWidth={1.8} />
+                ) : (
+                  <Menu size={17} strokeWidth={1.8} />
+                )}
+              </motion.button>
+
+              {/* LOGO WHEN SIDEBAR CLOSED */}
+
+              <AnimatePresence>
+                {!sidebarOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    className="hidden items-center gap-2 md:flex"
+                  >
+                    <img
+                      src={logo}
+                      alt="Syncora"
+                      className="h-8 w-8 rounded-lg object-contain"
+                    />
+
+                    <span className="text-sm font-semibold tracking-[-0.02em] text-[#20252C]">
+                      Syncora
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* WORKSPACE SELECTOR */}
+
+              <div className="hidden h-7 w-px bg-[#E3E7EB] md:block" />
 
               <div className="flex min-w-0 items-center gap-2">
-                <span className="hidden text-xs font-medium text-[#8A929D] sm:inline">
-                  Workspace:
+
+                <span className="hidden text-[10px] font-medium text-[#929AA5] sm:inline">
+                  Workspace
                 </span>
+
                 {workspaces.length > 0 ? (
-                  <select
-                    aria-label="Select workspace"
-                    value={selectedWorkspaceId}
-                    onChange={(event) => {
-                      const workspaceId = event.target.value;
-                      const workspace = workspaces.find((item) => item._id === workspaceId);
-                      setSelectedWorkspaceId(workspaceId);
-                      if (workspace) {
-                        setUser((current) => ({
-                          ...current,
-                          workspace: { ...(current.workspace || {}), ...workspace },
-                        }));
-                      }
-                    }}
-                    className="max-w-[150px] rounded-md border border-[#DCE1E7] bg-white px-2.5 py-1.5 text-xs font-semibold text-[#20252C] outline-none focus:border-[#FF5C35] sm:max-w-[180px]"
-                  >
-                    {workspaces.map((workspace) => (
-                      <option key={workspace._id} value={workspace._id}>
-                        {workspace.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      aria-label="Select workspace"
+                      value={selectedWorkspaceId}
+                      onChange={(event) => {
+                        const workspaceId = event.target.value;
+
+                        const workspace = workspaces.find(
+                          (item) => item._id === workspaceId
+                        );
+
+                        setSelectedWorkspaceId(workspaceId);
+
+                        if (workspace) {
+                          setUser((current) => ({
+                            ...current,
+                            workspace: {
+                              ...(current.workspace || {}),
+                              ...workspace,
+                            },
+                          }));
+                        }
+                      }}
+                      className="max-w-[170px] appearance-none rounded-xl border border-[#E0E4E8] bg-[#F8F9FA] py-2 pl-3 pr-8 text-[11px] font-semibold text-[#20252C] outline-none transition hover:bg-white focus:border-[#FF5C35] sm:max-w-[210px]"
+                    >
+                      {workspaces.map((workspace) => (
+                        <option key={workspace._id} value={workspace._id}>
+                          {workspace.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    <ChevronDown
+                      size={13}
+                      className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7C8692]"
+                    />
+                  </div>
                 ) : (
-                  <span className="max-w-[180px] truncate text-xs font-semibold text-[#20252C]">
+                  <span className="max-w-[180px] truncate text-[11px] font-semibold text-[#20252C]">
                     {workspaceName}
                   </span>
                 )}
               </div>
 
-              <div className="relative hidden sm:block">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#8A929D]">
-                  ⌕
-                </span>
+              {/* SEARCH */}
+
+              <div className="relative ml-2 hidden lg:block">
+                <Search
+                  size={14}
+                  strokeWidth={1.8}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#929AA5]"
+                />
 
                 <input
                   aria-label="Search dashboard"
-                  placeholder="Search workspace"
-                  className="h-9 w-48 rounded-lg border border-[#DCE1E7] bg-[#F8F9FA] pl-8 pr-3 text-xs outline-none transition focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
+                  placeholder="Search workspace..."
+                  className="h-9 w-56 rounded-xl border border-[#E0E4E8] bg-[#F8F9FA] pl-9 pr-3 text-[10px] text-[#20252C] outline-none transition placeholder:text-[#A4ABB4] focus:border-[#FF5C35] focus:bg-white focus:ring-2 focus:ring-[#FF5C35]/10"
                 />
               </div>
             </div>
 
-            <div className="relative flex items-center gap-2 sm:gap-4">
+            {/* RIGHT */}
 
-              <button
+            <div className="relative flex items-center gap-2">
+
+              <motion.button
                 type="button"
-                className="hidden h-9 w-9 items-center justify-center rounded-lg border border-[#DCE1E7] text-sm text-[#697381] transition hover:bg-[#F5F6F8] sm:flex"
+                whileTap={{ scale: 0.9 }}
+                className="relative hidden h-9 w-9 items-center justify-center rounded-xl border border-[#E0E4E8] bg-white text-[#697381] transition hover:bg-[#F7F8F9] sm:flex"
                 title="Notifications"
               >
-                ◌
-              </button>
+                <Bell size={15} strokeWidth={1.8} />
 
-              <button
+                <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#FF5C35]" />
+              </motion.button>
+
+              <motion.button
                 type="button"
-                onClick={() =>
-                  setOverflowOpen(
-                    (open) => !open
-                  )
-                }
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#DCE1E7] text-lg leading-none text-[#697381] transition hover:bg-[#F5F6F8]"
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setOverflowOpen((open) => !open)}
+                className={`flex h-9 w-9 items-center justify-center rounded-xl border bg-white transition ${
+                  overflowOpen
+                    ? "border-[#FFB09E] text-[#FF5C35]"
+                    : "border-[#E0E4E8] text-[#697381] hover:bg-[#F7F8F9]"
+                }`}
                 title="Workspace actions"
               >
-                ⋯
-              </button>
+                <MoreHorizontal size={17} />
+              </motion.button>
 
-              <span className="hidden max-w-[180px] truncate text-sm text-[#6B6862] sm:block">
-                {user.email || "User"}
-              </span>
+              {/* USER */}
 
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#25354A] text-xs font-semibold text-white">
-                {(
-                  user.name ||
-                  user.email ||
-                  "U"
-                )
-                  .charAt(0)
-                  .toUpperCase()}
-              </div>
+              <div className="ml-1 flex items-center gap-2.5 border-l border-[#E3E7EB] pl-3">
 
-              {overflowOpen && (
-                <div className="absolute right-0 top-12 z-30 w-56 rounded-xl border border-[#DCE1E7] bg-white p-2 shadow-[0_14px_35px_rgba(24,32,42,0.14)]">
-
-                  <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8A929D]">
-                    Workspace actions
+                <div className="hidden text-right sm:block">
+                  <p className="max-w-[160px] truncate text-[10px] font-semibold text-[#252A31]">
+                    {user.name || "User"}
                   </p>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      handleNavClick(
-                        "Workspace"
-                      );
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    View workspace
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      handleCopyWorkspaceSlug();
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    Copy workspace slug
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      openWorkspaceEditor();
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    Workspace settings
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      setInviteDialogOpen(true);
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    Members and invitations
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => navigate("/workspace/new")}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    New workspace
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      handleDeleteWorkspace();
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#B23A2B] hover:bg-[#FFF3F1]"
-                  >
-                    Delete workspace
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOverflowOpen(false);
-                      setSidebarOpen(true);
-                    }}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#39424D] hover:bg-[#F5F6F8]"
-                  >
-                    Open side navigation
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="flex w-full rounded-lg px-3 py-2.5 text-left text-xs font-medium text-[#B23A2B] hover:bg-[#FFF3F1]"
-                  >
-                    Log out
-                  </button>
+                  <p className="max-w-[160px] truncate text-[8px] text-[#929AA5]">
+                    {user.email || ""}
+                  </p>
                 </div>
-              )}
+
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#26374D] to-[#111A27] text-[11px] font-semibold text-white shadow-sm"
+                >
+                  {(
+                    user.name ||
+                    user.email ||
+                    "U"
+                  )
+                    .charAt(0)
+                    .toUpperCase()}
+                </motion.div>
+              </div>
+
+              {/* DROPDOWN */}
+
+              <AnimatePresence>
+                {overflowOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-12 z-50 w-60 overflow-hidden rounded-2xl border border-[#E0E4E8] bg-white p-1.5 shadow-[0_20px_50px_rgba(20,28,38,0.14)]"
+                  >
+                    <div className="border-b border-[#EEF0F2] px-3 py-2.5">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#9AA2AC]">
+                        Workspace
+                      </p>
+
+                      <p className="mt-1 truncate text-[11px] font-semibold text-[#20252C]">
+                        {workspaceName}
+                      </p>
+                    </div>
+
+                    <DropdownButton
+                      icon={Building2}
+                      label="View workspace"
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        handleNavClick("Workspace");
+                      }}
+                    />
+
+                    <DropdownButton
+                      icon={Copy}
+                      label="Copy workspace slug"
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        handleCopyWorkspaceSlug();
+                      }}
+                    />
+
+                    <DropdownButton
+                      icon={Settings}
+                      label="Workspace settings"
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        openWorkspaceEditor();
+                      }}
+                    />
+
+                    <DropdownButton
+                      icon={UserPlus}
+                      label="Members & invitations"
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        setInviteDialogOpen(true);
+                      }}
+                    />
+
+                    <DropdownButton
+                      icon={Plus}
+                      label="New workspace"
+                      onClick={() => navigate("/workspace/new")}
+                    />
+
+                    <div className="my-1 border-t border-[#EEF0F2]" />
+
+                    <DropdownButton
+                      icon={Trash2}
+                      label="Delete workspace"
+                      danger
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        handleDeleteWorkspace();
+                      }}
+                    />
+
+                    <DropdownButton
+                      icon={LogOut}
+                      label="Log out"
+                      danger
+                      onClick={() => {
+                        setOverflowOpen(false);
+                        handleLogout();
+                      }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </header>
 
-          {/* =====================================================
-              MOBILE NAV
-          ===================================================== */}
+          {/* MOBILE NAV */}
 
-          <nav className="flex gap-1 overflow-x-auto border-b border-[#E1E5EA] bg-white px-4 py-2 md:hidden">
-            {navItems.map(
-              ([label, icon]) => (
+          <nav className="flex gap-1 overflow-x-auto border-b border-[#E3E7EB] bg-white px-4 py-2 md:hidden">
+            {navItems.map(([label]) => {
+              const Icon = getIcon(label);
+
+              return (
                 <button
                   key={label}
                   type="button"
-                  onClick={() =>
-                    handleNavClick(label)
-                  }
-                  className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium ${
+                  onClick={() => handleNavClick(label)}
+                  className={`flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-[10px] font-semibold ${
                     activeNav === label
                       ? "bg-[#FFF0EB] text-[#E94B27]"
                       : "text-[#697381]"
                   }`}
                 >
-                  <span>{icon}</span>
+                  <Icon size={14} strokeWidth={1.9} />
                   {label}
                 </button>
-              )
-            )}
+              );
+            })}
           </nav>
+
           {children}
         </div>
 
         {modals}
       </div>
     </main>
+  );
+};
+
+const DropdownButton = ({
+  icon: Icon,
+  label,
+  onClick,
+  danger = false,
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[10px] font-medium transition ${
+        danger
+          ? "text-[#B23A2B] hover:bg-[#FFF3F1]"
+          : "text-[#39424D] hover:bg-[#F6F7F8]"
+      }`}
+    >
+      <span
+        className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+          danger
+            ? "bg-[#FFF3F1]"
+            : "bg-[#F3F5F7] group-hover:bg-white"
+        }`}
+      >
+        <Icon size={14} strokeWidth={1.8} />
+      </span>
+
+      <span>{label}</span>
+    </button>
   );
 };
 

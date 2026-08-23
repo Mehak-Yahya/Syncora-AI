@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import syncoraLogo from "../../assets/logo.png";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -8,9 +9,10 @@ const Welcome = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
-    const recreateWorkspace = new URLSearchParams(window.location.search).get("recreate") === "1";
 
-    // No authentication → go back to login
+    const recreateWorkspace =
+      new URLSearchParams(window.location.search).get("recreate") === "1";
+
     if (!token) {
       navigate("/login", { replace: true });
       return;
@@ -20,8 +22,11 @@ const Welcome = () => {
       try {
         const user = JSON.parse(storedUser);
 
-        // Already completed onboarding → never show Welcome again
-        if (user.onboardingCompleted === true && user.workspace && !recreateWorkspace) {
+        if (
+          user.onboardingCompleted === true &&
+          user.workspace &&
+          !recreateWorkspace
+        ) {
           navigate("/dashboard", { replace: true });
         }
       } catch (error) {
@@ -34,77 +39,330 @@ const Welcome = () => {
     navigate("/onboarding/profile");
   };
 
+  const features = [
+    {
+      number: "01",
+      title: "Build",
+      description: "Turn ideas into working software.",
+      icon: "⌁",
+    },
+    {
+      number: "02",
+      title: "Collaborate",
+      description: "Keep your team aligned in one place.",
+      icon: "◈",
+    },
+    {
+      number: "03",
+      title: "Ship smarter",
+      description: "Move from planning to delivery faster.",
+      icon: "↗",
+    },
+  ];
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#FAF9F6] px-6 text-[#171717]">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-xl text-center"
-      >
-        {/* Logo */}
+    <main className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#07090D] text-white">
+      {/* =========================================================
+          BACKGROUND
+      ========================================================= */}
+
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Center glow */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FF5C35] text-xl font-bold text-white shadow-sm"
+          animate={{
+            scale: [1, 1.08, 1],
+            opacity: [0.22, 0.32, 0.22],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute left-1/2 top-[42%] h-[430px] w-[430px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF5C35]/10 blur-[110px]"
+        />
+
+        {/* Orange ambient light */}
+        <motion.div
+          animate={{
+            x: [0, 35, 0],
+            y: [0, -25, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -left-40 top-[15%] h-[300px] w-[300px] rounded-full bg-[#FF5C35]/[0.055] blur-[100px]"
+        />
+
+        {/* Blue ambient light */}
+        <motion.div
+          animate={{
+            x: [0, -35, 0],
+            y: [0, 25, 0],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -right-40 bottom-[8%] h-[340px] w-[340px] rounded-full bg-[#5968FF]/[0.05] blur-[110px]"
+        />
+
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        {/* Bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#07090D] to-transparent" />
+
+        {/* Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#07090D_90%)]" />
+      </div>
+
+      {/* =========================================================
+          MAIN CONTENT
+      ========================================================= */}
+
+      <div className="relative z-10 flex h-full items-center justify-center px-5 py-6 sm:px-8">
+        <motion.section
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="w-full max-w-[900px]"
         >
-          S
-        </motion.div>
+          {/* =====================================================
+              LOGO + BRAND
+          ===================================================== */}
 
-        {/* Brand */}
-        <p className="mt-5 text-lg font-semibold tracking-[-0.02em]">
-          Syncora
-        </p>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.8,
+              rotateX: -15,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotateX: 0,
+            }}
+            transition={{
+              duration: 0.7,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="flex flex-col items-center"
+            style={{
+              perspective: "800px",
+            }}
+          >
+            <motion.div
+              animate={{
+                y: [0, -5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              whileHover={{
+                scale: 1.06,
+                rotateY: 8,
+              }}
+              className="relative"
+            >
+              {/* glow */}
+              <div className="absolute inset-[-18px] rounded-[25px] bg-[#FF5C35]/15 blur-[25px]" />
 
-        {/* Heading */}
-        <h1 className="mt-10 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">
-          Welcome to Syncora 👋
-        </h1>
+              {/* depth */}
+              <div className="absolute inset-0 translate-y-2 rounded-[20px] bg-[#FF5C35]/20 blur-md" />
 
-        {/* Description */}
-        <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-[#77716A] sm:text-base">
-          Your AI-powered engineering workspace for building, managing,
-          collaborating, and shipping better software.
-        </p>
+              {/* logo container */}
+              <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-[20px] border border-white/10 bg-white/[0.045] p-2.5 shadow-[0_20px_50px_rgba(0,0,0,.45)] backdrop-blur-xl">
+                <img
+                  src={syncoraLogo}
+                  alt="Syncora"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            </motion.div>
 
-        <p className="mt-3 text-sm text-[#9A948B]">
-          Let&apos;s get your engineering workspace ready.
-        </p>
+            <p className="mt-3 text-[13px] font-semibold tracking-[-0.01em] text-white">
+              Syncora
+            </p>
 
-        {/* Get Started */}
-        <motion.button
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={handleGetStarted}
-          className="mt-9 rounded-xl bg-[#FF5C35] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#E94B27] hover:shadow-md"
-        >
-          Get Started →
-        </motion.button>
+            <p className="mt-1 text-[8px] font-medium uppercase tracking-[0.22em] text-[#5E6672]">
+              Engineering workspace
+            </p>
+          </motion.div>
 
-        {/* Product statement */}
-        <div className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-3">
-          <div className="rounded-xl border border-[#E4DFD8] bg-white p-4">
-            <p className="text-lg">⚡</p>
-            <p className="mt-2 text-xs font-medium">Build</p>
-          </div>
+          {/* =====================================================
+              HERO
+          ===================================================== */}
 
-          <div className="rounded-xl border border-[#E4DFD8] bg-white p-4">
-            <p className="text-lg">🤝</p>
-            <p className="mt-2 text-xs font-medium">Collaborate</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.28,
+              duration: 0.6,
+            }}
+            className="text-center"
+          >
+            <h1 className="mx-auto mt-6 max-w-[760px] text-[38px] font-semibold leading-[1.04] tracking-[-0.055em] sm:text-[48px] lg:text-[56px]">
+              Welcome to{" "}
+              <span className="bg-gradient-to-r from-white via-white to-[#FF7657] bg-clip-text text-transparent">
+                Syncora
+              </span>
+            </h1>
 
-          <div className="rounded-xl border border-[#E4DFD8] bg-white p-4">
-            <p className="text-lg">✦</p>
-            <p className="mt-2 text-xs font-medium">Ship smarter</p>
-          </div>
-        </div>
+            <p className="mx-auto mt-3 max-w-[620px] text-[12px] leading-5 text-[#858E9A] sm:text-[14px]">
+              Your AI-powered engineering workspace for building, managing,
+              collaborating, and shipping better software.
+            </p>
 
-        {/* Footer */}
-        <p className="mt-10 text-xs text-[#A09A91]">
-          Your project. Your team. One engineering workspace.
-        </p>
-      </motion.div>
+            <p className="mt-1.5 text-[14px] text-[#555E6A]">
+              Let&apos;s get your engineering workspace ready.
+            </p>
+          </motion.div>
+
+          {/* =====================================================
+              CTA
+          ===================================================== */}
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.42,
+              duration: 0.5,
+            }}
+            className="flex justify-center"
+          >
+            <motion.button
+              type="button"
+              onClick={handleGetStarted}
+              whileHover={{
+                y: -2,
+                scale: 1.025,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+              className="group relative mt-5 overflow-hidden rounded-xl bg-[#FF5C35] px-6 py-3 text-[11px] font-semibold text-white shadow-[0_10px_35px_rgba(255,92,53,.2)] transition-all duration-300 hover:bg-[#FF6945] hover:shadow-[0_14px_45px_rgba(255,92,53,.28)]"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Get Started
+
+                <motion.span
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{
+                    duration: 1.4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  →
+                </motion.span>
+              </span>
+
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            </motion.button>
+          </motion.div>
+
+          {/* =====================================================
+              FEATURES
+          ===================================================== */}
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.56,
+              duration: 0.6,
+            }}
+            className="mx-auto mt-7 grid max-w-[780px] grid-cols-3 gap-2.5 sm:gap-3"
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.number}
+                initial={{
+                  opacity: 0,
+                  y: 12,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.62 + index * 0.08,
+                  duration: 0.45,
+                }}
+                whileHover={{
+                  y: -5,
+                  scale: 1.015,
+                }}
+                className="group relative overflow-hidden rounded-xl border border-white/[0.075] bg-white/[0.028] px-4 py-3.5 text-left shadow-[0_15px_45px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:border-[#FF5C35]/20 hover:bg-white/[0.045]"
+              >
+                {/* top highlight */}
+                <div className="absolute left-4 right-4 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+                {/* glow */}
+                <div className="absolute -right-10 -top-10 h-20 w-20 rounded-full bg-[#FF5C35]/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[15px] font-semibold tracking-[0.15em] text-[#FF7657]">
+                      {feature.number}
+                    </span>
+
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md border border-white/[0.07] bg-white/[0.025] text-[15px] text-[#FF7657]">
+                      {feature.icon}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-3 text-[15px] font-semibold text-white sm:text-[14px]">
+                    {feature.title}
+                  </h3>
+
+                  <p className="mt-1 text-[15px] leading-4 text-[#69737F] sm:text-[12px]">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* =====================================================
+              FOOTER
+          ===================================================== */}
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: 0.85,
+              duration: 0.5,
+            }}
+            className="mt-5 text-center"
+          >
+            <div className="mx-auto mb-2 h-px w-12 bg-white/10" />
+
+            <p className="text-[15px] text-[#464E59]">
+              Your project. Your team. One engineering workspace.
+            </p>
+          </motion.div>
+        </motion.section>
+      </div>
     </main>
   );
 };
