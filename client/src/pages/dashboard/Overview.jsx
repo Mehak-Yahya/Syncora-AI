@@ -28,7 +28,10 @@ const DashboardOverview = ({ dashboard }) => {
   ).length;
 
   const githubPercentage = projects.length
-    ? Math.min(100, Math.round((connectedProjects.length / projects.length) * 100))
+    ? Math.min(
+        100,
+        Math.round((connectedProjects.length / projects.length) * 100)
+      )
     : 0;
 
   const pendingInvitations = user.invitations?.length || 0;
@@ -60,101 +63,110 @@ const DashboardOverview = ({ dashboard }) => {
     return projects;
   }, [projectFilter, projects]);
 
+  const handlePrimaryAction = () => {
+    if (pendingInvitations) {
+      handleInvitation(user.invitations[0].token, "accept");
+    } else if (githubPercentage < 100) {
+      projects.length
+        ? handleConnectGithub(projects[0]._id)
+        : openProjectDialog();
+    } else {
+      handleNavClick("AI workspace");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F3F5F7] text-[#11161D]">
-      <div className="mx-auto w-full max-w-[1700px] px-4 py-4 lg:px-6">
+    <div className="min-h-full w-full bg-[#0B0F14] text-[#F5F7FA]">
+      {/* OUTER SPACING */}
+      <div className="mx-auto w-full max-w-[1800px] px-4 py-3.5 sm:px-5 sm:py-5 lg:px-8 lg:py-7">
+
         {/* HEADER */}
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 flex items-center justify-between"
+          className="mb-3 flex items-center justify-between gap-3 sm:mb-5"
         >
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#11161D] text-sm font-bold text-white">
-              S
-            </div>
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+           
 
-            <div>
-              <div className="mb-0.5 flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#24B47E]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#6F7883]">
-                  {workspaceName || "Workspace"}
-                </span>
-                <span className="rounded-full bg-[#E6F7F0] px-2 py-0.5 text-[8px] font-bold text-[#16845D]">
-                  ONLINE
-                </span>
-              </div>
+            <div className="min-w-0">
+              
 
-              <h1 className="text-[24px] font-semibold leading-none tracking-[-0.045em] lg:text-[27px]">
+              <h1 className="mt-0.5 truncate text-[18px] font-semibold leading-tight tracking-[-0.04em] text-white sm:text-[25px] lg:text-[28px]">
                 Good to see you, {firstName}
               </h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={() => handleNavClick("AI workspace")}
-              className="rounded-xl border border-[#D9DEE3] bg-white px-4 py-2.5 text-[11px] font-semibold shadow-sm transition hover:border-[#FFAA96] hover:text-[#FF5C35]"
+              className="rounded-lg border border-[#252C35] bg-[#151A21] px-2.5 py-2 text-[9px] font-semibold text-[#D9DEE3] transition hover:border-[#FF704D] hover:text-[#FF704D] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
             >
-              ✦ Ask AI
+              <span className="sm:hidden">✦</span>
+              <span className="hidden sm:inline">✦ Ask AI</span>
             </button>
 
             <button
               type="button"
               onClick={openProjectDialog}
-              className="rounded-xl bg-[#FF5C35] px-4 py-2.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_rgba(255,92,53,0.2)] transition hover:bg-[#E94B27]"
+              className="rounded-lg bg-[#FF5C35] px-2.5 py-2 text-[9px] font-semibold text-white transition hover:bg-[#E94B27] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
             >
-              + New project
+              <span className="sm:hidden">+ New</span>
+              <span className="hidden sm:inline">+ New project</span>
             </button>
           </div>
         </motion.header>
 
-        {/* COMMAND CENTER
-            Desktop is intentionally two rows. The previous version forced too
-            much content into three short rows, which made every label tiny. */}
-        <div className="grid gap-3 lg:h-[calc(100vh-104px)] lg:min-h-[620px] lg:grid-cols-12 lg:grid-rows-[minmax(300px,0.95fr)_minmax(300px,1.05fr)]">
+        {/* MAIN */}
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12">
+
           {/* HERO */}
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="relative col-span-12 overflow-hidden rounded-[22px] bg-[#11161D] p-6 text-white shadow-sm lg:col-span-5"
+            className="relative overflow-hidden rounded-[20px] border border-[#252C35] bg-[#151A21] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.14)] sm:rounded-[24px] sm:p-6 lg:col-span-7 lg:min-h-[360px] lg:p-8"
           >
-            <div className="pointer-events-none absolute -right-24 -top-28 h-80 w-80 rounded-full bg-[#FF5C35]/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-28 left-[42%] h-72 w-72 rounded-full bg-[#5865F2]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-28 h-64 w-64 rounded-full bg-[#FF5C35]/10 blur-3xl sm:h-80 sm:w-80" />
 
-            <div className="relative flex h-full flex-col justify-between">
+            <div className="pointer-events-none absolute -bottom-28 left-[42%] h-56 w-56 rounded-full bg-[#5865F2]/10 blur-3xl sm:h-72 sm:w-72" />
+
+            <div className="relative flex h-full flex-col justify-between gap-7 sm:gap-12">
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-base text-[#FF704D]">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#222A33] text-sm text-[#FF704D] sm:h-10 sm:w-10 sm:rounded-xl sm:text-base">
                     ✦
                   </span>
 
                   <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.19em] text-[#8F99A5]">
+                    <p className="text-[8px] font-bold uppercase tracking-[0.16em] text-[#8F99A5] sm:text-[10px]">
                       Syncora Command Center
                     </p>
-                    <p className="mt-0.5 text-[9px] text-[#626C78]">
+
+                    <p className="mt-0.5 text-[8px] text-[#626C78] sm:text-[10px]">
                       Workspace overview
                     </p>
                   </div>
                 </div>
 
-                <h2 className="mt-7 max-w-[570px] text-[35px] font-semibold leading-[1.02] tracking-[-0.055em] lg:text-[38px]">
+                <h2 className="mt-5 max-w-[650px] text-[27px] font-semibold leading-[1.05] tracking-[-0.05em] sm:mt-7 sm:text-[38px] lg:text-[46px]">
                   Your engineering workspace,
-                  <span className="text-[#FF704D]"> in one view.</span>
+                  <span className="text-[#FF704D]">
+                    {" "}in one view.
+                  </span>
                 </h2>
 
-                <p className="mt-3 text-[11px] text-[#A3ACB6]">
+                <p className="mt-2.5 text-[9px] text-[#8F99A5] sm:mt-4 sm:text-[12px]">
                   Projects · GitHub · Team · AI
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex gap-1.5 sm:flex-wrap sm:gap-2">
                 <button
                   type="button"
                   onClick={() => handleNavClick("Projects")}
-                  className="rounded-xl bg-white px-4 py-2.5 text-[10px] font-semibold text-[#11161D] transition hover:bg-[#F0F0F0]"
+                  className="rounded-lg bg-white px-3 py-2 text-[9px] font-semibold text-[#11161D] transition hover:bg-[#E8EAED] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
                   Projects →
                 </button>
@@ -162,9 +174,9 @@ const DashboardOverview = ({ dashboard }) => {
                 <button
                   type="button"
                   onClick={() => handleNavClick("AI workspace")}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[10px] font-semibold text-white transition hover:bg-white/10"
+                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-white transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
-                  AI workspace →
+                  AI →
                 </button>
 
                 <button
@@ -174,26 +186,26 @@ const DashboardOverview = ({ dashboard }) => {
                       ? handleConnectGithub(projects[0]._id)
                       : openProjectDialog()
                   }
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-[10px] font-semibold text-white transition hover:bg-white/10"
+                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-white transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
                   GitHub →
                 </button>
               </div>
 
               {githubError && (
-                <p className="mt-3 max-w-md rounded-lg border border-[#7F3F35] bg-[#2A1715] px-3 py-2 text-[10px] text-[#FFB5A5]">
+                <p className="max-w-lg rounded-lg border border-[#7F3F35] bg-[#2A1715] px-3 py-2 text-[9px] text-[#FFB5A5] sm:rounded-xl sm:py-2.5 sm:text-[10px]">
                   {githubError}
                 </p>
               )}
             </div>
           </motion.section>
 
-          {/* KPI GRID */}
+          {/* KPI */}
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="col-span-12 grid grid-cols-2 gap-3 lg:col-span-4"
+            className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:col-span-5"
           >
             <KpiCard
               icon="◇"
@@ -206,7 +218,7 @@ const DashboardOverview = ({ dashboard }) => {
 
             <KpiCard
               icon="◉"
-              label="GitHub linked"
+              label="GitHub"
               value={`${githubPercentage}%`}
               detail={`${connectedProjects.length}/${projects.length} connected`}
               badge={githubPercentage === 100 ? "Healthy" : "Action"}
@@ -230,123 +242,38 @@ const DashboardOverview = ({ dashboard }) => {
 
             <KpiCard
               icon="✦"
-              label="AI workspace"
+              label="AI"
               value="Ready"
               detail="AI ready"
               badge="Online"
-              dark
               onClick={() => handleNavClick("AI workspace")}
             />
-          </motion.section>
-
-          {/* SYSTEM STATUS */}
-          <motion.section
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="col-span-12 rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-3"
-          >
-            <div className="flex items-start justify-between">
-              <CardHeader
-                icon="⌁"
-                title="System status"
-                subtitle="Workspace health"
-              />
-
-              <span className="flex items-center gap-1.5 rounded-full bg-[#E6F7F0] px-2.5 py-1 text-[8px] font-bold text-[#16845D]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#24B47E]" />
-                LIVE
-              </span>
-            </div>
-
-            <div className="mt-5 space-y-2.5">
-              <StatusRow
-                label="Workspace"
-                value="Operational"
-                ok
-              />
-              <StatusRow
-                label="GitHub"
-                value={
-                  githubPercentage === 100
-                    ? "Fully linked"
-                    : `${githubPercentage}% linked`
-                }
-                ok={githubPercentage === 100}
-              />
-              <StatusRow label="AI engine" value="Ready" ok />
-              <StatusRow
-                label="Invitations"
-                value={pendingInvitations ? `${pendingInvitations} pending` : "Clear"}
-                ok={!pendingInvitations}
-              />
-            </div>
-
-            <div
-              className={`mt-4 rounded-xl px-3 py-2.5 ${
-                pendingInvitations
-                  ? "bg-[#FFF8EE]"
-                  : githubPercentage < 100
-                  ? "bg-[#FFF8F5]"
-                  : "bg-[#F2FAF6]"
-              }`}
-            >
-              <p className="text-[9px] font-semibold">
-                {pendingInvitations
-                  ? `${pendingInvitations} invite${pendingInvitations > 1 ? "s" : ""} pending`
-                  : githubPercentage < 100
-                  ? `${projects.length - connectedProjects.length} project${projects.length - connectedProjects.length === 1 ? "" : "s"} need GitHub`
-                  : "Workspace healthy"}
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => {
-                if (pendingInvitations) {
-                  handleInvitation(user.invitations[0].token, "accept");
-                } else if (githubPercentage < 100) {
-                  projects.length
-                    ? handleConnectGithub(projects[0]._id)
-                    : openProjectDialog();
-                } else {
-                  handleNavClick("AI workspace");
-                }
-              }}
-              className="mt-3 w-full rounded-xl bg-[#11161D] py-2.5 text-[10px] font-semibold text-white transition hover:bg-[#252C35]"
-            >
-              {pendingInvitations
-                ? "Review invitation →"
-                : githubPercentage < 100
-                ? "Complete GitHub setup →"
-                : "Open command center →"}
-            </button>
           </motion.section>
 
           {/* PROJECTS */}
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="col-span-12 min-h-0 overflow-hidden rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-7"
+            transition={{ delay: 0.1 }}
+            className="min-w-0 overflow-hidden rounded-[20px] border border-[#252C35] bg-[#151A21] p-3.5 shadow-[0_8px_25px_rgba(0,0,0,0.1)] sm:rounded-[24px] sm:p-5 lg:col-span-7"
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-3">
               <CardHeader
                 icon="◈"
                 title="Projects"
                 subtitle="Recent engineering work"
               />
 
-              <div className="flex items-center gap-1 rounded-xl bg-[#F4F6F8] p-1">
+              <div className="flex shrink-0 items-center gap-0.5 rounded-lg bg-[#0F1318] p-1">
                 {["All", "Active", "Connected"].map((filter) => (
                   <button
                     key={filter}
                     type="button"
                     onClick={() => setProjectFilter(filter)}
-                    className={`rounded-lg px-3 py-1.5 text-[9px] font-semibold transition ${
+                    className={`rounded-md px-2 py-1.5 text-[8px] font-semibold transition sm:px-3 sm:py-2 sm:text-[9px] ${
                       projectFilter === filter
-                        ? "bg-white text-[#11161D] shadow-sm"
-                        : "text-[#858D97] hover:text-[#343B44]"
+                        ? "bg-[#252C35] text-white"
+                        : "text-[#858D97] hover:text-[#D9DEE3]"
                     }`}
                   >
                     {filter}
@@ -355,7 +282,7 @@ const DashboardOverview = ({ dashboard }) => {
               </div>
             </div>
 
-            <div className="mt-4 grid min-h-0 grid-cols-2 gap-3 overflow-auto pr-1 lg:max-h-[calc(100%-55px)]">
+            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:mt-4 sm:grid-cols-2 sm:gap-3">
               {filteredProjects.length === 0 ? (
                 <EmptyProjects
                   hasProjects={projects.length > 0}
@@ -377,73 +304,112 @@ const DashboardOverview = ({ dashboard }) => {
                 ))
               )}
             </div>
+
+            {filteredProjects.length > 4 && (
+              <button
+                type="button"
+                onClick={() => handleNavClick("Projects")}
+                className="mt-3 w-full rounded-lg border border-[#252C35] bg-[#10151B] py-2 text-[9px] font-semibold text-[#AAB2BC] transition hover:bg-[#1C232B] hover:text-white sm:mt-4 sm:rounded-xl sm:py-2.5 sm:text-[10px]"
+              >
+                View all projects →
+              </button>
+            )}
           </motion.section>
 
-          {/* ACTIVITY */}
+          {/* SYSTEM STATUS */}
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="col-span-12 min-h-0 overflow-hidden rounded-[22px] border border-[#DEE3E7] bg-white p-5 shadow-[0_1px_3px_rgba(17,24,39,0.03)] lg:col-span-5"
+            transition={{ delay: 0.15 }}
+            className="rounded-[20px] border border-[#252C35] bg-[#151A21] p-3.5 shadow-[0_8px_25px_rgba(0,0,0,0.1)] sm:rounded-[24px] sm:p-5 lg:col-span-5"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center justify-between gap-3">
               <CardHeader
                 icon="⌁"
-                title="Workspace activity"
-                subtitle="Recent engineering signals"
+                title="System status"
+                subtitle="Workspace health"
               />
 
-              <div className="text-right">
-                <p className="text-[30px] font-semibold leading-none tracking-[-0.055em]">
-                  {avgActivity}
-                </p>
-                <p className="mt-1 text-[8px] text-[#858D97]">
-                  activity score
-                </p>
-              </div>
+              <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#123A2D] px-2 py-1 text-[7px] font-bold text-[#4ADEA3] sm:px-2.5 sm:text-[8px]">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#24B47E]" />
+                LIVE
+              </span>
             </div>
 
-            <div className="mt-3 flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-semibold">Engineering activity</p>
-                <p className="mt-0.5 text-[8px] text-[#858D97]">
-                  {range === "24H"
-                    ? "Last 24 hours"
-                    : range === "30D"
-                    ? "Last 30 days"
-                    : "Last 7 days"}
-                </p>
-              </div>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-5 sm:gap-2.5">
+              <StatusRow label="Workspace" value="Operational" ok />
 
-              <div className="flex rounded-lg bg-[#F4F6F8] p-1">
-                {["24H", "7D", "30D"].map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setRange(item)}
-                    className={`rounded-md px-2.5 py-1.5 text-[8px] font-bold transition ${
-                      range === item
-                        ? "bg-[#11161D] text-white"
-                        : "text-[#858D97] hover:text-[#343B44]"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
+              <StatusRow
+                label="GitHub"
+                value={
+                  githubPercentage === 100
+                    ? "Fully linked"
+                    : `${githubPercentage}% linked`
+                }
+                ok={githubPercentage === 100}
+              />
+
+              <StatusRow label="AI engine" value="Ready" ok />
+
+              <StatusRow
+                label="Invitations"
+                value={
+                  pendingInvitations
+                    ? `${pendingInvitations} pending`
+                    : "Clear"
+                }
+                ok={!pendingInvitations}
+              />
             </div>
 
-            <div className="mt-3 rounded-2xl bg-[#FAFBFC] p-3">
-              <ActivityChart values={activity} />
+            <div
+              className={`mt-2.5 rounded-lg px-3 py-2.5 sm:mt-4 sm:rounded-xl sm:py-3 ${
+                pendingInvitations
+                  ? "bg-[#2A2115]"
+                  : githubPercentage < 100
+                  ? "bg-[#2A1A16]"
+                  : "bg-[#12271F]"
+              }`}
+            >
+              <p className="truncate text-[9px] font-semibold text-[#D9DEE3] sm:text-[10px]">
+                {pendingInvitations
+                  ? `${pendingInvitations} invite${
+                      pendingInvitations > 1 ? "s" : ""
+                    } pending`
+                  : githubPercentage < 100
+                  ? `${
+                      projects.length - connectedProjects.length
+                    } project${
+                      projects.length - connectedProjects.length === 1
+                        ? ""
+                        : "s"
+                    } need GitHub`
+                  : "Workspace healthy"}
+              </p>
             </div>
 
-
+            <button
+              type="button"
+              onClick={handlePrimaryAction}
+              className="mt-2.5 w-full rounded-lg bg-[#252C35] py-2.5 text-[9px] font-semibold text-white transition hover:bg-[#303943] sm:mt-3 sm:rounded-xl sm:py-3 sm:text-[10px]"
+            >
+              {pendingInvitations
+                ? "Review invitation →"
+                : githubPercentage < 100
+                ? "Complete GitHub setup →"
+                : "Open AI workspace →"}
+            </button>
           </motion.section>
+
         </div>
       </div>
     </div>
   );
 };
+
+/* =========================================================
+   KPI CARD
+========================================================= */
 
 const KpiCard = ({
   icon,
@@ -453,64 +419,43 @@ const KpiCard = ({
   badge,
   warning = false,
   progress,
-  dark = false,
   onClick,
 }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`group relative min-h-[128px] overflow-hidden rounded-[20px] border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-lg ${
-      dark
-        ? "border-[#11161D] bg-[#11161D] text-white"
-        : "border-[#DEE3E7] bg-white"
-    }`}
+    className="group relative min-w-0 overflow-hidden rounded-[16px] border border-[#252C35] bg-[#151A21] p-3 text-left transition duration-200 hover:-translate-y-0.5 hover:border-[#39424D] hover:bg-[#181E25] hover:shadow-lg sm:rounded-[20px] sm:p-5"
   >
-    <div className="flex items-start justify-between">
-      <span
-        className={`flex h-9 w-9 items-center justify-center rounded-xl text-sm ${
-          dark
-            ? "bg-white/10 text-[#FF704D]"
-            : "bg-[#FFF0EB] text-[#FF5C35]"
-        }`}
-      >
+    <div className="flex items-start justify-between gap-2">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#242B34] text-xs text-[#FF704D] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
         {icon}
       </span>
 
       <span
-        className={`rounded-full px-2 py-1 text-[8px] font-bold ${
-          dark
-            ? "bg-white/10 text-[#B0B7C0]"
-            : warning
-            ? "bg-[#FFF1E6] text-[#C56A24]"
-            : "bg-[#E6F7F0] text-[#16845D]"
+        className={`max-w-[65px] truncate rounded-full px-1.5 py-1 text-[7px] font-bold sm:max-w-none sm:px-2 sm:text-[8px] ${
+          warning
+            ? "bg-[#33251A] text-[#F0A34A]"
+            : "bg-[#123A2D] text-[#4ADEA3]"
         }`}
       >
         {badge}
       </span>
     </div>
 
-    <p
-      className={`mt-4 text-[9px] font-bold uppercase tracking-[0.15em] ${
-        dark ? "text-[#8F99A5]" : "text-[#858D97]"
-      }`}
-    >
+    <p className="mt-3 truncate text-[8px] font-bold uppercase tracking-[0.12em] text-[#858D97] sm:mt-5 sm:text-[9px]">
       {label}
     </p>
 
-    <p className="mt-0.5 text-[28px] font-semibold leading-none tracking-[-0.055em]">
+    <p className="mt-1 text-[22px] font-semibold leading-none tracking-[-0.05em] text-white sm:text-[28px]">
       {value}
     </p>
 
-    <p
-      className={`mt-1.5 truncate text-[9px] ${
-        dark ? "text-[#8F99A5]" : "text-[#858D97]"
-      }`}
-    >
+    <p className="mt-1.5 truncate text-[8px] text-[#858D97] sm:mt-2 sm:text-[9px]">
       {detail}
     </p>
 
     {typeof progress === "number" && (
-      <div className="absolute bottom-0 left-0 h-1 w-full bg-[#EEF0F2]">
+      <div className="absolute bottom-0 left-0 h-0.5 w-full bg-[#252C35] sm:h-1">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
@@ -522,39 +467,59 @@ const KpiCard = ({
   </button>
 );
 
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
 const CardHeader = ({ icon, title, subtitle }) => (
-  <div className="flex items-center gap-3">
-    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFF0EB] text-sm font-semibold text-[#FF5C35]">
+  <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#2A211F] text-xs font-semibold text-[#FF704D] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
       {icon}
     </div>
 
     <div className="min-w-0">
-      <h2 className="text-[13px] font-semibold">{title}</h2>
-      <p className="mt-0.5 text-[9px] text-[#858D97]">{subtitle}</p>
+      <h2 className="truncate text-[11px] font-semibold text-white sm:text-[13px]">
+        {title}
+      </h2>
+
+      <p className="mt-0.5 truncate text-[8px] text-[#858D97] sm:text-[9px]">
+        {subtitle}
+      </p>
     </div>
   </div>
 );
 
+/* =========================================================
+   STATUS ROW
+========================================================= */
+
 const StatusRow = ({ label, value, ok }) => (
-  <div className="flex items-center justify-between rounded-xl bg-[#F8F9FA] px-3 py-2.5">
-    <div className="flex items-center gap-2.5">
+  <div className="flex min-w-0 items-center justify-between gap-2 rounded-lg bg-[#0F1318] px-2.5 py-2 sm:rounded-xl sm:px-3 sm:py-2.5">
+    <div className="flex min-w-0 items-center gap-2">
       <span
-        className={`h-2 w-2 rounded-full ${
+        className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${
           ok ? "bg-[#24B47E]" : "bg-[#F0A34A]"
         }`}
       />
-      <span className="text-[10px] font-medium text-[#59626D]">{label}</span>
+
+      <span className="truncate text-[8px] font-medium text-[#AAB2BC] sm:text-[10px]">
+        {label}
+      </span>
     </div>
 
     <span
-      className={`text-[9px] font-semibold ${
-        ok ? "text-[#16845D]" : "text-[#C56A24]"
+      className={`shrink-0 text-[7px] font-semibold sm:text-[9px] ${
+        ok ? "text-[#4ADEA3]" : "text-[#F0A34A]"
       }`}
     >
       {value}
     </span>
   </div>
 );
+
+/* =========================================================
+   PROJECT CARD
+========================================================= */
 
 const ProjectCard = ({
   project,
@@ -569,23 +534,24 @@ const ProjectCard = ({
     <motion.div
       layout
       whileHover={{ y: -2 }}
-      className="rounded-[16px] border border-[#E2E6EA] bg-[#FAFBFC] p-3.5 transition hover:bg-white hover:shadow-md"
+      className="min-w-0 rounded-[15px] border border-[#252C35] bg-[#10151B] p-3 transition hover:bg-[#181E25] hover:shadow-md sm:rounded-[18px] sm:p-4"
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-start justify-between gap-2.5">
         <div className="min-w-0">
-          <h3 className="truncate text-[12px] font-semibold">
+          <h3 className="truncate text-[11px] font-semibold text-white sm:text-[12px]">
             {project.name}
           </h3>
-          <p className="mt-1 line-clamp-1 text-[9px] text-[#7F8893]">
+
+          <p className="mt-0.5 line-clamp-1 text-[8px] text-[#7F8893] sm:mt-1 sm:text-[9px]">
             {project.description || "No description added."}
           </p>
         </div>
 
         <span
-          className={`shrink-0 rounded-full px-2 py-1 text-[7px] font-bold uppercase ${
+          className={`shrink-0 rounded-full px-1.5 py-0.5 text-[6px] font-bold uppercase sm:px-2 sm:py-1 sm:text-[7px] ${
             status === "active"
-              ? "bg-[#E6F7F0] text-[#16845D]"
-              : "bg-[#F0F1F3] text-[#737C87]"
+              ? "bg-[#123A2D] text-[#4ADEA3]"
+              : "bg-[#242A31] text-[#737C87]"
           }`}
         >
           {status}
@@ -593,22 +559,22 @@ const ProjectCard = ({
       </div>
 
       <div
-        className={`mt-3 flex items-center gap-2 rounded-xl px-3 py-2.5 ${
+        className={`mt-2.5 flex min-w-0 items-center gap-2 rounded-lg px-2.5 py-2 sm:mt-4 sm:rounded-xl sm:px-3 sm:py-2.5 ${
           connected
-            ? "bg-[#F0F8F4]"
-            : "border border-dashed border-[#D9DEE3] bg-white"
+            ? "bg-[#10261E]"
+            : "border border-dashed border-[#303842] bg-[#151A21]"
         }`}
       >
         <span
-          className={`h-2 w-2 shrink-0 rounded-full ${
-            connected ? "bg-[#24B47E]" : "bg-[#B5BBC2]"
+          className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${
+            connected ? "bg-[#24B47E]" : "bg-[#626C78]"
           }`}
         />
 
         <span
-          className={`truncate text-[9px] ${
+          className={`truncate text-[8px] sm:text-[9px] ${
             connected
-              ? "font-medium text-[#16845D]"
+              ? "font-medium text-[#4ADEA3]"
               : "text-[#8A929D]"
           }`}
         >
@@ -619,13 +585,15 @@ const ProjectCard = ({
         </span>
       </div>
 
-      <div className="mt-3 flex items-center justify-between">
+      <div className="mt-2.5 flex items-center justify-between gap-2 sm:mt-4">
         <button
           type="button"
           onClick={onGithub}
-          className="text-[9px] font-semibold text-[#39424D] transition hover:text-[#FF5C35]"
+          className="truncate text-[8px] font-semibold text-[#B8C0C9] transition hover:text-[#FF704D] sm:text-[9px]"
         >
-          {connected ? "Manage repository →" : "Connect GitHub →"}
+          {connected
+            ? "Manage repository →"
+            : "Connect GitHub →"}
         </button>
 
         {connected && onSync && (
@@ -633,7 +601,7 @@ const ProjectCard = ({
             type="button"
             onClick={onSync}
             disabled={syncing}
-            className="rounded-md px-2 py-1 text-[8px] font-semibold text-[#737C87] hover:bg-[#EEF0F2] hover:text-[#11161D] disabled:opacity-50"
+            className="shrink-0 rounded-md px-1.5 py-1 text-[7px] font-semibold text-[#737C87] transition hover:bg-[#252C35] hover:text-white disabled:opacity-50 sm:px-2 sm:py-1.5 sm:text-[8px]"
           >
             {syncing ? "Syncing..." : "Sync"}
           </button>
@@ -643,18 +611,27 @@ const ProjectCard = ({
   );
 };
 
-const EmptyProjects = ({ hasProjects, openProjectDialog }) => (
-  <div className="col-span-2 flex min-h-[180px] items-center justify-center rounded-2xl border border-dashed border-[#D9DEE3] bg-[#FAFBFC]">
+/* =========================================================
+   EMPTY PROJECTS
+========================================================= */
+
+const EmptyProjects = ({
+  hasProjects,
+  openProjectDialog,
+}) => (
+  <div className="col-span-full flex min-h-[150px] items-center justify-center rounded-xl border border-dashed border-[#303842] bg-[#10151B] p-5 sm:min-h-[190px] sm:rounded-2xl sm:p-6">
     <div className="text-center">
-      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF0EB] text-lg text-[#FF5C35]">
+      <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg bg-[#2A211F] text-base text-[#FF5C35] sm:h-11 sm:w-11 sm:rounded-xl sm:text-lg">
         ◇
       </div>
 
-      <p className="mt-3 text-[12px] font-semibold">
-        {hasProjects ? "No projects match this filter" : "No projects yet"}
+      <p className="mt-2.5 text-[10px] font-semibold text-white sm:mt-3 sm:text-[12px]">
+        {hasProjects
+          ? "No projects match this filter"
+          : "No projects yet"}
       </p>
 
-      <p className="mt-1 text-[9px] text-[#858D97]">
+      <p className="mt-1 text-[8px] text-[#858D97] sm:text-[9px]">
         {hasProjects
           ? "Try another filter."
           : "Create your first project to start building."}
@@ -664,7 +641,7 @@ const EmptyProjects = ({ hasProjects, openProjectDialog }) => (
         <button
           type="button"
           onClick={openProjectDialog}
-          className="mt-3 rounded-lg bg-[#11161D] px-3 py-2 text-[9px] font-semibold text-white"
+          className="mt-3 rounded-lg bg-[#FF5C35] px-3 py-2 text-[8px] font-semibold text-white transition hover:bg-[#E94B27] sm:mt-4 sm:px-4 sm:py-2.5 sm:text-[9px]"
         >
           Create project
         </button>
@@ -672,6 +649,10 @@ const EmptyProjects = ({ hasProjects, openProjectDialog }) => (
     </div>
   </div>
 );
+
+/* =========================================================
+   ACTIVITY CHART
+========================================================= */
 
 const ActivityChart = ({ values }) => {
   const width = 600;
@@ -682,9 +663,14 @@ const ActivityChart = ({ values }) => {
   const points = values
     .map((value, index) => {
       const x =
-        px + (index / Math.max(values.length - 1, 1)) * (width - px * 2);
+        px +
+        (index / Math.max(values.length - 1, 1)) *
+          (width - px * 2);
+
       const y =
-        height - py - (value / 100) * (height - py * 2);
+        height -
+        py -
+        (value / 100) * (height - py * 2);
 
       return `${x},${y}`;
     })
@@ -695,7 +681,7 @@ const ActivityChart = ({ values }) => {
   },${height - py}`;
 
   return (
-    <div className="h-[160px] w-full">
+    <div className="h-full w-full">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="none"
@@ -703,7 +689,9 @@ const ActivityChart = ({ values }) => {
       >
         {[25, 50, 75].map((line) => {
           const y =
-            height - py - (line / 100) * (height - py * 2);
+            height -
+            py -
+            (line / 100) * (height - py * 2);
 
           return (
             <line
@@ -712,14 +700,17 @@ const ActivityChart = ({ values }) => {
               x2={width - px}
               y1={y}
               y2={y}
-              stroke="#E6E9EC"
+              stroke="#252C35"
               strokeWidth="1"
               strokeDasharray="4 5"
             />
           );
         })}
 
-        <polygon points={area} fill="rgba(255,92,53,0.08)" />
+        <polygon
+          points={area}
+          fill="rgba(255,92,53,0.08)"
+        />
 
         <polyline
           points={points}
@@ -732,21 +723,25 @@ const ActivityChart = ({ values }) => {
 
         {values.map((value, index) => {
           const x =
-            px + (index / Math.max(values.length - 1, 1)) * (width - px * 2);
+            px +
+            (index / Math.max(values.length - 1, 1)) *
+              (width - px * 2);
+
           const y =
-            height - py - (value / 100) * (height - py * 2);
+            height -
+            py -
+            (value / 100) * (height - py * 2);
 
           return (
-            <g key={index}>
-              <circle
-                cx={x}
-                cy={y}
-                r="6"
-                fill="#FFFFFF"
-                stroke="#FF5C35"
-                strokeWidth="3"
-              />
-            </g>
+            <circle
+              key={index}
+              cx={x}
+              cy={y}
+              r="5"
+              fill="#151A21"
+              stroke="#FF5C35"
+              strokeWidth="3"
+            />
           );
         })}
       </svg>
@@ -754,13 +749,5 @@ const ActivityChart = ({ values }) => {
   );
 };
 
-const MetricPill = ({ label, value }) => (
-  <div className="rounded-xl bg-[#F7F8F9] px-3 py-2.5">
-    <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#9AA1A9]">
-      {label}
-    </p>
-    <p className="mt-0.5 text-[14px] font-semibold">{value}</p>
-  </div>
-);
-
 export default DashboardOverview;
+

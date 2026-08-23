@@ -1,12 +1,50 @@
 import { motion } from "framer-motion";
 
 const DashboardModals = ({ dashboard }) => {
-  const { creatingProject, githubError, githubLoading, githubPickerOpen, githubRepositories, handleCreateProject, handleInviteTeammate, handleSaveWorkspace, handleSelectRepository, inviteDialogOpen, inviteEmail, inviteError, projectCollaborators, projectDialogOpen, projectError, projectForm, savingWorkspace, selectedWorkspaceId, sendingInvite, setGithubPickerOpen, setInviteDialogOpen, setInviteEmail, setProjectCollaborators, setProjectDialogOpen, setProjectForm, setSelectedWorkspaceId, setWorkspaceEdit, setWorkspaceEditorOpen, user, workspaceActionError, workspaceEdit, workspaceEditorOpen, workspaceName, workspaces } = dashboard;
+  const {
+    creatingProject,
+    githubError,
+    githubLoading,
+    githubPickerOpen,
+    githubRepositories,
+    handleCreateProject,
+    handleInviteTeammate,
+    handleSaveWorkspace,
+    handleSelectRepository,
+    inviteDialogOpen,
+    inviteEmail,
+    inviteError,
+    projectCollaborators,
+    projectDialogOpen,
+    projectError,
+    projectForm,
+    savingWorkspace,
+    selectedWorkspaceId,
+    sendingInvite,
+    setGithubPickerOpen,
+    setInviteDialogOpen,
+    setInviteEmail,
+    setProjectCollaborators,
+    setProjectDialogOpen,
+    setProjectForm,
+    setSelectedWorkspaceId,
+    setWorkspaceEdit,
+    setWorkspaceEditorOpen,
+    user,
+    workspaceActionError,
+    workspaceEdit,
+    workspaceEditorOpen,
+    workspaceName,
+    workspaces,
+  } = dashboard;
 
   return (
     <>
+      {/* =========================================================
+          WORKSPACE EDITOR MODAL
+      ========================================================= */}
       {workspaceEditorOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
           <motion.div
             initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -17,10 +55,12 @@ const DashboardModals = ({ dashboard }) => {
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
                   Workspace settings
                 </p>
+
                 <h2 className="mt-2 text-xl font-semibold text-[#20252C]">
                   Edit {workspaceName}
                 </h2>
               </div>
+
               <button
                 type="button"
                 onClick={() => setWorkspaceEditorOpen(false)}
@@ -34,26 +74,46 @@ const DashboardModals = ({ dashboard }) => {
             <div className="mt-6 space-y-4">
               <label className="block text-xs font-semibold text-[#39424D]">
                 Workspace name
+
                 <input
                   value={workspaceEdit.name}
-                  onChange={(event) => setWorkspaceEdit((current) => ({ ...current, name: event.target.value }))}
+                  onChange={(event) =>
+                    setWorkspaceEdit((current) => ({
+                      ...current,
+                      name: event.target.value,
+                    }))
+                  }
                   className="mt-2 w-full rounded-lg border border-[#DCE1E7] px-3 py-2.5 text-sm font-normal outline-none focus:border-[#FF5C35]"
                 />
               </label>
+
               <label className="block text-xs font-semibold text-[#39424D]">
                 Description
+
                 <textarea
                   value={workspaceEdit.description}
-                  onChange={(event) => setWorkspaceEdit((current) => ({ ...current, description: event.target.value }))}
-                  rows="3"
+                  onChange={(event) =>
+                    setWorkspaceEdit((current) => ({
+                      ...current,
+                      description: event.target.value,
+                    }))
+                  }
+                  rows={3}
                   className="mt-2 w-full resize-none rounded-lg border border-[#DCE1E7] px-3 py-2.5 text-sm font-normal outline-none focus:border-[#FF5C35]"
                 />
               </label>
+
               <label className="block text-xs font-semibold text-[#39424D]">
                 Privacy
+
                 <select
                   value={workspaceEdit.visibility}
-                  onChange={(event) => setWorkspaceEdit((current) => ({ ...current, visibility: event.target.value }))}
+                  onChange={(event) =>
+                    setWorkspaceEdit((current) => ({
+                      ...current,
+                      visibility: event.target.value,
+                    }))
+                  }
                   className="mt-2 w-full rounded-lg border border-[#DCE1E7] bg-white px-3 py-2.5 text-sm font-normal capitalize outline-none focus:border-[#FF5C35]"
                 >
                   <option value="private">Private</option>
@@ -76,6 +136,7 @@ const DashboardModals = ({ dashboard }) => {
               >
                 Cancel
               </button>
+
               <button
                 type="button"
                 onClick={handleSaveWorkspace}
@@ -89,49 +150,33 @@ const DashboardModals = ({ dashboard }) => {
         </div>
       )}
 
-      {/* =======================================================
-          INVITE MODAL
-      ======================================================= */}
-
+      {/* =========================================================
+          INVITE TEAMMATE MODAL
+      ========================================================= */}
       {inviteDialogOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
           <motion.form
-            initial={{
-              opacity: 0,
-              y: 12,
-              scale: 0.98,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            onSubmit={
-              handleInviteTeammate
-            }
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            onSubmit={handleInviteTeammate}
             className="w-full max-w-md rounded-2xl border border-[#DCE1E7] bg-white p-6 shadow-[0_24px_70px_rgba(24,32,42,0.18)]"
           >
-
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
                   Team
                 </p>
 
-                <h2 className="mt-2 text-xl font-semibold">
+                <h2 className="mt-2 text-xl font-semibold text-[#20252C]">
                   Invite teammate
                 </h2>
               </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setInviteDialogOpen(
-                    false
-                  )
-                }
+                onClick={() => setInviteDialogOpen(false)}
                 className="text-lg text-[#8A929D] hover:text-[#20252C]"
+                aria-label="Close invite dialog"
               >
                 ×
               </button>
@@ -144,11 +189,7 @@ const DashboardModals = ({ dashboard }) => {
                 autoFocus
                 type="email"
                 value={inviteEmail}
-                onChange={(event) =>
-                  setInviteEmail(
-                    event.target.value
-                  )
-                }
+                onChange={(event) => setInviteEmail(event.target.value)}
                 placeholder="teammate@example.com"
                 className="mt-2 h-11 w-full rounded-lg border border-[#DCE1E7] px-3 text-sm outline-none focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
               />
@@ -163,11 +204,7 @@ const DashboardModals = ({ dashboard }) => {
             <div className="mt-6 flex justify-end gap-2">
               <button
                 type="button"
-                onClick={() =>
-                  setInviteDialogOpen(
-                    false
-                  )
-                }
+                onClick={() => setInviteDialogOpen(false)}
                 className="rounded-lg border border-[#DCE1E7] px-4 py-2.5 text-xs font-semibold text-[#697381] hover:bg-[#F5F6F8]"
               >
                 Cancel
@@ -178,60 +215,44 @@ const DashboardModals = ({ dashboard }) => {
                 disabled={sendingInvite}
                 className="rounded-lg bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#E94B27] disabled:opacity-60"
               >
-                {sendingInvite
-                  ? "Sending..."
-                  : "Send invitation"}
+                {sendingInvite ? "Sending..." : "Send invitation"}
               </button>
             </div>
           </motion.form>
         </div>
       )}
 
-      {/* =======================================================
-          GITHUB MODAL
-      ======================================================= */}
-
+      {/* =========================================================
+          GITHUB REPOSITORY MODAL
+      ========================================================= */}
       {githubPickerOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 12,
-              scale: 0.98,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             className="w-full max-w-lg rounded-2xl border border-[#DCE1E7] bg-white p-5 shadow-[0_24px_70px_rgba(24,32,42,0.18)]"
           >
-
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
                   GitHub
                 </p>
 
-                <h2 className="mt-1 text-xl font-semibold">
+                <h2 className="mt-1 text-xl font-semibold text-[#20252C]">
                   Select a repository
                 </h2>
 
                 <p className="mt-1 text-xs text-[#697381]">
-                  Choose the repository Syncora should
-                  analyze for this project.
+                  Choose the repository Syncora should analyze for this
+                  project.
                 </p>
               </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setGithubPickerOpen(
-                    false
-                  )
-                }
+                onClick={() => setGithubPickerOpen(false)}
                 className="text-lg text-[#8A929D] hover:text-[#20252C]"
+                aria-label="Close GitHub repository picker"
               >
                 ×
               </button>
@@ -247,117 +268,85 @@ const DashboardModals = ({ dashboard }) => {
               </div>
             )}
 
-            {!githubLoading &&
-              githubError && (
-                <div className="mt-5 rounded-lg bg-[#FFF3F1] p-4 text-xs text-[#B23A2B]">
-                  <p className="font-semibold">
-                    GitHub connection error
-                  </p>
+            {!githubLoading && githubError && (
+              <div className="mt-5 rounded-lg bg-[#FFF3F1] p-4 text-xs text-[#B23A2B]">
+                <p className="font-semibold">GitHub connection error</p>
 
-                  <p className="mt-1">
-                    {githubError}
-                  </p>
-                </div>
-              )}
+                <p className="mt-1">{githubError}</p>
+              </div>
+            )}
 
-            {!githubLoading &&
-              !githubError && (
-                <div className="mt-5 max-h-80 space-y-2 overflow-y-auto">
-                  {githubRepositories.length ? (
-                    githubRepositories.map(
-                      (repository) => (
-                        <button
-                          key={repository.id}
-                          type="button"
-                          onClick={() =>
-                            handleSelectRepository(
-                              repository
-                            )
-                          }
-                          className="flex w-full items-center justify-between rounded-xl border border-[#E4E7EB] px-4 py-3 text-left transition hover:border-[#FF5C35] hover:bg-[#FFF9F7]"
-                        >
-                          <span className="min-w-0">
-                            <span className="block truncate text-sm font-semibold">
-                              {repository.full_name}
-                            </span>
+            {!githubLoading && !githubError && (
+              <div className="mt-5 max-h-80 space-y-2 overflow-y-auto">
+                {githubRepositories.length ? (
+                  githubRepositories.map((repository) => (
+                    <button
+                      key={repository.id}
+                      type="button"
+                      onClick={() => handleSelectRepository(repository)}
+                      className="flex w-full items-center justify-between rounded-xl border border-[#E4E7EB] px-4 py-3 text-left transition hover:border-[#FF5C35] hover:bg-[#FFF9F7]"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-[#20252C]">
+                          {repository.full_name}
+                        </span>
 
-                            <span className="mt-1 block text-xs text-[#8A929D]">
-                              {repository.private
-                                ? "Private"
-                                : "Public"}{" "}
-                              ·{" "}
-                              {repository.default_branch ||
-                                "main"}
-                            </span>
-                          </span>
+                        <span className="mt-1 block text-xs text-[#8A929D]">
+                          {repository.private ? "Private" : "Public"} ·{" "}
+                          {repository.default_branch || "main"}
+                        </span>
+                      </span>
 
-                          <span className="ml-4 shrink-0 text-xs font-semibold text-[#FF5C35]">
-                            Select
-                          </span>
-                        </button>
-                      )
-                    )
-                  ) : (
-                    <div className="py-10 text-center">
-                      <p className="text-sm font-medium">
-                        No repositories available
-                      </p>
+                      <span className="ml-4 shrink-0 text-xs font-semibold text-[#FF5C35]">
+                        Select
+                      </span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="py-10 text-center">
+                    <p className="text-sm font-medium text-[#20252C]">
+                      No repositories available
+                    </p>
 
-                      <p className="mt-1 text-xs text-[#8A929D]">
-                        Make sure your GitHub account
-                        has accessible repositories.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
+                    <p className="mt-1 text-xs text-[#8A929D]">
+                      Make sure your GitHub account has accessible
+                      repositories.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
         </div>
       )}
 
-      {/* =======================================================
+      {/* =========================================================
           CREATE PROJECT MODAL
-      ======================================================= */}
-
+      ========================================================= */}
       {projectDialogOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#11161D]/40 px-4 backdrop-blur-[2px]">
           <motion.form
-            initial={{
-              opacity: 0,
-              y: 12,
-              scale: 0.98,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            onSubmit={
-              handleCreateProject
-            }
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            onSubmit={handleCreateProject}
             className="w-full max-w-md rounded-2xl border border-[#DCE1E7] bg-white p-6 shadow-[0_24px_70px_rgba(24,32,42,0.18)]"
           >
-
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
                   Projects
                 </p>
 
-                <h2 className="mt-2 text-xl font-semibold">
+                <h2 className="mt-2 text-xl font-semibold text-[#20252C]">
                   Create a project
                 </h2>
               </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setProjectDialogOpen(
-                    false
-                  )
-                }
+                onClick={() => setProjectDialogOpen(false)}
                 className="text-lg text-[#8A929D] hover:text-[#20252C]"
+                aria-label="Close project dialog"
               >
                 ×
               </button>
@@ -385,32 +374,19 @@ const DashboardModals = ({ dashboard }) => {
               Workspace
 
               <select
-                value={
-                  selectedWorkspaceId
-                }
+                value={selectedWorkspaceId}
                 onChange={(event) =>
-                  setSelectedWorkspaceId(
-                    event.target.value
-                  )
+                  setSelectedWorkspaceId(event.target.value)
                 }
                 required
                 className="mt-2 h-11 w-full rounded-lg border border-[#DCE1E7] bg-white px-3 text-sm outline-none focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
               >
                 {workspaces.length ? (
-                  workspaces.map(
-                    (workspace) => (
-                      <option
-                        key={
-                          workspace._id
-                        }
-                        value={
-                          workspace._id
-                        }
-                      >
-                        {workspace.name}
-                      </option>
-                    )
-                  )
+                  workspaces.map((workspace) => (
+                    <option key={workspace._id} value={workspace._id}>
+                      {workspace.name}
+                    </option>
+                  ))
                 ) : (
                   <option
                     value={
@@ -429,14 +405,11 @@ const DashboardModals = ({ dashboard }) => {
               Description
 
               <textarea
-                value={
-                  projectForm.description
-                }
+                value={projectForm.description}
                 onChange={(event) =>
                   setProjectForm({
                     ...projectForm,
-                    description:
-                      event.target.value,
+                    description: event.target.value,
                   })
                 }
                 placeholder="What is this project about?"
@@ -453,13 +426,9 @@ const DashboardModals = ({ dashboard }) => {
               </span>
 
               <input
-                value={
-                  projectCollaborators
-                }
+                value={projectCollaborators}
                 onChange={(event) =>
-                  setProjectCollaborators(
-                    event.target.value
-                  )
+                  setProjectCollaborators(event.target.value)
                 }
                 placeholder="alex@example.com, sam@example.com"
                 className="mt-2 h-11 w-full rounded-lg border border-[#DCE1E7] px-3 text-sm outline-none focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
@@ -479,11 +448,7 @@ const DashboardModals = ({ dashboard }) => {
             <div className="mt-6 flex justify-end gap-2">
               <button
                 type="button"
-                onClick={() =>
-                  setProjectDialogOpen(
-                    false
-                  )
-                }
+                onClick={() => setProjectDialogOpen(false)}
                 className="rounded-lg border border-[#DCE1E7] px-4 py-2.5 text-xs font-semibold text-[#697381] hover:bg-[#F5F6F8]"
               >
                 Cancel
@@ -491,14 +456,10 @@ const DashboardModals = ({ dashboard }) => {
 
               <button
                 type="submit"
-                disabled={
-                  creatingProject
-                }
+                disabled={creatingProject}
                 className="rounded-lg bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#E94B27] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {creatingProject
-                  ? "Creating..."
-                  : "Create project"}
+                {creatingProject ? "Creating..." : "Create project"}
               </button>
             </div>
           </motion.form>

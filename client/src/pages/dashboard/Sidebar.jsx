@@ -1,13 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   LayoutDashboard,
   FolderKanban,
   Users,
   Bot,
-  Settings,
-  Search,
-  Bell,
-  MoreHorizontal,
   ChevronDown,
   ChevronRight,
   LogOut,
@@ -18,7 +15,7 @@ import {
   Menu,
   X,
   Building2,
-  Sparkles,
+  MoreHorizontal,
 } from "lucide-react";
 
 import logo from "../../assets/logo.png";
@@ -32,7 +29,6 @@ const Sidebar = ({ dashboard, children, modals }) => {
     handleNavClick,
     navigate,
     navItems,
-    openWorkspaceEditor,
     overflowOpen,
     selectedWorkspaceId,
     setInviteDialogOpen,
@@ -53,45 +49,67 @@ const Sidebar = ({ dashboard, children, modals }) => {
     Team: Users,
     "AI workspace": Bot,
     Workspace: Building2,
-    Settings,
   };
 
   const getIcon = (label) => {
-    const Icon = iconMap[label] || LayoutDashboard;
-    return Icon;
+    return iconMap[label] || LayoutDashboard;
+  };
+
+  /*
+   * Mobile navigation.
+   * Desktop navigation stays inside the sidebar.
+   */
+  const mobileNavItems = [
+    "Overview",
+    "Workspace",
+    "Projects",
+    "Team",
+    "AI workspace",
+  ];
+
+  const handleMobileNav = (label) => {
+    setOverflowOpen(false);
+    handleNavClick(label);
+  };
+
+  const handleMobileOpen = () => {
+    setOverflowOpen((current) => !current);
   };
 
   return (
     <main className="min-h-screen bg-[#F5F6F8] text-[#171717]">
       <div className="flex min-h-screen">
-
         {/* =========================================================
-            SIDEBAR
+            DESKTOP SIDEBAR
+            CLOSED BY DEFAULT
         ========================================================== */}
 
         <motion.aside
           initial={false}
           animate={{
             width: sidebarOpen ? 248 : 0,
+            opacity: sidebarOpen ? 1 : 0,
           }}
           transition={{
             duration: 0.28,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="hidden shrink-0 overflow-hidden bg-[#0D1117] text-[#AAB3BF] md:flex md:flex-col"
+          aria-hidden={!sidebarOpen}
+          className="hidden shrink-0 overflow-hidden bg-[#0B0F14] text-[#AAB3BF] md:flex md:flex-col"
         >
           <div
-            className={`flex h-full w-[248px] flex-col px-3 py-4 ${
-              sidebarOpen ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-200`}
+            className={`flex h-full w-[248px] min-w-[248px] flex-col px-3 py-4 transition-opacity duration-200 ${
+              sidebarOpen
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
+            }`}
           >
+            {/* =====================================================
+                BRAND
+            ====================================================== */}
 
-            {/* BRAND */}
-
-            <div className="relative mb-5">
-              <div className="absolute inset-0 -z-0 rounded-2xl bg-[#FF5C35]/10 blur-2xl" />
-
-              <div className="relative flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.035] px-3 py-3">
+            <div className="mb-5">
+              <div className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.035] px-3 py-3">
                 <motion.div
                   whileHover={{
                     rotate: -4,
@@ -121,24 +139,21 @@ const Sidebar = ({ dashboard, children, modals }) => {
                   </p>
                 </div>
 
-                <div className="ml-auto">
-                  <span className="block h-2 w-2 rounded-full bg-[#35D399] shadow-[0_0_10px_rgba(53,211,153,0.7)]" />
-                </div>
+                <span className="ml-auto h-2 w-2 rounded-full bg-[#35D399] shadow-[0_0_10px_rgba(53,211,153,0.7)]" />
               </div>
             </div>
 
-            {/* WORKSPACE */}
+            {/* =====================================================
+                WORKSPACE
+            ====================================================== */}
 
             <div className="mb-5">
-              <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#596473]">
+              <p className="mb-2 px-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#596473]">
                 Workspace
               </p>
 
-              <button
-                type="button"
-                className="group flex w-full items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.045] px-3 py-2.5 text-left transition hover:border-white/[0.1] hover:bg-white/[0.07]"
-              >
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF704D] to-[#FF4F2B] text-[10px] font-bold text-white shadow-[0_4px_12px_rgba(255,92,53,0.2)]">
+              <div className="flex w-full items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.045] px-3 py-2.5">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF704D] to-[#FF4F2B] text-[10px] font-bold text-white">
                   {(workspaceName || "W").charAt(0).toUpperCase()}
                 </div>
 
@@ -152,15 +167,13 @@ const Sidebar = ({ dashboard, children, modals }) => {
                   </p>
                 </div>
 
-                <ChevronDown
-                  size={14}
-                  strokeWidth={1.8}
-                  className="text-[#687383] transition group-hover:text-white"
-                />
-              </button>
+                <ChevronDown size={14} className="text-[#687383]" />
+              </div>
             </div>
 
-            {/* NAVIGATION */}
+            {/* =====================================================
+                DESKTOP NAVIGATION
+            ====================================================== */}
 
             <div>
               <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#596473]">
@@ -177,8 +190,12 @@ const Sidebar = ({ dashboard, children, modals }) => {
                       key={label}
                       type="button"
                       onClick={() => handleNavClick(label)}
-                      whileHover={{ x: active ? 0 : 3 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{
+                        x: active ? 0 : 3,
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                      }}
                       className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[11px] font-medium transition ${
                         active
                           ? "bg-[#FF5C35] text-white shadow-[0_6px_18px_rgba(255,92,53,0.18)]"
@@ -199,10 +216,7 @@ const Sidebar = ({ dashboard, children, modals }) => {
                             : "bg-transparent group-hover:bg-white/[0.06]"
                         }`}
                       >
-                        <Icon
-                          size={16}
-                          strokeWidth={active ? 2.2 : 1.8}
-                        />
+                        <Icon size={16} strokeWidth={active ? 2.2 : 1.8} />
                       </span>
 
                       <span>{label}</span>
@@ -219,30 +233,11 @@ const Sidebar = ({ dashboard, children, modals }) => {
               </nav>
             </div>
 
-            {/* BOTTOM */}
+            {/* =====================================================
+                DESKTOP LOGOUT
+            ====================================================== */}
 
             <div className="mt-auto">
-
-              <div className="mb-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FF5C35]/10 text-[#FF704D]">
-                    <Sparkles size={15} />
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-semibold text-white">
-                      AI workspace
-                    </p>
-
-                    <p className="text-[8px] text-[#687383]">
-                      Ready to assist
-                    </p>
-                  </div>
-
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#35D399]" />
-                </div>
-              </div>
-
               <button
                 type="button"
                 onClick={handleLogout}
@@ -251,7 +246,6 @@ const Sidebar = ({ dashboard, children, modals }) => {
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg group-hover:bg-red-500/10">
                   <LogOut size={16} strokeWidth={1.8} />
                 </span>
-
                 Log out
               </button>
 
@@ -265,25 +259,37 @@ const Sidebar = ({ dashboard, children, modals }) => {
         </motion.aside>
 
         {/* =========================================================
-            MAIN
+            MAIN CONTENT
         ========================================================== */}
 
         <div className="min-w-0 flex-1">
+          {/* =======================================================
+              HEADER
+          ======================================================== */}
 
-          {/* HEADER */}
+          <header className="sticky top-0 z-50 flex h-[62px] items-center justify-between border-b border-white/[0.08] bg-[#0B0F14] px-3 text-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] sm:h-[68px] sm:px-5 lg:px-7">
+            {/* =====================================================
+                LEFT SIDE
+            ====================================================== */}
 
-          <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-[#E3E7EB] bg-white/90 px-4 backdrop-blur-xl sm:px-7">
+            <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+              {/* =================================================
+                  DESKTOP SIDEBAR TOGGLE
 
-            <div className="flex min-w-0 items-center gap-3">
-
-              {/* SIDEBAR TOGGLE */}
+                  Only visible on desktop.
+                  Sidebar starts CLOSED.
+              ================================================== */}
 
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setSidebarOpen((open) => !open)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#DCE1E7] bg-white text-[#66717E] transition hover:border-[#C8CED5] hover:bg-[#F7F8F9]"
-                title={sidebarOpen ? "Close navigation" : "Open navigation"}
+                onClick={() => {
+                  setSidebarOpen((current) => !current);
+                }}
+                className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.05] text-[#AAB3BF] transition hover:bg-white/[0.09] hover:text-white md:flex"
+                title={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+                aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+                aria-expanded={sidebarOpen}
               >
                 {sidebarOpen ? (
                   <X size={17} strokeWidth={1.8} />
@@ -292,36 +298,59 @@ const Sidebar = ({ dashboard, children, modals }) => {
                 )}
               </motion.button>
 
-              {/* LOGO WHEN SIDEBAR CLOSED */}
+              {/* =================================================
+                  MOBILE OPEN BUTTON
 
-              <AnimatePresence>
-                {!sidebarOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -8 }}
-                    className="hidden items-center gap-2 md:flex"
-                  >
-                    <img
-                      src={logo}
-                      alt="Syncora"
-                      className="h-8 w-8 rounded-lg object-contain"
-                    />
+                  This replaces the three-dot navigation trigger
+                  on mobile.
+              ================================================== */}
 
-                    <span className="text-sm font-semibold tracking-[-0.02em] text-[#20252C]">
-                      Syncora
-                    </span>
-                  </motion.div>
+              {/* MOBILE NAVIGATION BUTTON */}
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.92 }}
+                onClick={handleMobileOpen}
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition md:hidden ${
+                  overflowOpen
+                    ? "border-[#FF704D]/40 bg-[#FF5C35]/10 text-[#FF704D]"
+                    : "border-white/[0.1] bg-white/[0.05] text-[#AAB3BF] hover:bg-white/[0.09] hover:text-white"
+                }`}
+                title={overflowOpen ? "Close navigation" : "Open navigation"}
+                aria-label={
+                  overflowOpen ? "Close navigation" : "Open navigation"
+                }
+                aria-expanded={overflowOpen}
+              >
+                {overflowOpen ? (
+                  <X size={17} strokeWidth={2} />
+                ) : (
+                  <Menu size={17} strokeWidth={2} />
                 )}
-              </AnimatePresence>
+              </motion.button>
+              {/* =================================================
+                  LOGO
+              ================================================== */}
 
-              {/* WORKSPACE SELECTOR */}
+              <div className="flex items-center gap-2">
+                <img
+                  src={logo}
+                  alt="Syncora"
+                  className="h-8 w-8 rounded-lg object-contain"
+                />
 
-              <div className="hidden h-7 w-px bg-[#E3E7EB] md:block" />
+                <span className="text-sm font-semibold tracking-[-0.02em] text-white">
+                  Syncora
+                </span>
+              </div>
 
-              <div className="flex min-w-0 items-center gap-2">
+              {/* =================================================
+                  DESKTOP WORKSPACE
+              ================================================== */}
 
-                <span className="hidden text-[10px] font-medium text-[#929AA5] sm:inline">
+              <div className="hidden h-7 w-px bg-white/[0.1] md:block" />
+
+              <div className="hidden min-w-0 items-center gap-2 md:flex">
+                <span className="text-[10px] font-medium text-[#FFFFFF]">
                   Workspace
                 </span>
 
@@ -334,7 +363,7 @@ const Sidebar = ({ dashboard, children, modals }) => {
                         const workspaceId = event.target.value;
 
                         const workspace = workspaces.find(
-                          (item) => item._id === workspaceId
+                          (item) => item._id === workspaceId,
                         );
 
                         setSelectedWorkspaceId(workspaceId);
@@ -349,10 +378,14 @@ const Sidebar = ({ dashboard, children, modals }) => {
                           }));
                         }
                       }}
-                      className="max-w-[170px] appearance-none rounded-xl border border-[#E0E4E8] bg-[#F8F9FA] py-2 pl-3 pr-8 text-[11px] font-semibold text-[#20252C] outline-none transition hover:bg-white focus:border-[#FF5C35] sm:max-w-[210px]"
+                      className="max-w-[210px] appearance-none rounded-xl border border-white/[0.1] bg-white/[0.05] py-2 pl-3 pr-8 text-[11px] font-semibold text-white outline-none transition hover:bg-white/[0.08] focus:border-[#FF5C35]"
                     >
                       {workspaces.map((workspace) => (
-                        <option key={workspace._id} value={workspace._id}>
+                        <option
+                          key={workspace._id}
+                          value={workspace._id}
+                          className="bg-[#0B0F14] text-white"
+                        >
                           {workspace.name}
                         </option>
                       ))}
@@ -364,202 +397,237 @@ const Sidebar = ({ dashboard, children, modals }) => {
                     />
                   </div>
                 ) : (
-                  <span className="max-w-[180px] truncate text-[11px] font-semibold text-[#20252C]">
+                  <span className="max-w-[180px] truncate text-[11px] font-semibold text-white">
                     {workspaceName}
                   </span>
                 )}
               </div>
-
-              {/* SEARCH */}
-
-              <div className="relative ml-2 hidden lg:block">
-                <Search
-                  size={14}
-                  strokeWidth={1.8}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#929AA5]"
-                />
-
-                <input
-                  aria-label="Search dashboard"
-                  placeholder="Search workspace..."
-                  className="h-9 w-56 rounded-xl border border-[#E0E4E8] bg-[#F8F9FA] pl-9 pr-3 text-[10px] text-[#20252C] outline-none transition placeholder:text-[#A4ABB4] focus:border-[#FF5C35] focus:bg-white focus:ring-2 focus:ring-[#FF5C35]/10"
-                />
-              </div>
             </div>
 
-            {/* RIGHT */}
+            {/* =====================================================
+                RIGHT SIDE
+            ====================================================== */}
 
-            <div className="relative flex items-center gap-2">
+            <div className="relative flex items-center gap-1.5 sm:gap-2">
+              {/* =================================================
+                  DESKTOP THREE-DOT MENU
 
-              <motion.button
-                type="button"
-                whileTap={{ scale: 0.9 }}
-                className="relative hidden h-9 w-9 items-center justify-center rounded-xl border border-[#E0E4E8] bg-white text-[#697381] transition hover:bg-[#F7F8F9] sm:flex"
-                title="Notifications"
-              >
-                <Bell size={15} strokeWidth={1.8} />
-
-                <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#FF5C35]" />
-              </motion.button>
+                  Hidden on mobile.
+              ================================================== */}
 
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setOverflowOpen((open) => !open)}
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border bg-white transition ${
+                onClick={() => setOverflowOpen((current) => !current)}
+                className={`hidden h-9 w-9 items-center justify-center rounded-xl border transition md:flex ${
                   overflowOpen
-                    ? "border-[#FFB09E] text-[#FF5C35]"
-                    : "border-[#E0E4E8] text-[#697381] hover:bg-[#F7F8F9]"
+                    ? "border-[#FF704D]/40 bg-[#FF5C35]/10 text-[#FF704D]"
+                    : "border-white/[0.1] bg-white/[0.05] text-[#AAB3BF] hover:bg-white/[0.09] hover:text-white"
                 }`}
-                title="Workspace actions"
+                title="Workspace menu"
+                aria-label="Workspace menu"
               >
-                <MoreHorizontal size={17} />
+                <MoreHorizontal size={18} strokeWidth={2} />
               </motion.button>
 
-              {/* USER */}
+              {/* =================================================
+                  USER
+              ================================================== */}
 
-              <div className="ml-1 flex items-center gap-2.5 border-l border-[#E3E7EB] pl-3">
-
-                <div className="hidden text-right sm:block">
-                  <p className="max-w-[160px] truncate text-[10px] font-semibold text-[#252A31]">
-                    {user.name || "User"}
-                  </p>
-
-                  <p className="max-w-[160px] truncate text-[8px] text-[#929AA5]">
-                    {user.email || ""}
-                  </p>
-                </div>
-
+              <div className="ml-1 flex items-center border-l border-white/[0.1] pl-2.5 sm:ml-1.5 sm:pl-3">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#26374D] to-[#111A27] text-[11px] font-semibold text-white shadow-sm"
                 >
-                  {(
-                    user.name ||
-                    user.email ||
-                    "U"
-                  )
-                    .charAt(0)
-                    .toUpperCase()}
+                  {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
                 </motion.div>
               </div>
 
-              {/* DROPDOWN */}
+              {/* =================================================
+                  MENU CONTENT
+              ================================================== */}
 
               <AnimatePresence>
                 {overflowOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-12 z-50 w-60 overflow-hidden rounded-2xl border border-[#E0E4E8] bg-white p-1.5 shadow-[0_20px_50px_rgba(20,28,38,0.14)]"
-                  >
-                    <div className="border-b border-[#EEF0F2] px-3 py-2.5">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#9AA2AC]">
-                        Workspace
-                      </p>
+                  <>
+                    {/* MOBILE BACKDROP */}
 
-                      <p className="mt-1 truncate text-[11px] font-semibold text-[#20252C]">
-                        {workspaceName}
-                      </p>
-                    </div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onClick={() => setOverflowOpen(false)}
+                      className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden"
+                    />
 
-                    <DropdownButton
-                      icon={Building2}
-                      label="View workspace"
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        handleNavClick("Workspace");
+                    {/* =================================================
+                        MOBILE NAV MENU
+                    ================================================== */}
+
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                        y: -6,
+                        scale: 0.98,
                       }}
-                    />
-
-                    <DropdownButton
-                      icon={Copy}
-                      label="Copy workspace slug"
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        handleCopyWorkspaceSlug();
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
                       }}
-                    />
-
-                    <DropdownButton
-                      icon={Settings}
-                      label="Workspace settings"
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        openWorkspaceEditor();
+                      exit={{
+                        opacity: 0,
+                        y: -6,
+                        scale: 0.98,
                       }}
-                    />
-
-                    <DropdownButton
-                      icon={UserPlus}
-                      label="Members & invitations"
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        setInviteDialogOpen(true);
+                      transition={{
+                        duration: 0.15,
                       }}
-                    />
+                      className="fixed left-3 right-3 top-[70px] z-50 overflow-hidden rounded-2xl border border-white/[0.1] bg-[#11161D] p-1.5 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:absolute md:left-auto md:right-0 md:top-12 md:w-[300px]"
+                    >
+                      {/* =================================================
+                          MOBILE NAVIGATION
+                      ================================================== */}
 
-                    <DropdownButton
-                      icon={Plus}
-                      label="New workspace"
-                      onClick={() => navigate("/workspace/new")}
-                    />
+                      <div className="md:hidden">
+                        <div className="px-3 pb-2 pt-2">
+                          <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#697585]">
+                            Navigation
+                          </p>
+                        </div>
 
-                    <div className="my-1 border-t border-[#EEF0F2]" />
+                        <div className="space-y-0.5">
+                          {mobileNavItems.map((label) => {
+                            const Icon = getIcon(label);
+                            const active = activeNav === label;
 
-                    <DropdownButton
-                      icon={Trash2}
-                      label="Delete workspace"
-                      danger
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        handleDeleteWorkspace();
-                      }}
-                    />
+                            return (
+                              <button
+                                key={label}
+                                type="button"
+                                onClick={() => handleMobileNav(label)}
+                                className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-[11px] font-semibold transition ${
+                                  active
+                                    ? "bg-[#FF5C35] text-white"
+                                    : "text-[#AAB3BF] hover:bg-white/[0.06] hover:text-white"
+                                }`}
+                              >
+                                <span
+                                  className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+                                    active ? "bg-white/10" : "bg-white/[0.04]"
+                                  }`}
+                                >
+                                  <Icon
+                                    size={15}
+                                    strokeWidth={active ? 2.2 : 1.8}
+                                  />
+                                </span>
 
-                    <DropdownButton
-                      icon={LogOut}
-                      label="Log out"
-                      danger
-                      onClick={() => {
-                        setOverflowOpen(false);
-                        handleLogout();
-                      }}
-                    />
-                  </motion.div>
+                                <span>{label}</span>
+
+                                {active && (
+                                  <ChevronRight
+                                    size={14}
+                                    className="ml-auto opacity-70"
+                                  />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        <div className="my-2 border-t border-white/[0.08]" />
+                      </div>
+
+                      {/* =================================================
+                          DESKTOP WORKSPACE ACTIONS
+                      ================================================== */}
+
+                      <div className="hidden md:block">
+                        <div className="px-3 pb-2 pt-2">
+                          <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#697585]">
+                            Workspace actions
+                          </p>
+                        </div>
+
+                        <DropdownButton
+                          icon={Copy}
+                          label="Copy workspace slug"
+                          dark
+                          onClick={() => {
+                            setOverflowOpen(false);
+                            handleCopyWorkspaceSlug();
+                          }}
+                        />
+
+                        <DropdownButton
+                          icon={UserPlus}
+                          label="Members & invitations"
+                          dark
+                          onClick={() => {
+                            setOverflowOpen(false);
+                            setInviteDialogOpen(true);
+                          }}
+                        />
+
+                        <DropdownButton
+                          icon={Plus}
+                          label="New workspace"
+                          dark
+                          onClick={() => {
+                            setOverflowOpen(false);
+                            navigate("/workspace/new");
+                          }}
+                        />
+
+                        <div className="my-1 border-t border-white/[0.08]" />
+
+                        <DropdownButton
+                          icon={Trash2}
+                          label="Delete workspace"
+                          dark
+                          danger
+                          onClick={() => {
+                            setOverflowOpen(false);
+                            handleDeleteWorkspace();
+                          }}
+                        />
+                      </div>
+
+                      {/* =================================================
+                          MOBILE LOGOUT
+                      ================================================== */}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setOverflowOpen(false);
+                          handleLogout();
+                        }}
+                        className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-[11px] font-semibold text-[#FF8B7A] transition hover:bg-red-500/10"
+                      >
+                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-red-500/10">
+                          <LogOut size={15} />
+                        </span>
+                        Log out
+                      </button>
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
             </div>
           </header>
 
-          {/* MOBILE NAV */}
-
-          <nav className="flex gap-1 overflow-x-auto border-b border-[#E3E7EB] bg-white px-4 py-2 md:hidden">
-            {navItems.map(([label]) => {
-              const Icon = getIcon(label);
-
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => handleNavClick(label)}
-                  className={`flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-[10px] font-semibold ${
-                    activeNav === label
-                      ? "bg-[#FFF0EB] text-[#E94B27]"
-                      : "text-[#697381]"
-                  }`}
-                >
-                  <Icon size={14} strokeWidth={1.9} />
-                  {label}
-                </button>
-              );
-            })}
-          </nav>
+          {/* =========================================================
+              PAGE CONTENT
+          ========================================================== */}
 
           {children}
         </div>
+
+        {/* =========================================================
+            MODALS
+        ========================================================== */}
 
         {modals}
       </div>
@@ -567,27 +635,40 @@ const Sidebar = ({ dashboard, children, modals }) => {
   );
 };
 
+/* =============================================================
+   DROPDOWN BUTTON
+============================================================= */
+
 const DropdownButton = ({
   icon: Icon,
   label,
   onClick,
   danger = false,
+  dark = false,
 }) => {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[10px] font-medium transition ${
-        danger
-          ? "text-[#B23A2B] hover:bg-[#FFF3F1]"
-          : "text-[#39424D] hover:bg-[#F6F7F8]"
+        dark
+          ? danger
+            ? "text-[#FF8B7A] hover:bg-red-500/10"
+            : "text-[#AAB3BF] hover:bg-white/[0.06] hover:text-white"
+          : danger
+            ? "text-[#B23A2B] hover:bg-[#FFF3F1]"
+            : "text-[#39424D] hover:bg-[#F6F7F8]"
       }`}
     >
       <span
-        className={`flex h-7 w-7 items-center justify-center rounded-lg ${
-          danger
-            ? "bg-[#FFF3F1]"
-            : "bg-[#F3F5F7] group-hover:bg-white"
+        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${
+          dark
+            ? danger
+              ? "bg-red-500/10"
+              : "bg-white/[0.05] group-hover:bg-white/[0.08]"
+            : danger
+              ? "bg-[#FFF3F1]"
+              : "bg-[#F3F5F7]"
         }`}
       >
         <Icon size={14} strokeWidth={1.8} />
