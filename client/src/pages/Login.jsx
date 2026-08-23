@@ -1659,33 +1659,7 @@ const Login = () => {
               }}
               className="w-full max-w-md"
             >
-              {/* MOBILE LOGO */}
-
-              <div className="mb-5 lg:hidden">
-                <Link to="/" className="flex items-center gap-2.5">
-                  <div
-                    className="
-                    flex
-                    h-9
-                    w-9
-                    items-center
-                    justify-center
-                    rounded-xl
-                    bg-[#FF5C35]
-                    text-sm
-                    font-bold
-                    text-white
-                  "
-                  >
-                    S
-                  </div>
-
-                  <span className="text-xl font-semibold text-white">
-                    Syncora
-                  </span>
-                </Link>
-              </div>
-
+          
               {/* =================================================
                   FORM CARD
               ================================================= */}

@@ -2,12 +2,14 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import dotenv from "dotenv";
+import crypto from "node:crypto";
+
 import User from "../models/User.js";
 import Workspace from "../models/Workspace.js";
 import Invitation from "../models/Invitation.js";
+
 import { hashPassword } from "../utils/password.js";
 import { sendInvitationEmail, sendResetOtp } from "../utils/email.js";
-import crypto from "node:crypto";
 import jwtSecret from "../config/auth.js";
 
 dotenv.config();
@@ -23,14 +25,27 @@ const googleClient = new OAuth2Client(
   process.env.GOOGLE_CALLBACK_URL
 );
 
+/* =========================================================
+   HELPERS
+========================================================= */
+
 const redirectToLogin = (res, params) => {
   const query = new URLSearchParams(params).toString();
-  const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+
+  const clientUrl =
+    process.env.CLIENT_URL || "http://localhost:5173";
 
   return res.redirect(`${clientUrl}/login?${query}`);
 };
 
-// SIGNUP
+const generateResetOtp = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
+
+/* =========================================================
+   SIGNUP
+========================================================= */
+
 export const signup = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -105,13 +120,17 @@ export const signup = async (req, res) => {
   }
 };
 
-// LOGIN
+/* =========================================================
+   LOGIN
+========================================================= */
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
+        success: false,
         message: "Email and password are required.",
       });
     }
@@ -120,6 +139,7 @@ export const login = async (req, res) => {
 
     if (!emailRegex.test(normalizedEmail)) {
       return res.status(400).json({
+        success: false,
         message: "Please enter a valid email address.",
       });
     }
@@ -137,12 +157,24 @@ export const login = async (req, res) => {
       });
     }
 
-    if (user.provider !== "local") {
+    /*
+      IMPORTANT:
+
+      Previously we blocked every Google account here.
+
+      Now we only block Google accounts that DON'T have
+      a password yet.
+
+      Once a Google user creates a password through
+      Forgot Password, they can log in with email/password too.
+    */
+
+    if (!user.password) {
       return res.status(400).json({
         success: false,
-        code: "GOOGLE_ACCOUNT",
+        code: "GOOGLE_ACCOUNT_NO_PASSWORD",
         message:
-          "This account uses Google sign-in. Please continue with Google.",
+          "This account uses Google sign-in. Please continue with Google or use Forgot password to create a password.",
       });
     }
 
@@ -192,9 +224,17 @@ export const login = async (req, res) => {
   }
 };
 
+/* =========================================================
+   COMPLETE ONBOARDING
+========================================================= */
+
 export const completeOnboarding = async (req, res) => {
   try {
-    const { workspace: workspaceInput = {}, invites = [] } = req.body;
+    const {
+      workspace: workspaceInput = {},
+      invites = [],
+    } = req.body;
+
     const workspaceName = workspaceInput.workspaceName?.trim();
 
     if (!workspaceName) {
@@ -204,12 +244,17 @@ export const completeOnboarding = async (req, res) => {
       });
     }
 
-    let workspace = await Workspace.findOne({ owner: req.user._id });
+    let workspace = await Workspace.findOne({
+      owner: req.user._id,
+    });
 
     if (!workspace) {
       const baseSlug =
         workspaceInput.workspaceSlug?.trim().toLowerCase() ||
-        workspaceName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        workspaceName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+
       let slug = baseSlug || "workspace";
       let suffix = 2;
 
@@ -221,10 +266,19 @@ export const completeOnboarding = async (req, res) => {
       workspace = await Workspace.create({
         name: workspaceName,
         slug,
-        description: workspaceInput.description?.trim() || "",
-        visibility: workspaceInput.visibility === "public" ? "public" : "private",
+        description:
+          workspaceInput.description?.trim() || "",
+        visibility:
+          workspaceInput.visibility === "public"
+            ? "public"
+            : "private",
         owner: req.user._id,
-        members: [{ user: req.user._id, role: "owner" }],
+        members: [
+          {
+            user: req.user._id,
+            role: "owner",
+          },
+        ],
       });
     }
 
@@ -232,7 +286,10 @@ export const completeOnboarding = async (req, res) => {
       ...new Set(
         invites
           .map((email) => email?.trim().toLowerCase())
-          .filter((email) => email && emailRegex.test(email))
+          .filter(
+            (email) =>
+              email && emailRegex.test(email)
+          )
       ),
     ];
 
@@ -242,28 +299,39 @@ export const completeOnboarding = async (req, res) => {
           workspace: workspace._id,
           email,
           status: "pending",
-          expiresAt: { $gt: new Date() },
+          expiresAt: {
+            $gt: new Date(),
+          },
         });
 
-        if (existing) return existing;
+        if (existing) {
+          return existing;
+        }
 
         const invitation = await Invitation.create({
           workspace: workspace._id,
           inviter: req.user._id,
           email,
           token: crypto.randomBytes(32).toString("hex"),
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          expiresAt: new Date(
+            Date.now() +
+              7 * 24 * 60 * 60 * 1000
+          ),
         });
 
         try {
           await sendInvitationEmail({
             email,
-            inviterName: req.user.name || req.user.email,
+            inviterName:
+              req.user.name || req.user.email,
             workspaceName: workspace.name,
             token: invitation.token,
           });
         } catch (emailError) {
-          console.error("Invitation email error:", emailError.message);
+          console.error(
+            "Invitation email error:",
+            emailError.message
+          );
         }
 
         return invitation;
@@ -271,6 +339,7 @@ export const completeOnboarding = async (req, res) => {
     );
 
     req.user.onboardingCompleted = true;
+
     await req.user.save();
 
     return res.status(200).json({
@@ -289,10 +358,15 @@ export const completeOnboarding = async (req, res) => {
           memberCount: workspace.members.length,
         },
       },
-      invitationsCreated: invitationResults.length,
+      invitationsCreated:
+        invitationResults.length,
     });
   } catch (error) {
-    console.error("Onboarding completion error:", error);
+    console.error(
+      "Onboarding completion error:",
+      error
+    );
+
     return res.status(500).json({
       success: false,
       message: "Unable to complete onboarding.",
@@ -300,7 +374,10 @@ export const completeOnboarding = async (req, res) => {
   }
 };
 
-// FORGOT PASSWORD
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -332,47 +409,58 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-    if (user.provider !== "local") {
-      return res.status(400).json({
-        success: false,
-        message:
-          "This account uses Google sign-in. Please continue with Google.",
-      });
-    }
+    /*
+      IMPORTANT:
 
-    // Generate 6-digit OTP
-    const otp = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
+      DO NOT block Google accounts here.
+
+      Both local and Google accounts can now
+      receive a reset OTP.
+    */
+
+    const otp = generateResetOtp();
 
     user.resetOtp = otp;
 
-    // OTP valid for 10 minutes
     user.resetOtpExpires = new Date(
       Date.now() + 10 * 60 * 1000
     );
 
     user.resetOtpVerified = false;
 
+    user.resetOtpAttempts = 0;
+
     await user.save();
 
-    await sendResetOtp(normalizedEmail, otp);
+    await sendResetOtp(
+      normalizedEmail,
+      otp
+    );
 
     return res.status(200).json({
       success: true,
-      message: "Verification code sent successfully.",
+      provider: user.provider,
+      message:
+        "Verification code sent successfully.",
     });
   } catch (error) {
-    console.error("Forgot password error:", error);
+    console.error(
+      "Forgot password error:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
-      message: "Unable to send verification code.",
+      message:
+        "Unable to send verification code.",
     });
   }
 };
 
-// RESEND RESET OTP
+/* =========================================================
+   RESEND RESET OTP
+========================================================= */
+
 export const resendResetOtp = async (req, res) => {
   try {
     const { email } = req.body;
@@ -389,7 +477,8 @@ export const resendResetOtp = async (req, res) => {
     if (!emailRegex.test(normalizedEmail)) {
       return res.status(400).json({
         success: false,
-        message: "Please enter a valid email address.",
+        message:
+          "Please enter a valid email address.",
       });
     }
 
@@ -400,46 +489,58 @@ export const resendResetOtp = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "No account exists with this email.",
-      });
-    }
-
-    if (user.provider !== "local") {
-      return res.status(400).json({
-        success: false,
         message:
-          "This account uses Google sign-in. Please continue with Google.",
+          "No account exists with this email.",
       });
     }
 
-    const otp = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
+    /*
+      Google accounts are allowed here too.
+    */
+
+    const otp = generateResetOtp();
 
     user.resetOtp = otp;
+
     user.resetOtpExpires = new Date(
       Date.now() + 10 * 60 * 1000
     );
+
     user.resetOtpVerified = false;
 
+    user.resetOtpAttempts = 0;
+
     await user.save();
-    await sendResetOtp(normalizedEmail, otp);
+
+    await sendResetOtp(
+      normalizedEmail,
+      otp
+    );
 
     return res.status(200).json({
       success: true,
-      message: "A new verification code has been sent.",
+      provider: user.provider,
+      message:
+        "A new verification code has been sent.",
     });
   } catch (error) {
-    console.error("Resend OTP error:", error);
+    console.error(
+      "Resend OTP error:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
-      message: "Unable to resend verification code.",
+      message:
+        "Unable to resend verification code.",
     });
   }
 };
 
-// VERIFY RESET OTP
+/* =========================================================
+   VERIFY RESET OTP
+========================================================= */
+
 export const verifyResetOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -447,16 +548,25 @@ export const verifyResetOtp = async (req, res) => {
     if (!email || !otp) {
       return res.status(400).json({
         success: false,
-        message: "Email and verification code are required.",
+        message:
+          "Email and verification code are required.",
       });
     }
 
     const normalizedEmail = email.trim().toLowerCase();
 
+    if (!emailRegex.test(normalizedEmail)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Please enter a valid email address.",
+      });
+    }
+
     const user = await User.findOne({
       email: normalizedEmail,
     }).select(
-      "+resetOtp +resetOtpExpires +resetOtpVerified"
+      "+resetOtp +resetOtpExpires +resetOtpVerified +resetOtpAttempts"
     );
 
     if (!user) {
@@ -466,7 +576,10 @@ export const verifyResetOtp = async (req, res) => {
       });
     }
 
-    if (!user.resetOtp || !user.resetOtpExpires) {
+    if (
+      !user.resetOtp ||
+      !user.resetOtpExpires
+    ) {
       return res.status(400).json({
         success: false,
         message:
@@ -474,10 +587,13 @@ export const verifyResetOtp = async (req, res) => {
       });
     }
 
-    if (user.resetOtpExpires < new Date()) {
+    if (
+      user.resetOtpExpires < new Date()
+    ) {
       user.resetOtp = null;
       user.resetOtpExpires = null;
       user.resetOtpVerified = false;
+      user.resetOtpAttempts = 0;
 
       await user.save();
 
@@ -488,10 +604,18 @@ export const verifyResetOtp = async (req, res) => {
       });
     }
 
-    if (user.resetOtp !== otp.toString()) {
+    if (
+      user.resetOtp !== otp.toString()
+    ) {
+      user.resetOtpAttempts =
+        (user.resetOtpAttempts || 0) + 1;
+
+      await user.save();
+
       return res.status(400).json({
         success: false,
-        message: "Invalid verification code.",
+        message:
+          "Invalid verification code.",
       });
     }
 
@@ -501,21 +625,35 @@ export const verifyResetOtp = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Email verified successfully.",
+      provider: user.provider,
+      message:
+        "Email verified successfully.",
     });
   } catch (error) {
-    console.error("Verify OTP error:", error);
+    console.error(
+      "Verify OTP error:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
-      message: "Unable to verify the code.",
+      message:
+        "Unable to verify the code.",
     });
   }
 };
-// RESET PASSWORD
+
+/* =========================================================
+   RESET PASSWORD
+========================================================= */
+
 export const resetPassword = async (req, res) => {
   try {
-    const { email, otp, password } = req.body;
+    const {
+      email,
+      otp,
+      password,
+    } = req.body;
 
     if (!email || !otp || !password) {
       return res.status(400).json({
@@ -533,12 +671,13 @@ export const resetPassword = async (req, res) => {
       });
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail =
+      email.trim().toLowerCase();
 
     const user = await User.findOne({
       email: normalizedEmail,
     }).select(
-      "+resetOtp +resetOtpExpires +resetOtpVerified"
+      "+password +resetOtp +resetOtpExpires +resetOtpVerified"
     );
 
     if (!user) {
@@ -562,7 +701,8 @@ export const resetPassword = async (req, res) => {
     ) {
       return res.status(400).json({
         success: false,
-        message: "Invalid verification code.",
+        message:
+          "Invalid verification code.",
       });
     }
 
@@ -577,87 +717,164 @@ export const resetPassword = async (req, res) => {
       });
     }
 
-    // Hash new password
-    user.password = await bcrypt.hash(password, 12);
+    /*
+      IMPORTANT:
 
-    // Clear reset data
+      This works for BOTH:
+
+      provider: "local"
+      provider: "google"
+
+      For Google accounts this creates their
+      first Syncora password.
+    */
+
+    user.password = await bcrypt.hash(
+      password,
+      12
+    );
+
+    /*
+      Keep the provider unchanged.
+
+      Google account stays:
+        provider: "google"
+
+      Local account stays:
+        provider: "local"
+    */
+
     user.resetOtp = null;
     user.resetOtpExpires = null;
     user.resetOtpVerified = false;
+    user.resetOtpAttempts = 0;
 
     await user.save();
 
     return res.status(200).json({
       success: true,
-      message: "Password reset successfully.",
+      provider: user.provider,
+      message:
+        "Password reset successfully.",
     });
   } catch (error) {
-    console.error("Reset password error:", error);
+    console.error(
+      "Reset password error:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
-      message: "Unable to reset your password.",
+      message:
+        "Unable to reset your password.",
     });
   }
 };
 
-// GOOGLE LOGIN
-export const googleLogin = (req, res) => {
-  const authorizationUrl = googleClient.generateAuthUrl({
-    access_type: "offline",
-    prompt: "select_account",
-    scope: ["openid", "email", "profile"],
-  });
+/* =========================================================
+   GOOGLE LOGIN
+========================================================= */
 
-  return res.redirect(authorizationUrl);
+export const googleLogin = (req, res) => {
+  const authorizationUrl =
+    googleClient.generateAuthUrl({
+      access_type: "offline",
+      prompt: "select_account",
+      scope: [
+        "openid",
+        "email",
+        "profile",
+      ],
+    });
+
+  return res.redirect(
+    authorizationUrl
+  );
 };
 
-export const googleCallback = async (req, res) => {
+/* =========================================================
+   GOOGLE CALLBACK
+========================================================= */
+
+export const googleCallback = async (
+  req,
+  res
+) => {
   try {
     const { code } = req.query;
 
     if (!code) {
       return redirectToLogin(res, {
-        googleError: "Google sign-in was cancelled.",
+        googleError:
+          "Google sign-in was cancelled.",
       });
     }
 
-    const { tokens } = await googleClient.getToken(code);
-    const ticket = await googleClient.verifyIdToken({
-      idToken: tokens.id_token,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-    const profile = ticket.getPayload();
+    const { tokens } =
+      await googleClient.getToken(code);
 
-    if (!profile?.sub || !profile.email || !profile.email_verified) {
+    const ticket =
+      await googleClient.verifyIdToken({
+        idToken: tokens.id_token,
+        audience:
+          process.env.GOOGLE_CLIENT_ID,
+      });
+
+    const profile =
+      ticket.getPayload();
+
+    if (
+      !profile?.sub ||
+      !profile.email ||
+      !profile.email_verified
+    ) {
       return redirectToLogin(res, {
-        googleError: "Google could not verify this account.",
+        googleError:
+          "Google could not verify this account.",
       });
     }
 
-    const normalizedEmail = profile.email.toLowerCase();
-    let user = await User.findOne({ email: normalizedEmail });
+    const normalizedEmail =
+      profile.email.toLowerCase();
+
+    let user = await User.findOne({
+      email: normalizedEmail,
+    });
 
     if (!user) {
       user = await User.create({
-        name: profile.name || "Syncora user",
+        name:
+          profile.name ||
+          "Syncora user",
+
         email: normalizedEmail,
+
         provider: "google",
       });
     }
 
     const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      {
+        userId: user._id,
+      },
+      jwtSecret,
+      {
+        expiresIn: "7d",
+      }
     );
 
-    return redirectToLogin(res, { token });
+    return redirectToLogin(res, {
+      token,
+    });
   } catch (error) {
-    console.error("Google login error:", error);
+    console.error(
+      "Google login error:",
+      error
+    );
 
     return redirectToLogin(res, {
-      googleError: "Unable to sign in with Google. Please try again.",
+      googleError:
+        "Unable to sign in with Google. Please try again.",
     });
   }
 };

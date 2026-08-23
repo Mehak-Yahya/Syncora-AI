@@ -525,18 +525,7 @@ const Signup = () => {
             }}
             className="w-full max-w-[440px]"
           >
-            {/* Mobile logo */}
-
-            <div className="mb-6 lg:hidden">
-              <Link to="/" className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF5C35] font-bold text-white">
-                  S
-                </div>
-
-                <span className="text-xl font-semibold">Syncora</span>
-              </Link>
-            </div>
-
+       
             {/* CARD */}
 
             <motion.div
