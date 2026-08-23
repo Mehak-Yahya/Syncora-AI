@@ -112,43 +112,18 @@ const Features = () => {
       ====================================================== */}
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-            filter: "blur(8px)",
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="max-w-2xl"
-        >
-          <motion.span
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FF6B46]"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
 
+        {/* Header — NO scroll animation */}
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FF6B46]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
             Everything connected
-          </motion.span>
+          </span>
 
           <h2 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-4xl lg:text-[48px]">
             One workspace for the
             <br />
+
             <span className="bg-gradient-to-r from-[#FF6840] via-[#FF5C35] to-[#FF9675] bg-clip-text text-transparent">
               entire engineering journey.
             </span>
@@ -158,13 +133,14 @@ const Features = () => {
             From the first idea to the final release, Syncora keeps your
             engineering workflow connected, organized, and intelligent.
           </p>
-        </motion.div>
+        </div>
 
         {/* =====================================================
             FEATURE SYSTEM
         ====================================================== */}
 
         <div className="relative mt-12">
+
           {/* Connecting horizontal line */}
           <div className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-1/2 hidden h-px bg-gradient-to-r from-transparent via-white/10 to-transparent lg:block" />
 
@@ -186,27 +162,6 @@ const Features = () => {
             {features.map((feature, index) => (
               <motion.article
                 key={feature.number}
-                initial={{
-                  opacity: 0,
-                  y: 40,
-                  rotateX: 12,
-                  filter: "blur(6px)",
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  rotateX: 0,
-                  filter: "blur(0px)",
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
                 whileHover={{
                   y: -8,
                   rotateX: 3,
@@ -243,6 +198,7 @@ const Features = () => {
 
                 {/* Top row */}
                 <div className="relative z-10 flex items-center justify-between">
+
                   {/* Icon */}
                   <motion.div
                     whileHover={{
@@ -267,7 +223,9 @@ const Features = () => {
                       }}
                     />
 
-                    <span className="relative">{feature.icon}</span>
+                    <span className="relative">
+                      {feature.icon}
+                    </span>
                   </motion.div>
 
                   {/* Number */}
@@ -317,13 +275,7 @@ const Features = () => {
             BOTTOM SYSTEM INDICATOR
         ====================================================== */}
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-8 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20"
-        >
+        <div className="mt-8 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20">
           <span className="h-px w-12 bg-white/10" />
 
           <span className="relative flex items-center gap-2">
@@ -343,7 +295,7 @@ const Features = () => {
           </span>
 
           <span className="h-px w-12 bg-white/10" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

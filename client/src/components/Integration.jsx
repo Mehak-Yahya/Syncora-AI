@@ -51,10 +51,7 @@ const Integrations = () => {
       id="integrations"
       className="relative overflow-hidden border-y border-white/10 bg-[#08090D] px-6 py-20 text-white sm:px-10 lg:px-12 lg:py-28"
     >
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
-
+      {/* BACKGROUND */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Grid */}
         <div className="absolute inset-0 opacity-[0.22] [background-image:linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:48px_48px]" />
@@ -103,37 +100,13 @@ const Integrations = () => {
         />
       </div>
 
-      {/* =====================================================
-          CONTENT
-      ====================================================== */}
-
+      {/* CONTENT */}
       <div className="relative mx-auto max-w-7xl">
-        {/* Heading */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-            filter: "blur(8px)",
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="mx-auto max-w-2xl text-center"
-        >
+        {/* Heading — INSTANT */}
+        <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FF6B46]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
-
             Integrations
           </span>
 
@@ -150,23 +123,17 @@ const Integrations = () => {
             Connect the tools your engineering team already uses and keep
             projects, code, communication, and documentation in sync.
           </p>
-        </motion.div>
+        </div>
 
-        {/* =====================================================
-            CONNECTION SYSTEM
-        ====================================================== */}
-
+        {/* CONNECTION SYSTEM */}
         <div className="relative mx-auto mt-16 max-w-6xl">
-          {/* Desktop connection lines */}
 
+          {/* Desktop connection lines */}
           <div className="pointer-events-none absolute inset-0 hidden lg:block">
-            {/* horizontal center line */}
             <div className="absolute left-[16%] right-[16%] top-1/2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-            {/* vertical center line */}
             <div className="absolute bottom-[8%] left-1/2 top-[8%] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-            {/* diagonal lines */}
             <div className="absolute left-[16%] top-[25%] h-px w-[34%] origin-left rotate-[20deg] bg-gradient-to-r from-white/10 to-transparent" />
 
             <div className="absolute right-[16%] top-[25%] h-px w-[34%] origin-right -rotate-[20deg] bg-gradient-to-l from-white/10 to-transparent" />
@@ -190,30 +157,10 @@ const Integrations = () => {
             />
           </div>
 
-          {/* =================================================
-              CENTER SYNCORA CORE
-          ================================================== */}
+          {/* CENTER SYNCORA CORE — INSTANT */}
+          <div className="relative z-20 mx-auto mb-12 flex h-28 w-28 items-center justify-center lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:-translate-x-1/2 lg:-translate-y-1/2">
 
-          <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.7,
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.9,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="relative z-20 mx-auto mb-12 flex h-28 w-28 items-center justify-center lg:absolute lg:left-1/2 lg:top-1/2 lg:mb-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
-          >
             {/* Outer rotating ring */}
-
             <motion.div
               animate={{
                 rotate: 360,
@@ -227,7 +174,6 @@ const Integrations = () => {
             />
 
             {/* Pulse ring */}
-
             <motion.div
               animate={{
                 scale: [1, 1.25, 1],
@@ -242,11 +188,9 @@ const Integrations = () => {
             />
 
             {/* Glow */}
-
             <div className="absolute inset-0 rounded-full bg-[#FF5C35]/20 blur-[35px]" />
 
             {/* Core */}
-
             <motion.div
               whileHover={{
                 scale: 1.08,
@@ -259,39 +203,16 @@ const Integrations = () => {
             </motion.div>
 
             {/* Core label */}
-
             <div className="absolute -bottom-10 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
               Syncora Core
             </div>
-          </motion.div>
+          </div>
 
-          {/* =================================================
-              INTEGRATION CARDS
-          ================================================== */}
-
+          {/* INTEGRATION CARDS — INSTANT */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {integrations.map((integration, index) => (
+            {integrations.map((integration) => (
               <motion.article
                 key={integration.name}
-                initial={{
-                  opacity: 0,
-                  y: 35,
-                  rotateX: 10,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  rotateX: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                transition={{
-                  duration: 0.65,
-                  delay: index * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
                 whileHover={{
                   y: -8,
                   scale: 1.015,
@@ -303,7 +224,6 @@ const Integrations = () => {
                 className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 backdrop-blur-xl transition-all duration-500 hover:border-white/[0.16] hover:bg-white/[0.06]"
               >
                 {/* Hover glow */}
-
                 <motion.div
                   initial={{
                     opacity: 0,
@@ -318,7 +238,6 @@ const Integrations = () => {
                 />
 
                 {/* Top */}
-
                 <div className="relative z-10 flex items-center justify-between">
                   <motion.div
                     whileHover={{
@@ -354,7 +273,6 @@ const Integrations = () => {
                 </div>
 
                 {/* Content */}
-
                 <h3 className="relative z-10 mt-6 text-base font-semibold text-white">
                   {integration.name}
                 </h3>
@@ -364,7 +282,6 @@ const Integrations = () => {
                 </p>
 
                 {/* Action */}
-
                 <button className="relative z-10 mt-5 text-[11px] font-semibold text-white/30 transition-colors duration-300 group-hover:text-[#FF6840]">
                   {integration.status === "Connected"
                     ? "Manage integration"
@@ -373,7 +290,6 @@ const Integrations = () => {
                 </button>
 
                 {/* Bottom accent */}
-
                 <motion.div
                   initial={{
                     width: 0,
@@ -395,28 +311,8 @@ const Integrations = () => {
           </div>
         </div>
 
-        {/* =====================================================
-            FOOTER
-        ====================================================== */}
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 15,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            delay: 0.5,
-            duration: 0.6,
-          }}
-          className="mt-12 flex items-center justify-center gap-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20"
-        >
+        {/* FOOTER — INSTANT */}
+        <div className="mt-12 flex items-center justify-center gap-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20">
           <span className="h-px w-12 bg-white/10" />
 
           <span className="flex items-center gap-2">
@@ -435,7 +331,7 @@ const Integrations = () => {
           </span>
 
           <span className="h-px w-12 bg-white/10" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -73,16 +73,17 @@ const About = () => {
     },
   ];
 
-  const particles = Array.from({ length: 30 });
-
   return (
     <section
       id="about"
       className="relative overflow-hidden border-y border-[#24232A] bg-[#08090B] px-6 py-20 text-white sm:px-10 lg:px-12 lg:py-28"
     >
-      {/* BACKGROUND */}
+      {/* =========================================================
+          BACKGROUND
+      ========================================================= */}
 
       <div className="pointer-events-none absolute inset-0">
+        {/* Grid */}
         <div
           className="absolute inset-0 opacity-[0.14]"
           style={{
@@ -92,6 +93,7 @@ const About = () => {
           }}
         />
 
+        {/* Orange glow */}
         <motion.div
           animate={{
             scale: [1, 1.25, 1],
@@ -105,6 +107,7 @@ const About = () => {
           className="absolute left-[10%] top-[20%] h-[420px] w-[420px] rounded-full bg-[#FF5C35] blur-[150px]"
         />
 
+        {/* Purple glow */}
         <motion.div
           animate={{
             scale: [1.2, 1, 1.2],
@@ -119,17 +122,18 @@ const About = () => {
         />
       </div>
 
+      {/* =========================================================
+          CONTENT
+      ========================================================= */}
+
       <div className="relative mx-auto max-w-7xl">
         <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          {/* LEFT */}
 
-          <motion.div
-            initial={{ opacity: 0, x: -25 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-xl"
-          >
+          {/* =====================================================
+              LEFT CONTENT
+          ===================================================== */}
+
+          <div className="max-w-xl">
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-[#FF5C35]" />
 
@@ -141,7 +145,10 @@ const About = () => {
             <h2 className="mt-6 text-4xl font-semibold leading-[1.02] tracking-[-0.05em] sm:text-5xl lg:text-[58px]">
               Stop switching
               <br />
-              <span className="text-[#FF6848]">between the pieces.</span>
+
+              <span className="text-[#FF6848]">
+                between the pieces.
+              </span>
             </h2>
 
             <p className="mt-6 max-w-lg text-base leading-7 text-[#A5A3AA] sm:text-lg">
@@ -161,16 +168,9 @@ const About = () => {
                 "One connected engineering workspace",
                 "AI that understands your project context",
                 "Built around how modern teams actually work",
-              ].map((item, index) => (
-                <motion.div
+              ].map((item) => (
+                <div
                   key={item}
-                  initial={{ opacity: 0, x: -15 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: index * 0.1,
-                    duration: 0.5,
-                  }}
                   className="flex items-center gap-3"
                 >
                   <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#2D2C33] bg-[#111216] text-[10px] text-[#FF6848]">
@@ -180,21 +180,19 @@ const About = () => {
                   <span className="text-sm text-[#B9B6BE]">
                     {item}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* 3D WORKFLOW VISUAL */}
+          {/* =====================================================
+              3D WORKFLOW VISUAL
+          ===================================================== */}
 
-          <motion.div
+          <div
             ref={sceneRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            initial={{ opacity: 0, x: 25 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
             className="relative min-h-[540px]"
             style={{
               perspective: 1200,
@@ -208,7 +206,10 @@ const About = () => {
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* FLOOR */}
+
+              {/* =================================================
+                  FLOOR
+              ================================================= */}
 
               <motion.div
                 animate={{
@@ -233,7 +234,9 @@ const About = () => {
                 }}
               />
 
-              {/* STREAMING LINES */}
+              {/* =================================================
+                  STREAMING LINES
+              ================================================= */}
 
               <svg
                 className="absolute inset-0 h-full w-full"
@@ -279,7 +282,7 @@ const About = () => {
                 </defs>
 
                 {[0, 1, 2, 3, 4].map((line) => (
-                  <motion.path
+                  <path
                     key={line}
                     d={`M ${40 + line * 20} ${
                       120 + line * 20
@@ -290,21 +293,20 @@ const About = () => {
                     }, 500 ${
                       360 - line * 20
                     }, 610 ${400 - line * 15}`}
-                    stroke={line % 2 ? "url(#flow2)" : "url(#flow1)"}
+                    stroke={
+                      line % 2
+                        ? "url(#flow2)"
+                        : "url(#flow1)"
+                    }
                     strokeWidth={1.5}
                     strokeDasharray="5 10"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 2,
-                      delay: line * 0.15,
-                    }}
                   />
                 ))}
               </svg>
 
-              {/* MOVING SIGNALS */}
+              {/* =================================================
+                  MOVING SIGNALS
+              ================================================= */}
 
               {[0, 1, 2, 3, 4, 5].map((item) => (
                 <motion.span
@@ -325,27 +327,21 @@ const About = () => {
                 />
               ))}
 
-              {/* FLOATING ITEMS */}
+              {/* =================================================
+                  FLOATING ITEMS
+              ================================================= */}
 
               {floatingItems.map((item, index) => (
                 <motion.div
                   key={item.title}
                   className={`absolute ${item.position} z-30`}
-                  initial={{
-                    opacity: 0,
-                    scale: 0.7,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: 0.3 + index * 0.15,
-                    type: "spring",
-                  }}
                   animate={{
                     y: [0, index % 2 ? 7 : -7, 0],
+                  }}
+                  transition={{
+                    duration: 3 + index * 0.4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
                   }}
                   style={{
                     transform: `translateZ(${40 + index * 15}px)`,
@@ -353,6 +349,7 @@ const About = () => {
                 >
                   <div className="rounded-2xl border border-white/10 bg-[#111216]/90 px-3.5 py-3 shadow-[0_20px_50px_rgba(0,0,0,.35)] backdrop-blur-xl">
                     <div className="flex items-center gap-2.5">
+
                       <div
                         className="flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold"
                         style={{
@@ -373,12 +370,15 @@ const About = () => {
                           {item.subtitle}
                         </p>
                       </div>
+
                     </div>
                   </div>
                 </motion.div>
               ))}
 
-              {/* MAIN FLOW OBJECT */}
+              {/* =================================================
+                  MAIN FLOW OBJECT
+              ================================================= */}
 
               <motion.div
                 animate={{
@@ -392,11 +392,13 @@ const About = () => {
                 }}
                 className="absolute left-1/2 top-1/2 z-40"
                 style={{
-                  transform: "translate(-50%, -50%) translateZ(90px)",
+                  transform:
+                    "translate(-50%, -50%) translateZ(90px)",
                   transformStyle: "preserve-3d",
                 }}
               >
-                {/* BACK DEPTH */}
+
+                {/* Back depth */}
 
                 <div
                   className="absolute inset-0 translate-y-5 rounded-[30px] bg-[#6D2113]"
@@ -405,7 +407,7 @@ const About = () => {
                   }}
                 />
 
-                {/* MAIN OBJECT */}
+                {/* Main object */}
 
                 <div
                   className="relative h-[210px] w-[280px] rounded-[30px] border border-white/10 bg-[#151519]"
@@ -415,7 +417,8 @@ const About = () => {
                     transformStyle: "preserve-3d",
                   }}
                 >
-                  {/* top glow */}
+
+                  {/* Top glow */}
 
                   <motion.div
                     animate={{
@@ -429,7 +432,7 @@ const About = () => {
                     className="absolute left-1/2 top-[-60px] h-40 w-40 -translate-x-1/2 rounded-full bg-[#FF5C35]/25 blur-[55px]"
                   />
 
-                  {/* HEADER */}
+                  {/* Header */}
 
                   <div className="flex items-center justify-between border-b border-[#292830] px-5 py-4">
                     <div className="flex items-center gap-2">
@@ -445,7 +448,7 @@ const About = () => {
                     </span>
                   </div>
 
-                  {/* FLOW */}
+                  {/* Flow */}
 
                   <div className="relative px-5 py-6">
                     <p className="text-xs text-[#77757D]">
@@ -510,7 +513,9 @@ const About = () => {
                 </div>
               </motion.div>
 
-              {/* STATUS */}
+              {/* =================================================
+                  STATUS
+              ================================================= */}
 
               <motion.div
                 animate={{
@@ -530,8 +535,9 @@ const About = () => {
                   </span>
                 </div>
               </motion.div>
+
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

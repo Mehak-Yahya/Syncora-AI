@@ -4,8 +4,9 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+
 import { useRef } from "react";
-import useAIAnimation from "../hooks/useAIAnimation";
+
 import "../styles/ai-section.css";
 
 const nodes = [
@@ -14,43 +15,36 @@ const nodes = [
     icon: "◉",
     color: "#8B5CF6",
     position: "left-[2%] top-[15%]",
-    delay: 0,
   },
   {
     label: "Tasks",
     icon: "✓",
     color: "#00D9FF",
     position: "right-[2%] top-[20%]",
-    delay: 0.7,
   },
   {
     label: "Docs",
     icon: "▤",
     color: "#22C55E",
     position: "left-[5%] bottom-[20%]",
-    delay: 1.2,
   },
   {
     label: "Projects",
     icon: "◆",
     color: "#FF5C35",
     position: "right-[4%] bottom-[18%]",
-    delay: 1.8,
   },
   {
     label: "Code",
     icon: "</>",
     color: "#EC4899",
     position: "left-[27%] top-[4%]",
-    delay: 2.4,
   },
 ];
 
 const particles = Array.from({ length: 32 });
 
 const AISection = () => {
-  const { containerVariants, itemVariants } = useAIAnimation();
-
   const visualRef = useRef(null);
 
   const mouseX = useMotionValue(0);
@@ -100,6 +94,7 @@ const AISection = () => {
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Grid */}
+
         <div
           className="absolute inset-0 opacity-[0.18]"
           style={{
@@ -112,6 +107,7 @@ const AISection = () => {
         />
 
         {/* Purple glow */}
+
         <motion.div
           animate={{
             x: [-40, 30, -40],
@@ -128,6 +124,7 @@ const AISection = () => {
         />
 
         {/* Cyan glow */}
+
         <motion.div
           animate={{
             x: [30, -30, 30],
@@ -144,6 +141,7 @@ const AISection = () => {
         />
 
         {/* Center glow */}
+
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -158,23 +156,21 @@ const AISection = () => {
         />
       </div>
 
+      {/* =========================================================
+          CONTENT
+      ========================================================= */}
+
       <div className="relative mx-auto max-w-7xl">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16"
-        >
+        <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+
           {/* =========================================================
               LEFT CONTENT
           ========================================================= */}
 
           <div className="max-w-xl">
-            <motion.span
-              variants={itemVariants}
-              className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-cyan-400"
-            >
+            {/* Label */}
+
+            <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-cyan-400">
               <motion.span
                 animate={{
                   scale: [1, 1.5, 1],
@@ -188,33 +184,30 @@ const AISection = () => {
               />
 
               Syncora AI
-            </motion.span>
+            </span>
 
-            <motion.h2
-              variants={itemVariants}
-              className="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-5xl"
-            >
+            {/* Heading */}
+
+            <h2 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-5xl">
               Your engineering
               <br />
 
               <span className="bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
                 co-pilot.
               </span>
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              variants={itemVariants}
-              className="mt-5 max-w-lg text-base leading-7 text-white/55 sm:text-lg"
-            >
+            {/* Description */}
+
+            <p className="mt-5 max-w-lg text-base leading-7 text-white/55 sm:text-lg">
               Syncora AI understands your projects, tasks, documentation, and
               development activity so you can spend less time searching and
               more time building.
-            </motion.p>
+            </p>
 
-            <motion.div
-              variants={itemVariants}
-              className="mt-7 space-y-3.5"
-            >
+            {/* Features */}
+
+            <div className="mt-7 space-y-3.5">
               {[
                 "Understand project context",
                 "Analyze tasks and development activity",
@@ -233,10 +226,11 @@ const AISection = () => {
                   {item}
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
+
+            {/* Button */}
 
             <motion.button
-              variants={itemVariants}
               whileHover={{
                 y: -3,
                 scale: 1.02,
@@ -254,8 +248,7 @@ const AISection = () => {
               3D ENGINEERING NETWORK
           ========================================================= */}
 
-          <motion.div
-            variants={itemVariants}
+          <div
             ref={visualRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -424,25 +417,13 @@ const AISection = () => {
                   "M 515 390 L 310 260",
                   "M 280 55 L 310 260",
                 ].map((path, index) => (
-                  <motion.path
+                  <path
                     key={index}
                     d={path}
                     stroke="url(#networkGradient)"
                     strokeWidth="1.5"
                     strokeDasharray="5 8"
-                    initial={{
-                      pathLength: 0,
-                      opacity: 0,
-                    }}
-                    whileInView={{
-                      pathLength: 1,
-                      opacity: 1,
-                    }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 1.4,
-                      delay: index * 0.15,
-                    }}
+                    opacity="1"
                   />
                 ))}
               </svg>
@@ -491,6 +472,7 @@ const AISection = () => {
                 }}
               >
                 {/* Core glow */}
+
                 <motion.div
                   animate={{
                     scale: [0.9, 1.2, 0.9],
@@ -504,6 +486,7 @@ const AISection = () => {
                 />
 
                 {/* Core */}
+
                 <div
                   className="relative flex h-48 w-48 flex-col items-center justify-center overflow-hidden rounded-[38px] border border-white/15"
                   style={{
@@ -513,7 +496,8 @@ const AISection = () => {
                       "0 30px 80px rgba(0,0,0,.55), inset 0 1px 1px rgba(255,255,255,.1)",
                   }}
                 >
-                  {/* scanning light */}
+                  {/* Scanning light */}
+
                   <motion.div
                     animate={{
                       y: [-90, 90, -90],
@@ -526,7 +510,8 @@ const AISection = () => {
                     className="absolute h-20 w-full bg-cyan-400/10 blur-[30px]"
                   />
 
-                  {/* inner glow */}
+                  {/* Inner glow */}
+
                   <motion.div
                     animate={{
                       scale: [0.8, 1.2, 0.8],
@@ -540,6 +525,7 @@ const AISection = () => {
                   />
 
                   {/* AI icon */}
+
                   <motion.div
                     animate={{
                       scale: [1, 1.08, 1],
@@ -569,6 +555,7 @@ const AISection = () => {
                 </div>
 
                 {/* 3D depth */}
+
                 <div
                   className="absolute inset-0 -z-10 rounded-[38px] bg-violet-700/30"
                   style={{
@@ -585,25 +572,15 @@ const AISection = () => {
                 <motion.div
                   key={node.label}
                   className={`absolute ${node.position} z-40`}
-                  initial={{
-                    opacity: 0,
-                    scale: 0.6,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                  }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.7,
-                    delay: 0.3 + index * 0.15,
-                    type: "spring",
-                  }}
                   animate={{
                     y: [0, index % 2 === 0 ? -9 : 9, 0],
                     rotateZ: [0, index % 2 ? 1 : -1, 0],
+                  }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.3,
                   }}
                   style={{
                     transform: `translateZ(${40 + index * 18}px)`,
@@ -611,6 +588,7 @@ const AISection = () => {
                 >
                   <div className="relative">
                     {/* Glow */}
+
                     <div
                       className="absolute inset-0 rounded-2xl opacity-30 blur-xl"
                       style={{
@@ -619,6 +597,7 @@ const AISection = () => {
                     />
 
                     {/* Card */}
+
                     <div className="relative flex items-center gap-2.5 rounded-2xl border border-white/10 bg-[#11151D]/90 px-3.5 py-3 shadow-[0_20px_45px_rgba(0,0,0,.4)] backdrop-blur-xl">
                       <div
                         className="flex h-9 w-9 items-center justify-center rounded-xl text-[11px] font-bold text-white"
@@ -753,8 +732,8 @@ const AISection = () => {
                     index % 3 === 0
                       ? "bg-cyan-400"
                       : index % 3 === 1
-                      ? "bg-violet-400"
-                      : "bg-fuchsia-400"
+                        ? "bg-violet-400"
+                        : "bg-fuchsia-400"
                   }`}
                   style={{
                     left: `${8 + ((index * 31) % 84)}%`,
@@ -763,8 +742,8 @@ const AISection = () => {
                 />
               ))}
             </motion.div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
