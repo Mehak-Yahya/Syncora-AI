@@ -1653,15 +1653,15 @@ const Dashboard = () => {
 
   if (checkingAuth) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F5F6F8]">
-        <div className="text-center">
-          <div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-[#FF5C35] border-t-transparent" />
+       <main className="flex min-h-screen items-center justify-center bg-[#0B0F14]">
+      <div className="text-center">
+        <div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-[#FF5C35] border-t-transparent" />
 
-          <p className="mt-4 text-sm text-[#77716A]">
-            Loading Syncora...
-          </p>
-        </div>
-      </main>
+        <p className="mt-4 text-sm text-[#858D97]">
+          Loading Syncora...
+        </p>
+      </div>
+    </main>
     );
   }
 
