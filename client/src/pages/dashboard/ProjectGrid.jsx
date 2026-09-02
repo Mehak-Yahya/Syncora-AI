@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 const getTechnologyList = (context) => {
@@ -29,23 +30,41 @@ const ProjectGrid = ({ dashboard }) => {
 
   const [openMenuId, setOpenMenuId] = useState("");
 
+  /* =========================================================
+     OPEN PROJECT
+  ========================================================= */
+
   const openProject = (project) => {
     setOpenMenuId("");
 
-    if (project.github?.connected) {
-      setAiProjectId(project._id);
-      handleNavClick("AI workspace");
+    const isConnected = Boolean(project.github?.connected);
+    const isSynced = project.repositorySnapshot?.status === "synced";
+
+    // GitHub not connected
+    if (!isConnected) {
+      handleConnectGithub(project._id);
       return;
     }
 
-    handleConnectGithub(project._id);
+    // GitHub connected but repository not synced
+    if (!isSynced) {
+      handleSyncRepository(project._id);
+      return;
+    }
+
+    // Repository synced → AI Workspace
+    setAiProjectId(project._id);
+    handleNavClick("AI workspace");
   };
 
   return (
     <section className="min-h-full w-full bg-[#0B0F14] text-[#F5F7FA]">
       <div className="mx-auto w-full max-w-[1800px] px-4 py-5 sm:px-6 sm:py-7 lg:px-8 lg:py-8">
 
-        {/* HEADER */}
+        {/* =========================================================
+            HEADER
+        ========================================================= */}
+
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
@@ -70,7 +89,10 @@ const ProjectGrid = ({ dashboard }) => {
           </button>
         </div>
 
-        {/* EMPTY STATE */}
+        {/* =========================================================
+            EMPTY STATE
+        ========================================================= */}
+
         {projects.length === 0 ? (
           <div className="mx-auto mt-8 max-w-lg rounded-2xl border border-dashed border-[#303842] bg-[#151A21] px-6 py-14 text-center shadow-[0_8px_25px_rgba(0,0,0,0.1)]">
 
@@ -83,8 +105,8 @@ const ProjectGrid = ({ dashboard }) => {
             </h2>
 
             <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-[#858D97]">
-              Connect a GitHub repository to start understanding your codebase
-              with Syncora.
+              Your GitHub account is connected. Create a project by selecting
+              a repository and start understanding your codebase with Syncora.
             </p>
 
             <button
@@ -96,18 +118,33 @@ const ProjectGrid = ({ dashboard }) => {
             </button>
           </div>
         ) : (
-          /* PROJECT GRID */
+
+          /* =========================================================
+             PROJECT GRID
+          ========================================================= */
+
           <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project) => {
               const snapshot = project.repositorySnapshot;
               const context = engineeringContexts[project._id];
+
               const technologies = getTechnologyList(context);
 
               const isConnected = Boolean(project.github?.connected);
               const isSynced = snapshot?.status === "synced";
-              const isAnalyzing = analyzingProjectId === project._id;
-              const isSyncing = syncingProjectId === project._id;
-              const analysisStatus = context?.analysisStatus;
+
+              const isAnalyzing =
+                analyzingProjectId === project._id;
+
+              const isSyncing =
+                syncingProjectId === project._id;
+
+              const analysisStatus =
+                context?.analysisStatus;
+
+              /* =====================================================
+                 PROJECT MEMBERS
+              ===================================================== */
 
               const projectMembers = [
                 ...(project.owner ? [project.owner] : []),
@@ -115,7 +152,8 @@ const ProjectGrid = ({ dashboard }) => {
               ].filter(
                 (member, index, members) =>
                   members.findIndex(
-                    (candidate) => candidate.email === member.email
+                    (candidate) =>
+                      candidate.email === member.email
                   ) === index
               );
 
@@ -125,25 +163,33 @@ const ProjectGrid = ({ dashboard }) => {
                   className="flex min-h-[246px] flex-col rounded-2xl border border-[#252C35] bg-[#151A21] p-4 shadow-[0_8px_25px_rgba(0,0,0,0.1)] transition duration-200 hover:-translate-y-0.5 hover:border-[#303842] hover:bg-[#181E25] hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
                 >
 
-                  {/* TOP */}
+                  {/* =================================================
+                      TOP
+                  ================================================= */}
+
                   <div className="flex items-start justify-between gap-3">
+
                     <div className="min-w-0">
                       <h2 className="truncate text-base font-semibold text-white">
                         {project.name}
                       </h2>
 
                       <p className="mt-1 truncate text-xs text-[#858D97]">
-                        {project.description || "No description added."}
+                        {project.description ||
+                          "No description added."}
                       </p>
                     </div>
 
                     {/* MENU */}
+
                     <div className="relative shrink-0">
                       <button
                         type="button"
                         onClick={() =>
                           setOpenMenuId(
-                            openMenuId === project._id ? "" : project._id
+                            openMenuId === project._id
+                              ? ""
+                              : project._id
                           )
                         }
                         className="flex h-8 w-8 items-center justify-center rounded-lg text-lg text-[#737C87] transition hover:bg-[#1D242D] hover:text-white"
@@ -155,31 +201,47 @@ const ProjectGrid = ({ dashboard }) => {
                       {openMenuId === project._id && (
                         <div className="absolute right-0 top-9 z-10 w-36 rounded-xl border border-[#303842] bg-[#151A21] p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)]">
 
+                          {/* SYNC */}
+
                           {isConnected && (
                             <button
                               type="button"
+                              disabled={isSyncing}
                               onClick={() => {
                                 setOpenMenuId("");
-                                handleSyncRepository(project._id);
+                                handleSyncRepository(
+                                  project._id
+                                );
                               }}
-                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                             >
-                              {isSyncing ? "Syncing..." : "Sync"}
+                              {isSyncing
+                                ? "Syncing..."
+                                : "Sync"}
                             </button>
                           )}
+
+                          {/* ANALYZE */}
 
                           {isConnected && isSynced && (
                             <button
                               type="button"
+                              disabled={isAnalyzing}
                               onClick={() => {
                                 setOpenMenuId("");
-                                handleAnalyzeRepository(project._id);
+                                handleAnalyzeRepository(
+                                  project._id
+                                );
                               }}
-                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                             >
-                              {isAnalyzing ? "Analyzing..." : "Analyze"}
+                              {isAnalyzing
+                                ? "Analyzing..."
+                                : "Analyze"}
                             </button>
                           )}
+
+                          {/* SETTINGS */}
 
                           <button
                             type="button"
@@ -187,19 +249,27 @@ const ProjectGrid = ({ dashboard }) => {
                               setOpenMenuId("");
 
                               isConnected
-                                ? openGithubRepositoryPicker(project._id)
-                                : handleConnectGithub(project._id);
+                                ? openGithubRepositoryPicker(
+                                    project._id
+                                  )
+                                : handleConnectGithub(
+                                    project._id
+                                  );
                             }}
                             className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
                           >
                             Settings
                           </button>
 
+                          {/* DELETE */}
+
                           <button
                             type="button"
                             onClick={() => {
                               setOpenMenuId("");
-                              handleDeleteProject(project._id);
+                              handleDeleteProject(
+                                project._id
+                              );
                             }}
                             className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#FF8F7A] transition hover:bg-[#2A1715] hover:text-[#FFB5A5]"
                           >
@@ -210,8 +280,12 @@ const ProjectGrid = ({ dashboard }) => {
                     </div>
                   </div>
 
-                  {/* GITHUB STATUS */}
+                  {/* =================================================
+                      GITHUB STATUS
+                  ================================================= */}
+
                   <div className="mt-5 flex items-center gap-2 text-xs">
+
                     <span
                       className={`h-2 w-2 rounded-full ${
                         isConnected
@@ -233,8 +307,12 @@ const ProjectGrid = ({ dashboard }) => {
                     </span>
                   </div>
 
-                  {/* REPOSITORY INFO */}
+                  {/* =================================================
+                      REPOSITORY INFO
+                  ================================================= */}
+
                   <div className="mt-3 min-h-[68px] border-t border-[#252C35] pt-3 text-[11px] text-[#858D97]">
+
                     {isConnected ? (
                       <>
                         <p className="truncate font-medium text-[#B8C0C9]">
@@ -251,19 +329,25 @@ const ProjectGrid = ({ dashboard }) => {
                           </span>
 
                           <span>
-                            Folders {snapshot?.folderCount ?? "—"}
+                            Folders{" "}
+                            {snapshot?.folderCount ?? "—"}
                           </span>
                         </div>
                       </>
                     ) : (
                       <p>
-                        Connect a repository to see codebase details.
+                        Connect a repository to see codebase
+                        details.
                       </p>
                     )}
                   </div>
 
-                  {/* TECHNOLOGIES */}
+                  {/* =================================================
+                      TECHNOLOGIES
+                  ================================================= */}
+
                   <div className="mt-auto flex min-h-7 flex-wrap items-center gap-1.5">
+
                     {technologies.map((technology) => (
                       <span
                         key={technology}
@@ -273,35 +357,51 @@ const ProjectGrid = ({ dashboard }) => {
                       </span>
                     ))}
 
-                    {!technologies.length && analysisStatus && (
-                      <span className="text-[10px] text-[#737C87]">
-                        {analysisStatus === "completed"
-                          ? "Technologies not detected"
-                          : analysisStatus}
-                      </span>
-                    )}
+                    {!technologies.length &&
+                      analysisStatus && (
+                        <span className="text-[10px] text-[#737C87]">
+                          {analysisStatus === "completed"
+                            ? "Technologies not detected"
+                            : analysisStatus}
+                        </span>
+                      )}
                   </div>
 
-                  {/* MEMBERS */}
+                  {/* =================================================
+                      MEMBERS
+                  ================================================= */}
+
                   <div className="mt-3 flex items-center justify-between border-t border-[#252C35] pt-3">
+
                     <span className="truncate pr-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#737C87]">
                       Project members
                     </span>
 
                     <div className="flex items-center gap-1.5">
-                      {projectMembers.slice(0, 3).map((member) => (
-                        <span
-                          key={member.email || member._id}
-                          title={member.name || member.email}
-                          className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25354A] text-[9px] font-semibold text-white ring-1 ring-[#303842]"
-                        >
-                          {(member.name ||
-                            member.email ||
-                            "U")
-                            .charAt(0)
-                            .toUpperCase()}
-                        </span>
-                      ))}
+
+                      {projectMembers
+                        .slice(0, 3)
+                        .map((member) => (
+                          <span
+                            key={
+                              member.email ||
+                              member._id
+                            }
+                            title={
+                              member.name ||
+                              member.email
+                            }
+                            className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25354A] text-[9px] font-semibold text-white ring-1 ring-[#303842]"
+                          >
+                            {(
+                              member.name ||
+                              member.email ||
+                              "U"
+                            )
+                              .charAt(0)
+                              .toUpperCase()}
+                          </span>
+                        ))}
 
                       {projectMembers.length > 3 && (
                         <span className="text-[10px] font-medium text-[#737C87]">
@@ -317,29 +417,93 @@ const ProjectGrid = ({ dashboard }) => {
                     </div>
                   </div>
 
-                  {/* FOOTER */}
-                  <div className="mt-4 flex items-center justify-between border-t border-[#252C35] pt-3">
-                    <span className="truncate pr-3 text-[10px] text-[#737C87]">
+                  {/* =================================================
+                      FOOTER / ACTIONS
+                  ================================================= */}
+
+                  <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#252C35] pt-3">
+
+                    {/* SYNC STATUS */}
+
+                    <span className="truncate pr-2 text-[10px] text-[#737C87]">
+
                       {snapshot?.syncedAt ||
                       project.github?.lastSyncedAt
                         ? `Synced ${new Date(
                             snapshot?.syncedAt ||
                               project.github.lastSyncedAt
                           ).toLocaleDateString()}`
-                        : analysisMessage.projectId === project._id
+                        : analysisMessage.projectId ===
+                          project._id
                         ? analysisMessage.message
                         : "Not synced yet"}
                     </span>
 
-                    <button
-                      type="button"
-                      onClick={() => openProject(project)}
-                      className="shrink-0 text-xs font-semibold text-[#FF5C35] transition hover:text-[#FF704D]"
-                    >
-                      {isConnected
-                        ? "Open project →"
-                        : "Connect GitHub →"}
-                    </button>
+                    <div className="flex shrink-0 items-center gap-2">
+
+                      {/* =================================================
+                          SYNC BUTTON
+                      ================================================= */}
+
+                      {isConnected && (
+                        <button
+                          type="button"
+                          disabled={isSyncing}
+                          onClick={() =>
+                            handleSyncRepository(
+                              project._id
+                            )
+                          }
+                          className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-1.5 text-[10px] font-semibold text-[#C3CAD2] transition hover:border-[#FF5C35]/50 hover:bg-[#242B34] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          {isSyncing
+                            ? "Syncing..."
+                            : isSynced
+                            ? "Sync again"
+                            : "Sync repository"}
+                        </button>
+                      )}
+
+                      {/* =================================================
+                          AI WORKSPACE
+                      ================================================= */}
+
+                      {isConnected && isSynced && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAiProjectId(
+                              project._id
+                            );
+
+                            handleNavClick(
+                              "AI workspace"
+                            );
+                          }}
+                          className="rounded-lg bg-[#FF5C35] px-3 py-1.5 text-[10px] font-semibold text-white transition hover:bg-[#E94B27]"
+                        >
+                          AI Workspace →
+                        </button>
+                      )}
+
+                      {/* =================================================
+                          CONNECT GITHUB
+                      ================================================= */}
+
+                      {!isConnected && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleConnectGithub(
+                              project._id
+                            )
+                          }
+                          className="text-xs font-semibold text-[#FF5C35] transition hover:text-[#FF704D]"
+                        >
+                          Connect GitHub →
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </article>
               );
@@ -347,7 +511,10 @@ const ProjectGrid = ({ dashboard }) => {
           </div>
         )}
 
-        {/* SYNC MESSAGE */}
+        {/* =========================================================
+            SYNC MESSAGE
+        ========================================================= */}
+
         {syncMessage && (
           <p className="mt-4 rounded-xl border border-[#252C35] bg-[#151A21] p-3 text-xs text-[#858D97]">
             {syncMessage}
@@ -359,3 +526,4 @@ const ProjectGrid = ({ dashboard }) => {
 };
 
 export default ProjectGrid;
+
