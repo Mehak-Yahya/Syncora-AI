@@ -20,11 +20,11 @@ const DashboardTeam = ({ dashboard }) => {
         ========================================================= */}
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF8C2B]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7AA6FF]">
               Collaboration
             </p>
 
-            <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-[#E8D889] sm:text-[28px]">
+            <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-[#F5F0E8] sm:text-[28px]">
               Team
             </h1>
 
@@ -40,7 +40,7 @@ const DashboardTeam = ({ dashboard }) => {
               setInviteError("");
               setInviteDialogOpen(true);
             }}
-            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#FF8C2B] px-4 text-sm font-semibold text-[#E8D889] shadow-sm transition hover:bg-[#E94B27] focus:outline-none focus:ring-2 focus:ring-[#FF8C2B]/30 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#7AA6FF] px-4 text-sm font-semibold text-[#F5F0E8] shadow-sm transition hover:bg-[#7AA6FF] focus:outline-none focus:ring-2 focus:ring-[#7AA6FF]/30 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span className="mr-2 text-base leading-none">+</span>
             Invite teammate
@@ -53,11 +53,11 @@ const DashboardTeam = ({ dashboard }) => {
         {!user?.workspace ? (
           <div className="mt-7 flex min-h-[360px] flex-col items-center justify-center rounded-2xl border border-dashed border-[#303842] bg-[#151A21] px-6 text-center shadow-[0_8px_30px_rgba(0,0,0,0.14)]">
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2A211F] text-[#FF8C2B] ring-1 ring-[#3A2A27]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2A211F] text-[#7AA6FF] ring-1 ring-[#3A2A27]">
               <span className="text-xl">+</span>
             </div>
 
-            <h2 className="mt-4 text-sm font-semibold text-[#E8D889]">
+            <h2 className="mt-4 text-sm font-semibold text-[#F5F0E8]">
               Create a workspace first
             </h2>
 
@@ -69,7 +69,7 @@ const DashboardTeam = ({ dashboard }) => {
             <button
               type="button"
               onClick={() => navigate("/workspace/new")}
-              className="mt-5 rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
+              className="mt-5 rounded-xl bg-[#7AA6FF] px-4 py-2.5 text-xs font-semibold text-[#F5F0E8] transition hover:bg-[#7AA6FF]"
             >
               Create workspace
             </button>
@@ -87,7 +87,7 @@ const DashboardTeam = ({ dashboard }) => {
                   Members
                 </p>
 
-                <p className="mt-2 text-2xl font-semibold text-[#E8D889]">
+                <p className="mt-2 text-2xl font-semibold text-[#F5F0E8]">
                   {members.length}
                 </p>
 
@@ -101,7 +101,7 @@ const DashboardTeam = ({ dashboard }) => {
                   Projects
                 </p>
 
-                <p className="mt-2 text-2xl font-semibold text-[#E8D889]">
+                <p className="mt-2 text-2xl font-semibold text-[#F5F0E8]">
                   {Array.isArray(projects) ? projects.length : 0}
                 </p>
 
@@ -115,7 +115,7 @@ const DashboardTeam = ({ dashboard }) => {
                   Invitations
                 </p>
 
-                <p className="mt-2 text-2xl font-semibold text-[#E8D889]">
+                <p className="mt-2 text-2xl font-semibold text-[#F5F0E8]">
                   {pendingInvites.length}
                 </p>
 
@@ -133,7 +133,7 @@ const DashboardTeam = ({ dashboard }) => {
               {/* LIST HEADER */}
               <div className="flex items-center justify-between border-b border-[#252C35] px-4 py-4 sm:px-5">
                 <div>
-                  <h2 className="text-sm font-semibold text-[#E8D889]">
+                  <h2 className="text-sm font-semibold text-[#F5F0E8]">
                     Workspace members
                   </h2>
 
@@ -201,7 +201,7 @@ const DashboardTeam = ({ dashboard }) => {
 
                               {/* INFO */}
                               <div className="min-w-0">
-                                <p className="truncate text-sm font-semibold text-[#E8D889]">
+                                <p className="truncate text-sm font-semibold text-[#F5F0E8]">
                                   {member.name ||
                                     "Unnamed member"}
                                 </p>
@@ -266,7 +266,7 @@ const DashboardTeam = ({ dashboard }) => {
                       <span className="text-lg">♙</span>
                     </div>
 
-                    <p className="mt-4 text-sm font-semibold text-[#E8D889]">
+                    <p className="mt-4 text-sm font-semibold text-[#F5F0E8]">
                       No members yet
                     </p>
 
@@ -281,7 +281,7 @@ const DashboardTeam = ({ dashboard }) => {
                         setInviteError("");
                         setInviteDialogOpen(true);
                       }}
-                      className="mt-4 rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
+                      className="mt-4 rounded-xl bg-[#7AA6FF] px-4 py-2.5 text-xs font-semibold text-[#F5F0E8] transition hover:bg-[#7AA6FF]"
                     >
                       Invite teammate
                     </button>
@@ -296,7 +296,7 @@ const DashboardTeam = ({ dashboard }) => {
 
                     <div className="mb-3 flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-semibold text-[#E8D889]">
+                        <h3 className="text-sm font-semibold text-[#F5F0E8]">
                           Pending invitations
                         </h3>
 
@@ -305,7 +305,7 @@ const DashboardTeam = ({ dashboard }) => {
                         </p>
                       </div>
 
-                      <span className="rounded-full border border-[#493A25] bg-[#211B12] px-2.5 py-1 text-[10px] font-semibold text-[#D59A45]">
+                      <span className="rounded-full border border-[#493A25] bg-[#211B12] px-2.5 py-1 text-[10px] font-semibold text-[#7AA6FF]">
                         {pendingInvites.length} pending
                       </span>
                     </div>
@@ -317,7 +317,7 @@ const DashboardTeam = ({ dashboard }) => {
                           className="flex items-center justify-between gap-3 rounded-xl border border-[#493A25] bg-[#211B12] px-4 py-3"
                         >
                           <div className="flex min-w-0 items-center gap-3">
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#302719] text-xs font-semibold text-[#D59A45]">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#302719] text-xs font-semibold text-[#7AA6FF]">
                               @
                             </div>
 
@@ -326,13 +326,13 @@ const DashboardTeam = ({ dashboard }) => {
                                 {invite.email}
                               </p>
 
-                              <p className="mt-0.5 text-[10px] text-[#D59A45]">
+                              <p className="mt-0.5 text-[10px] text-[#7AA6FF]">
                                 Invitation pending
                               </p>
                             </div>
                           </div>
 
-                          <span className="shrink-0 rounded-full border border-[#594628] bg-[#302719] px-2.5 py-1 text-[10px] font-semibold text-[#D59A45]">
+                          <span className="shrink-0 rounded-full border border-[#594628] bg-[#302719] px-2.5 py-1 text-[10px] font-semibold text-[#7AA6FF]">
                             Pending
                           </span>
                         </div>

@@ -156,7 +156,7 @@ const NeuralCore = () => {
           absolute
           -inset-20
           rounded-full
-          bg-[#FF8C2B]/10
+          bg-[#7AA6FF]/10
           blur-[70px]
         "
       />
@@ -194,9 +194,9 @@ const NeuralCore = () => {
           style={{
             transform: "translateZ(30px)",
             background:
-              "radial-gradient(circle at 30% 25%, rgba(255,225,215,.85), rgba(255,140,43,.30) 25%, rgba(130,35,18,.15) 55%, rgba(0,0,0,.5) 100%)",
+              "radial-gradient(circle at 30% 25%, rgba(255,225,215,.85), rgba(122,166,255,.30) 25%, rgba(130,35,18,.15) 55%, rgba(0,0,0,.5) 100%)",
             boxShadow:
-              "inset -40px -35px 60px rgba(0,0,0,.58), inset 18px 14px 35px rgba(232,216,137,.16), 0 0 90px rgba(255,140,43,.18)",
+              "inset -40px -35px 60px rgba(0,0,0,.58), inset 18px 14px 35px rgba(245,240,232,.16), 0 0 90px rgba(122,166,255,.18)",
           }}
         />
 
@@ -213,8 +213,8 @@ const NeuralCore = () => {
             -translate-y-1/2
             rounded-full
             border
-            border-[#E8D889]/10
-            bg-[#E8D889]/[0.025]
+            border-[#F5F0E8]/10
+            bg-[#F5F0E8]/[0.025]
           "
           style={{
             transform: "translateZ(72px)",
@@ -233,7 +233,7 @@ const NeuralCore = () => {
             w-12
             rotate-[-25deg]
             rounded-full
-            bg-[#E8D889]/20
+            bg-[#F5F0E8]/20
             blur-xl
           "
           style={{
@@ -262,7 +262,7 @@ const NeuralCore = () => {
             -translate-y-1/2
             rounded-full
             border
-            border-[#FF8C2B]/20
+            border-[#7AA6FF]/20
           "
           style={{
             transform: "translate(-50%, -50%) rotateX(65deg)",
@@ -335,7 +335,7 @@ const NeuralCore = () => {
             -translate-y-1/2
             rounded-full
             border
-            border-[#E8D889]/[0.07]
+            border-[#F5F0E8]/[0.07]
           "
           style={{
             transform: "translate(-50%, -50%) rotateX(48deg) rotateY(18deg)",
@@ -405,7 +405,7 @@ const FloatingCube = () => {
         lg:block
       "
     >
-      <div className="absolute -inset-12 rounded-full bg-[#FF8C2B]/[0.04] blur-3xl" />
+      <div className="absolute -inset-12 rounded-full bg-[#7AA6FF]/[0.04] blur-3xl" />
 
       <div
         className="
@@ -413,7 +413,7 @@ const FloatingCube = () => {
           inset-0
           border
           border-orange-300/20
-          bg-[#FF8C2B]/[0.015]
+          bg-[#7AA6FF]/[0.015]
         "
         style={{
           transform: "translateZ(72px)",
@@ -449,7 +449,7 @@ const FloatingCube = () => {
           absolute
           inset-0
           border
-          border-[#E8D889]/[0.07]
+          border-[#F5F0E8]/[0.07]
         "
         style={{
           transform: "rotateY(-90deg) translateZ(72px)",
@@ -544,7 +544,7 @@ const GlassOrbit = () => {
           inset-0
           rounded-full
           border
-          border-[#FF8C2B]/15
+          border-[#7AA6FF]/15
         "
         style={{
           transform: "rotateX(68deg)",
@@ -582,7 +582,7 @@ const GlassOrbit = () => {
           inset-10
           rounded-full
           border
-          border-[#E8D889]/[0.06]
+          border-[#F5F0E8]/[0.06]
         "
         style={{
           transform: "rotateY(65deg)",
@@ -610,10 +610,10 @@ const GlassOrbit = () => {
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-[#FF8C2B]
+          bg-[#7AA6FF]
         "
         style={{
-          boxShadow: "0 0 40px rgba(255,140,43,.85)",
+          boxShadow: "0 0 40px rgba(122,166,255,.85)",
         }}
       />
     </motion.div>
@@ -645,7 +645,7 @@ const LoginBackground = () => {
           h-[520px]
           w-[520px]
           rounded-full
-          bg-[#FF8C2B]/[0.12]
+          bg-[#7AA6FF]/[0.12]
           blur-[150px]
         "
       />
@@ -739,7 +739,7 @@ const LoginBackground = () => {
         className="absolute inset-0 opacity-[0.025]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(232,216,137,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(232,216,137,.8) 1px, transparent 1px)",
+            "linear-gradient(rgba(245,240,232,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,.8) 1px, transparent 1px)",
           backgroundSize: "70px 70px",
         }}
       />
@@ -1317,7 +1317,7 @@ const Login = () => {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#182A4A] text-[#E8D889]">
+    <main className="relative min-h-screen overflow-hidden bg-[#151D2B] text-[#F5F0E8]">
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
@@ -1399,13 +1399,13 @@ const Login = () => {
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-[#E8D889]">
+                <p className="text-xs font-semibold text-[#F5F0E8]">
                   {toast.type === "success"
                     ? "Success"
                     : "Something went wrong"}
                 </p>
 
-                <p className="mt-0.5 text-xs leading-5 text-[#E8D889]/50">
+                <p className="mt-0.5 text-xs leading-5 text-[#F5F0E8]/50">
                   {toast.message}
                 </p>
               </div>
@@ -1413,7 +1413,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={() => setToast(null)}
-                className="text-[#E8D889]/30 transition hover:text-[#E8D889]"
+                className="text-[#F5F0E8]/30 transition hover:text-[#F5F0E8]"
                 aria-label="Close notification"
               >
                 ×
@@ -1471,7 +1471,7 @@ const Login = () => {
     justify-center
     overflow-hidden
     rounded-xl
-    shadow-[0_8px_30px_rgba(255,140,43,.25)]
+    shadow-[0_8px_30px_rgba(122,166,255,.25)]
   "
             >
               <img
@@ -1481,7 +1481,7 @@ const Login = () => {
               />
             </motion.div>
 
-            <span className="text-xl font-semibold tracking-[-0.02em] text-[#E8D889]">
+            <span className="text-xl font-semibold tracking-[-0.02em] text-[#F5F0E8]">
               Syncora
             </span>
           </Link>
@@ -1548,7 +1548,7 @@ const Login = () => {
                   font-semibold
                   uppercase
                   tracking-[0.16em]
-                  text-[#FF8C2B]
+                  text-[#7AA6FF]
                 "
               >
                 Welcome back
@@ -1561,7 +1561,7 @@ const Login = () => {
                 font-semibold
                 leading-[0.98]
                 tracking-[-0.055em]
-                text-[#E8D889]
+                text-[#F5F0E8]
               "
               >
                 Your workspace.
@@ -1569,8 +1569,8 @@ const Login = () => {
                 <span
                   className="
                   bg-gradient-to-r
-                  from-[#FF8C2B]
-                  via-[#FF8C2B]
+                  from-[#7AA6FF]
+                  via-[#7AA6FF]
                   to-[#B18CFF]
                   bg-clip-text
                   text-transparent
@@ -1586,7 +1586,7 @@ const Login = () => {
                 max-w-lg
                 text-base
                 leading-7
-                text-[#E8D889]/45
+                text-[#F5F0E8]/45
               "
               >
                 Pick up where you left off. Your projects, development workflow,
@@ -1613,7 +1613,7 @@ const Login = () => {
                   items-center
                   gap-2
                   text-xs
-                  text-[#E8D889]/25
+                  text-[#F5F0E8]/25
                 "
               >
                 <span
@@ -1671,7 +1671,7 @@ const Login = () => {
                 overflow-hidden
                 rounded-[24px]
                 border
-                border-[#E8D889]/10
+                border-[#F5F0E8]/10
                 bg-[#111214]/90
                 p-[22px]
                 shadow-[0_30px_100px_rgba(0,0,0,.45)]
@@ -1699,7 +1699,7 @@ const Login = () => {
                     h-48
                     w-48
                     rounded-full
-                    bg-[#FF8C2B]/10
+                    bg-[#7AA6FF]/10
                     blur-3xl
                   "
                 />
@@ -1751,7 +1751,7 @@ const Login = () => {
                         font-semibold
                         uppercase
                         tracking-[0.14em]
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         Welcome back
@@ -1763,7 +1763,7 @@ const Login = () => {
                         text-3xl
                         font-semibold
                         tracking-[-0.04em]
-                        text-[#E8D889]
+                        text-[#F5F0E8]
                       "
                       >
                         Log in to Syncora
@@ -1774,7 +1774,7 @@ const Login = () => {
                         mt-2
                         text-sm
                         leading-6
-                        text-[#E8D889]/40
+                        text-[#F5F0E8]/40
                       "
                       >
                         Continue where you left off.
@@ -1826,7 +1826,7 @@ const Login = () => {
                             block
                             text-xs
                             font-medium
-                            text-[#E8D889]/65
+                            text-[#F5F0E8]/65
                           "
                           >
                             Work email
@@ -1845,21 +1845,21 @@ const Login = () => {
                               w-full
                               rounded-xl
                               border
-                              bg-[#E8D889]/[0.035]
+                              bg-[#F5F0E8]/[0.035]
                               px-4
                               py-3
                               text-sm
-                              text-[#E8D889]
+                              text-[#F5F0E8]
                               outline-none
                               transition-all
-                              placeholder:text-[#E8D889]/20
-                              focus:bg-[#E8D889]/[0.05]
+                              placeholder:text-[#F5F0E8]/20
+                              focus:bg-[#F5F0E8]/[0.05]
                               focus:ring-4
-                              focus:ring-[#FF8C2B]/10
+                              focus:ring-[#7AA6FF]/10
                               ${
                                 touched && !emailValid
                                   ? "border-red-400"
-                                  : "border-[#E8D889]/10 focus:border-[#FF8C2B]"
+                                  : "border-[#F5F0E8]/10 focus:border-[#7AA6FF]"
                               }
                             `}
                           />
@@ -1886,7 +1886,7 @@ const Login = () => {
                               className="
                               text-xs
                               font-medium
-                              text-[#E8D889]/65
+                              text-[#F5F0E8]/65
                             "
                             >
                               Password
@@ -1902,9 +1902,9 @@ const Login = () => {
                               className="
                                 text-[11px]
                                 font-medium
-                                text-[#E8D889]/35
+                                text-[#F5F0E8]/35
                                 transition-colors
-                                hover:text-[#FF8C2B]
+                                hover:text-[#7AA6FF]
                               "
                             >
                               Forgot password?
@@ -1926,22 +1926,22 @@ const Login = () => {
                                 w-full
                                 rounded-xl
                                 border
-                                bg-[#E8D889]/[0.035]
+                                bg-[#F5F0E8]/[0.035]
                                 px-4
                                 py-3
                                 pr-12
                                 text-sm
-                                text-[#E8D889]
+                                text-[#F5F0E8]
                                 outline-none
                                 transition-all
-                                placeholder:text-[#E8D889]/20
-                                focus:bg-[#E8D889]/[0.05]
+                                placeholder:text-[#F5F0E8]/20
+                                focus:bg-[#F5F0E8]/[0.05]
                                 focus:ring-4
-                                focus:ring-[#FF8C2B]/10
+                                focus:ring-[#7AA6FF]/10
                                 ${
                                   touched && !passwordValid
                                     ? "border-red-400"
-                                    : "border-[#E8D889]/10 focus:border-[#FF8C2B]"
+                                    : "border-[#F5F0E8]/10 focus:border-[#7AA6FF]"
                                 }
                               `}
                             />
@@ -1956,10 +1956,10 @@ const Login = () => {
                                 -translate-y-1/2
                                 rounded-lg
                                 p-1.5
-                                text-[#E8D889]/35
+                                text-[#F5F0E8]/35
                                 transition
-                                hover:bg-[#E8D889]/5
-                                hover:text-[#E8D889]
+                                hover:bg-[#F5F0E8]/5
+                                hover:text-[#F5F0E8]
                               "
                               aria-label={
                                 showPassword ? "Hide password" : "Show password"
@@ -1983,7 +1983,7 @@ const Login = () => {
                             formValid && !loading
                               ? {
                                   y: -2,
-                                  boxShadow: "0 15px 35px rgba(255,140,43,.25)",
+                                  boxShadow: "0 15px 35px rgba(122,166,255,.25)",
                                 }
                               : {}
                           }
@@ -2007,12 +2007,12 @@ const Login = () => {
                             py-3.5
                             text-sm
                             font-semibold
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             transition-all
                             ${
                               formValid && !loading
-                                ? "bg-[#FF8C2B] hover:bg-[#E94B27]"
-                                : "cursor-not-allowed bg-[#E8D889]/10 text-[#E8D889]/25"
+                                ? "bg-[#7AA6FF] hover:bg-[#7AA6FF]"
+                                : "cursor-not-allowed bg-[#F5F0E8]/10 text-[#F5F0E8]/25"
                             }
                           `}
                         >
@@ -2025,7 +2025,7 @@ const Login = () => {
                                 animate-spin
                                 rounded-full
                                 border-2
-                                border-[#E8D889]/40
+                                border-[#F5F0E8]/40
                                 border-t-white
                               "
                               />
@@ -2047,11 +2047,11 @@ const Login = () => {
                         gap-3
                       "
                       >
-                        <div className="h-px flex-1 bg-[#E8D889]/10" />
+                        <div className="h-px flex-1 bg-[#F5F0E8]/10" />
 
-                        <span className="text-[11px] text-[#E8D889]/25">OR</span>
+                        <span className="text-[11px] text-[#F5F0E8]/25">OR</span>
 
-                        <div className="h-px flex-1 bg-[#E8D889]/10" />
+                        <div className="h-px flex-1 bg-[#F5F0E8]/10" />
                       </div>
 
                       {/* Google */}
@@ -2075,15 +2075,15 @@ const Login = () => {
                           gap-3
                           rounded-xl
                           border
-                          border-[#E8D889]/10
-                          bg-[#E8D889]/[0.035]
+                          border-[#F5F0E8]/10
+                          bg-[#F5F0E8]/[0.035]
                           px-4
                           py-3
                           text-sm
                           font-medium
-                          text-[#E8D889]
+                          text-[#F5F0E8]
                           transition-all
-                          hover:bg-[#E8D889]/[0.07]
+                          hover:bg-[#F5F0E8]/[0.07]
                           hover:shadow-lg
                         "
                       >
@@ -2097,11 +2097,11 @@ const Login = () => {
                         className="
                         mt-5
                         border-t
-                        border-[#E8D889]/10
+                        border-[#F5F0E8]/10
                         pt-4
                         text-center
                         text-sm
-                        text-[#E8D889]/35
+                        text-[#F5F0E8]/35
                       "
                       >
                         Don't have an account?{" "}
@@ -2109,9 +2109,9 @@ const Login = () => {
                           to="/signup"
                           className="
                             font-semibold
-                            text-[#FF8C2B]
+                            text-[#7AA6FF]
                             transition-colors
-                            hover:text-[#FF8C2B]
+                            hover:text-[#7AA6FF]
                           "
                         >
                           Create one
@@ -2146,9 +2146,9 @@ const Login = () => {
                           gap-1.5
                           text-xs
                           font-medium
-                          text-[#E8D889]/35
+                          text-[#F5F0E8]/35
                           transition
-                          hover:text-[#FF8C2B]
+                          hover:text-[#7AA6FF]
                         "
                       >
                         ← Back to login
@@ -2163,9 +2163,9 @@ const Login = () => {
                         items-center
                         justify-center
                         rounded-xl
-                        bg-[#FF8C2B]/10
+                        bg-[#7AA6FF]/10
                         text-lg
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         ✉
@@ -2177,7 +2177,7 @@ const Login = () => {
                         font-semibold
                         uppercase
                         tracking-[0.14em]
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         Account recovery
@@ -2189,7 +2189,7 @@ const Login = () => {
                         text-3xl
                         font-semibold
                         tracking-[-0.04em]
-                        text-[#E8D889]
+                        text-[#F5F0E8]
                       "
                       >
                         Forgot your password?
@@ -2200,7 +2200,7 @@ const Login = () => {
                         mt-2
                         text-sm
                         leading-6
-                        text-[#E8D889]/40
+                        text-[#F5F0E8]/40
                       "
                       >
                         Enter your email and we'll send you a secure
@@ -2232,7 +2232,7 @@ const Login = () => {
                           block
                           text-xs
                           font-medium
-                          text-[#E8D889]/65
+                          text-[#F5F0E8]/65
                         "
                         >
                           Work email
@@ -2252,22 +2252,22 @@ const Login = () => {
                             w-full
                             rounded-xl
                             border
-                            bg-[#E8D889]/[0.035]
+                            bg-[#F5F0E8]/[0.035]
                             px-4
                             py-3
                             text-sm
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             outline-none
                             transition-all
-                            placeholder:text-[#E8D889]/20
-                            focus:bg-[#E8D889]/[0.05]
-                            focus:border-[#FF8C2B]
+                            placeholder:text-[#F5F0E8]/20
+                            focus:bg-[#F5F0E8]/[0.05]
+                            focus:border-[#7AA6FF]
                             focus:ring-4
-                            focus:ring-[#FF8C2B]/10
+                            focus:ring-[#7AA6FF]/10
                             ${
                               touched && !emailValid
                                 ? "border-red-400"
-                                : "border-[#E8D889]/10"
+                                : "border-[#F5F0E8]/10"
                             }
                           `}
                         />
@@ -2283,7 +2283,7 @@ const Login = () => {
                             emailValid && !loading
                               ? {
                                   y: -2,
-                                  boxShadow: "0 15px 35px rgba(255,140,43,.25)",
+                                  boxShadow: "0 15px 35px rgba(122,166,255,.25)",
                                 }
                               : {}
                           }
@@ -2307,12 +2307,12 @@ const Login = () => {
                             py-3.5
                             text-sm
                             font-semibold
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             transition-all
                             ${
                               emailValid && !loading
-                                ? "bg-[#FF8C2B] hover:bg-[#E94B27]"
-                                : "cursor-not-allowed bg-[#E8D889]/10 text-[#E8D889]/25"
+                                ? "bg-[#7AA6FF] hover:bg-[#7AA6FF]"
+                                : "cursor-not-allowed bg-[#F5F0E8]/10 text-[#F5F0E8]/25"
                             }
                           `}
                         >
@@ -2325,7 +2325,7 @@ const Login = () => {
                                 animate-spin
                                 rounded-full
                                 border-2
-                                border-[#E8D889]/40
+                                border-[#F5F0E8]/40
                                 border-t-white
                               "
                               />
@@ -2343,7 +2343,7 @@ const Login = () => {
                         text-center
                         text-xs
                         leading-5
-                        text-[#E8D889]/25
+                        text-[#F5F0E8]/25
                       "
                       >
                         For your security, we'll only send a code if an account
@@ -2378,9 +2378,9 @@ const Login = () => {
                           gap-1.5
                           text-xs
                           font-medium
-                          text-[#E8D889]/35
+                          text-[#F5F0E8]/35
                           transition
-                          hover:text-[#FF8C2B]
+                          hover:text-[#7AA6FF]
                         "
                       >
                         ← Change email
@@ -2395,9 +2395,9 @@ const Login = () => {
                         items-center
                         justify-center
                         rounded-xl
-                        bg-[#FF8C2B]/10
+                        bg-[#7AA6FF]/10
                         text-lg
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         ✦
@@ -2409,7 +2409,7 @@ const Login = () => {
                         font-semibold
                         uppercase
                         tracking-[0.14em]
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         Verify your email
@@ -2421,7 +2421,7 @@ const Login = () => {
                         text-3xl
                         font-semibold
                         tracking-[-0.04em]
-                        text-[#E8D889]
+                        text-[#F5F0E8]
                       "
                       >
                         Enter your code
@@ -2432,11 +2432,11 @@ const Login = () => {
                         mt-2
                         text-sm
                         leading-6
-                        text-[#E8D889]/40
+                        text-[#F5F0E8]/40
                       "
                       >
                         Enter the 6-digit code we sent to{" "}
-                        <span className="font-medium text-[#E8D889]/70">
+                        <span className="font-medium text-[#F5F0E8]/70">
                           {email}
                         </span>
                         .
@@ -2488,21 +2488,21 @@ const Login = () => {
                                   w-full
                                   rounded-xl
                                   border
-                                  bg-[#E8D889]/[0.035]
+                                  bg-[#F5F0E8]/[0.035]
                                   text-center
                                   text-lg
                                   font-semibold
-                                  text-[#E8D889]
+                                  text-[#F5F0E8]
                                   outline-none
                                   transition-all
-                                  focus:border-[#FF8C2B]
-                                  focus:bg-[#E8D889]/[0.05]
+                                  focus:border-[#7AA6FF]
+                                  focus:bg-[#F5F0E8]/[0.05]
                                   focus:ring-4
-                                  focus:ring-[#FF8C2B]/10
+                                  focus:ring-[#7AA6FF]/10
                                   ${
                                     serverError
                                       ? "border-red-400/40"
-                                      : "border-[#E8D889]/10"
+                                      : "border-[#F5F0E8]/10"
                                   }
                                 `}
                             />
@@ -2514,7 +2514,7 @@ const Login = () => {
                             otpValid && !loading
                               ? {
                                   y: -2,
-                                  boxShadow: "0 15px 35px rgba(255,140,43,.25)",
+                                  boxShadow: "0 15px 35px rgba(122,166,255,.25)",
                                 }
                               : {}
                           }
@@ -2538,12 +2538,12 @@ const Login = () => {
                             py-3.5
                             text-sm
                             font-semibold
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             transition-all
                             ${
                               otpValid && !loading
-                                ? "bg-[#FF8C2B] hover:bg-[#E94B27]"
-                                : "cursor-not-allowed bg-[#E8D889]/10 text-[#E8D889]/25"
+                                ? "bg-[#7AA6FF] hover:bg-[#7AA6FF]"
+                                : "cursor-not-allowed bg-[#F5F0E8]/10 text-[#F5F0E8]/25"
                             }
                           `}
                         >
@@ -2556,7 +2556,7 @@ const Login = () => {
                                 animate-spin
                                 rounded-full
                                 border-2
-                                border-[#E8D889]/40
+                                border-[#F5F0E8]/40
                                 border-t-white
                               "
                               />
@@ -2569,7 +2569,7 @@ const Login = () => {
                       </form>
 
                       <div className="mt-5 text-center">
-                        <p className="text-xs text-[#E8D889]/30">
+                        <p className="text-xs text-[#F5F0E8]/30">
                           Didn't receive the code?
                         </p>
 
@@ -2583,8 +2583,8 @@ const Login = () => {
                             font-semibold
                             ${
                               resendTimer > 0
-                                ? "text-[#E8D889]/20"
-                                : "text-[#FF8C2B] hover:text-[#FF8C2B]"
+                                ? "text-[#F5F0E8]/20"
+                                : "text-[#7AA6FF] hover:text-[#7AA6FF]"
                             }
                           `}
                         >
@@ -2618,7 +2618,7 @@ const Login = () => {
                         font-semibold
                         uppercase
                         tracking-[0.14em]
-                        text-[#FF8C2B]
+                        text-[#7AA6FF]
                       "
                       >
                         Almost there
@@ -2630,7 +2630,7 @@ const Login = () => {
                         text-3xl
                         font-semibold
                         tracking-[-0.04em]
-                        text-[#E8D889]
+                        text-[#F5F0E8]
                       "
                       >
                         Create a new password
@@ -2641,7 +2641,7 @@ const Login = () => {
                         mt-2
                         text-sm
                         leading-6
-                        text-[#E8D889]/40
+                        text-[#F5F0E8]/40
                       "
                       >
                         Choose a strong password you haven't used before.
@@ -2678,7 +2678,7 @@ const Login = () => {
                             block
                             text-xs
                             font-medium
-                            text-[#E8D889]/65
+                            text-[#F5F0E8]/65
                           "
                           >
                             New password
@@ -2696,22 +2696,22 @@ const Login = () => {
                                 w-full
                                 rounded-xl
                                 border
-                                bg-[#E8D889]/[0.035]
+                                bg-[#F5F0E8]/[0.035]
                                 px-4
                                 py-3
                                 pr-12
                                 text-sm
-                                text-[#E8D889]
+                                text-[#F5F0E8]
                                 outline-none
                                 transition-all
-                                placeholder:text-[#E8D889]/20
-                                focus:bg-[#E8D889]/[0.05]
+                                placeholder:text-[#F5F0E8]/20
+                                focus:bg-[#F5F0E8]/[0.05]
                                 focus:ring-4
-                                focus:ring-[#FF8C2B]/10
+                                focus:ring-[#7AA6FF]/10
                                 ${
                                   newPassword.length > 0 && !newPasswordValid
                                     ? "border-red-400"
-                                    : "border-[#E8D889]/10 focus:border-[#FF8C2B]"
+                                    : "border-[#F5F0E8]/10 focus:border-[#7AA6FF]"
                                 }
                               `}
                             />
@@ -2728,8 +2728,8 @@ const Login = () => {
                                 -translate-y-1/2
                                 rounded-lg
                                 p-1.5
-                                text-[#E8D889]/35
-                                hover:bg-[#E8D889]/5
+                                text-[#F5F0E8]/35
+                                hover:bg-[#F5F0E8]/5
                               "
                             >
                               {showNewPassword ? "◉" : "◌"}
@@ -2743,7 +2743,7 @@ const Login = () => {
                               ${
                                 newPassword.length > 0 && !newPasswordValid
                                   ? "text-red-400"
-                                  : "text-[#E8D889]/25"
+                                  : "text-[#F5F0E8]/25"
                               }
                             `}
                           >
@@ -2761,7 +2761,7 @@ const Login = () => {
                             block
                             text-xs
                             font-medium
-                            text-[#E8D889]/65
+                            text-[#F5F0E8]/65
                           "
                           >
                             Confirm password
@@ -2780,23 +2780,23 @@ const Login = () => {
                                 w-full
                                 rounded-xl
                                 border
-                                bg-[#E8D889]/[0.035]
+                                bg-[#F5F0E8]/[0.035]
                                 px-4
                                 py-3
                                 pr-12
                                 text-sm
-                                text-[#E8D889]
+                                text-[#F5F0E8]
                                 outline-none
                                 transition-all
-                                placeholder:text-[#E8D889]/20
-                                focus:bg-[#E8D889]/[0.05]
+                                placeholder:text-[#F5F0E8]/20
+                                focus:bg-[#F5F0E8]/[0.05]
                                 focus:ring-4
-                                focus:ring-[#FF8C2B]/10
+                                focus:ring-[#7AA6FF]/10
                                 ${
                                   confirmPassword.length > 0 &&
                                   !confirmPasswordValid
                                     ? "border-red-400"
-                                    : "border-[#E8D889]/10 focus:border-[#FF8C2B]"
+                                    : "border-[#F5F0E8]/10 focus:border-[#7AA6FF]"
                                 }
                               `}
                             />
@@ -2813,8 +2813,8 @@ const Login = () => {
                                 -translate-y-1/2
                                 rounded-lg
                                 p-1.5
-                                text-[#E8D889]/35
-                                hover:bg-[#E8D889]/5
+                                text-[#F5F0E8]/35
+                                hover:bg-[#F5F0E8]/5
                               "
                             >
                               {showConfirmPassword ? "◉" : "◌"}
@@ -2834,7 +2834,7 @@ const Login = () => {
                             resetValid && !loading
                               ? {
                                   y: -2,
-                                  boxShadow: "0 15px 35px rgba(255,140,43,.25)",
+                                  boxShadow: "0 15px 35px rgba(122,166,255,.25)",
                                 }
                               : {}
                           }
@@ -2857,12 +2857,12 @@ const Login = () => {
                             py-3.5
                             text-sm
                             font-semibold
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             transition-all
                             ${
                               resetValid && !loading
-                                ? "bg-[#FF8C2B] hover:bg-[#E94B27]"
-                                : "cursor-not-allowed bg-[#E8D889]/10 text-[#E8D889]/25"
+                                ? "bg-[#7AA6FF] hover:bg-[#7AA6FF]"
+                                : "cursor-not-allowed bg-[#F5F0E8]/10 text-[#F5F0E8]/25"
                             }
                           `}
                         >
@@ -2875,7 +2875,7 @@ const Login = () => {
                                 animate-spin
                                 rounded-full
                                 border-2
-                                border-[#E8D889]/40
+                                border-[#F5F0E8]/40
                                 border-t-white
                               "
                               />
@@ -2952,7 +2952,7 @@ const Login = () => {
                         text-3xl
                         font-semibold
                         tracking-[-0.04em]
-                        text-[#E8D889]
+                        text-[#F5F0E8]
                       "
                       >
                         Password updated
@@ -2964,7 +2964,7 @@ const Login = () => {
                         max-w-xs
                         text-sm
                         leading-6
-                        text-[#E8D889]/40
+                        text-[#F5F0E8]/40
                       "
                       >
                         Your Syncora password has been changed successfully. You
@@ -2983,15 +2983,15 @@ const Login = () => {
                         className="
                           mt-7
                           rounded-xl
-                          bg-[#FF8C2B]
+                          bg-[#7AA6FF]
                           px-6
                           py-3.5
                           text-sm
                           font-semibold
-                          text-[#E8D889]
-                          shadow-[0_10px_30px_rgba(255,140,43,.2)]
+                          text-[#F5F0E8]
+                          shadow-[0_10px_30px_rgba(122,166,255,.2)]
                           transition
-                          hover:bg-[#E94B27]
+                          hover:bg-[#7AA6FF]
                         "
                       >
                         Back to login →

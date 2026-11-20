@@ -7,14 +7,14 @@ const Hero = () => {
   const { containerVariants, itemVariants } = useHeroAnimation();
 
   const orbitItems = [
-    { label: "PLAN", icon: "⌘", color: "#FF8C2B", delay: 0 },
-    { label: "BUILD", icon: "</>", color: "#FF8C2B", delay: 0.4 },
-    { label: "SHIP", icon: "↗", color: "#FF8C2B", delay: 0.8 },
-    { label: "AI", icon: "✦", color: "#FF8C2B", delay: 1.2 },
+    { label: "PLAN", icon: "⌘", color: "#7AA6FF", delay: 0 },
+    { label: "BUILD", icon: "</>", color: "#7AA6FF", delay: 0.4 },
+    { label: "SHIP", icon: "↗", color: "#7AA6FF", delay: 0.8 },
+    { label: "AI", icon: "✦", color: "#7AA6FF", delay: 1.2 },
   ];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#182A4A] text-[#E8D889]">
+    <section className="relative min-h-screen overflow-hidden bg-[#151D2B] text-[#F5F0E8]">
       {/* =========================================================
           BACKGROUND
       ========================================================== */}
@@ -30,7 +30,7 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute left-[48%] top-[-25%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#FF8C2B]/20 blur-[140px]"
+          className="absolute left-[48%] top-[-25%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#7AA6FF]/20 blur-[140px]"
         />
 
         <motion.div
@@ -44,7 +44,7 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-[-25%] right-[-10%] h-[550px] w-[550px] rounded-full bg-[#FF8C2B]/20 blur-[150px]"
+          className="absolute bottom-[-25%] right-[-10%] h-[550px] w-[550px] rounded-full bg-[#7AA6FF]/20 blur-[150px]"
         />
 
         {/* Grid */}
@@ -70,7 +70,7 @@ const Hero = () => {
           <div className="relative z-20 max-w-2xl lg:-translate-x-10">
             <motion.div
               variants={itemVariants}
-              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#E8D889]/10 bg-[#E8D889]/[0.06] px-4 py-2 text-sm font-medium text-[#E8D889]/70 shadow-lg backdrop-blur-xl"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.06] px-4 py-2 text-sm font-medium text-[#F5F0E8]/70 shadow-lg backdrop-blur-xl"
             >
               <motion.span
                 animate={{
@@ -81,25 +81,25 @@ const Hero = () => {
                   duration: 2,
                   repeat: Infinity,
                 }}
-                className="h-2 w-2 rounded-full bg-[#FF8C2B] shadow-[0_0_12px_#FF8C2B]"
+                className="h-2 w-2 rounded-full bg-[#7AA6FF] shadow-[0_0_12px_#7AA6FF]"
               />
               AI-powered engineering workspace
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] text-[#E8D889] sm:text-6xl lg:text-[70px]"
+              className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] text-[#F5F0E8] sm:text-6xl lg:text-[70px]"
             >
               Your entire engineering
               <br />
-              <span className="bg-gradient-to-r from-[#FF8C2B] via-[#FF8C2B] to-[#FF8C2B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#7AA6FF] via-[#7AA6FF] to-[#7AA6FF] bg-clip-text text-transparent">
                 in sync.
               </span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="mt-6 max-w-xl text-base leading-7 text-[#E8D889]/55 sm:text-lg"
+              className="mt-6 max-w-xl text-base leading-7 text-[#F5F0E8]/55 sm:text-lg"
             >
               Plan projects, collaborate with your team, connect GitHub,
               document your work, and get AI assistance — all from one
@@ -119,7 +119,7 @@ const Hero = () => {
               >
                 <Link
                   to="/signup"
-                  className="inline-block rounded-xl bg-[#FF8C2B] px-6 py-3.5 font-medium text-[#E8D889] shadow-[0_10px_30px_rgba(255,140,43,.18)] transition-all hover:shadow-[0_20px_50px_rgba(255,140,43,.3)]"
+                  className="inline-block rounded-xl bg-[#7AA6FF] px-6 py-3.5 font-medium text-[#F5F0E8] shadow-[0_10px_30px_rgba(122,166,255,.18)] transition-all hover:shadow-[0_20px_50px_rgba(122,166,255,.3)]"
                 >
                   Start Building — Free
                 </Link>
@@ -128,10 +128,10 @@ const Hero = () => {
               <motion.button
                 whileHover={{
                   y: -3,
-                  backgroundColor: "rgba(232,216,137,.08)",
+                  backgroundColor: "rgba(245,240,232,.08)",
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="rounded-xl border border-[#E8D889]/10 bg-[#E8D889]/[0.04] px-6 py-3.5 font-medium text-[#E8D889] transition-all backdrop-blur"
+                className="rounded-xl border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.04] px-6 py-3.5 font-medium text-[#F5F0E8] transition-all backdrop-blur"
               >
                 Explore Syncora
               </motion.button>
@@ -139,7 +139,7 @@ const Hero = () => {
 
             <motion.div
               variants={itemVariants}
-              className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[#E8D889]/40"
+              className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[#F5F0E8]/40"
             >
               <span>✓ Free to start</span>
               <span>✓ Built for developers</span>
@@ -165,7 +165,7 @@ const Hero = () => {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute h-[350px] w-[350px] rounded-full bg-[#FF8C2B]/30 blur-[100px]"
+              className="absolute h-[350px] w-[350px] rounded-full bg-[#7AA6FF]/30 blur-[100px]"
             />
 
             {/* =================================================
@@ -203,8 +203,8 @@ const Hero = () => {
                 className="absolute inset-0"
               >
                 {/* Front */}
-                <div className="absolute inset-0 translate-z-[130px] overflow-hidden rounded-[32px] border border-[#E8D889]/20 bg-[#E8D889]/[0.08] shadow-[inset_0_0_50px_rgba(232,216,137,.04),0_40px_100px_rgba(0,0,0,.4)] backdrop-blur-xl">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF8C2B]/20 via-transparent to-[#FF8C2B]/20" />
+                <div className="absolute inset-0 translate-z-[130px] overflow-hidden rounded-[32px] border border-[#F5F0E8]/20 bg-[#F5F0E8]/[0.08] shadow-[inset_0_0_50px_rgba(245,240,232,.04),0_40px_100px_rgba(0,0,0,.4)] backdrop-blur-xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#7AA6FF]/20 via-transparent to-[#7AA6FF]/20" />
 
                   {/* Syncora logo */}
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -227,36 +227,36 @@ const Hero = () => {
                       }}
                       className="relative h-28 w-28"
                     >
-                      <div className="absolute inset-0 rounded-[30px] border border-[#FF8C2B]/40 bg-[#FF8C2B]/10 shadow-[0_0_60px_rgba(255,140,43,.25)]" />
+                      <div className="absolute inset-0 rounded-[30px] border border-[#7AA6FF]/40 bg-[#7AA6FF]/10 shadow-[0_0_60px_rgba(122,166,255,.25)]" />
 
-                      <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[18px] bg-gradient-to-br from-[#FF8C2B] to-[#FF8C2B] shadow-[0_0_40px_rgba(255,140,43,.5)]" />
+                      <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[18px] bg-gradient-to-br from-[#7AA6FF] to-[#7AA6FF] shadow-[0_0_40px_rgba(122,166,255,.5)]" />
 
-                      <div className="absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-lg bg-[#182A4A]" />
+                      <div className="absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-lg bg-[#151D2B]" />
                     </motion.div>
                   </div>
 
                   {/* Core label */}
                   <div className="absolute bottom-5 left-0 right-0 text-center">
-                    <p className="text-xs font-semibold tracking-[0.35em] text-[#E8D889]/60">
+                    <p className="text-xs font-semibold tracking-[0.35em] text-[#F5F0E8]/60">
                       SYNCORA
                     </p>
                   </div>
                 </div>
 
                 {/* Back */}
-                <div className="absolute inset-0 -translate-z-[130px] rounded-[32px] border border-[#E8D889]/10 bg-[#FF8C2B]/10" />
+                <div className="absolute inset-0 -translate-z-[130px] rounded-[32px] border border-[#F5F0E8]/10 bg-[#7AA6FF]/10" />
 
                 {/* Left */}
-                <div className="absolute left-0 top-0 h-full w-[260px] origin-left -rotate-y-90 rounded-[32px] border border-[#E8D889]/10 bg-[#FF8C2B]/10" />
+                <div className="absolute left-0 top-0 h-full w-[260px] origin-left -rotate-y-90 rounded-[32px] border border-[#F5F0E8]/10 bg-[#7AA6FF]/10" />
 
                 {/* Right */}
-                <div className="absolute right-0 top-0 h-full w-[260px] origin-right rotate-y-90 rounded-[32px] border border-[#E8D889]/10 bg-[#FF8C2B]/10" />
+                <div className="absolute right-0 top-0 h-full w-[260px] origin-right rotate-y-90 rounded-[32px] border border-[#F5F0E8]/10 bg-[#7AA6FF]/10" />
 
                 {/* Top */}
-                <div className="absolute left-0 top-0 h-[260px] w-full origin-top rotate-x-90 rounded-[32px] border border-[#E8D889]/10 bg-[#E8D889]/[0.04]" />
+                <div className="absolute left-0 top-0 h-[260px] w-full origin-top rotate-x-90 rounded-[32px] border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.04]" />
 
                 {/* Bottom */}
-                <div className="absolute bottom-0 left-0 h-[260px] w-full origin-bottom -rotate-x-90 rounded-[32px] border border-[#E8D889]/10 bg-[#FF8C2B]/5" />
+                <div className="absolute bottom-0 left-0 h-[260px] w-full origin-bottom -rotate-x-90 rounded-[32px] border border-[#F5F0E8]/10 bg-[#7AA6FF]/5" />
               </div>
             </motion.div>
 
@@ -270,7 +270,7 @@ const Hero = () => {
                 repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute h-[420px] w-[420px] rounded-full border border-[#E8D889]/[0.08]"
+              className="absolute h-[420px] w-[420px] rounded-full border border-[#F5F0E8]/[0.08]"
             >
               <motion.div
                 animate={{ rotateZ: -360 }}
@@ -279,7 +279,7 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "linear",
                 }}
-                className="absolute -top-3 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full bg-[#FF8C2B] shadow-[0_0_25px_rgba(255,140,43,.8)]"
+                className="absolute -top-3 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full bg-[#7AA6FF] shadow-[0_0_25px_rgba(122,166,255,.8)]"
               />
             </motion.div>
 
@@ -296,12 +296,12 @@ const Hero = () => {
                   ease: "linear",
                 },
               }}
-              className="absolute h-[350px] w-[350px] rounded-full border border-[#FF8C2B]/20"
+              className="absolute h-[350px] w-[350px] rounded-full border border-[#7AA6FF]/20"
               style={{
                 transformStyle: "preserve-3d",
               }}
             >
-              <div className="absolute right-0 top-1/2 h-3 w-3 rounded-full bg-[#FF8C2B] shadow-[0_0_20px_#FF8C2B]" />
+              <div className="absolute right-0 top-1/2 h-3 w-3 rounded-full bg-[#7AA6FF] shadow-[0_0_20px_#7AA6FF]" />
             </motion.div>
 
             {/* =================================================
@@ -328,7 +328,7 @@ const Hero = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className={`absolute ${positions[index]} hidden rounded-2xl border border-[#E8D889]/10 bg-[#E8D889]/[0.06] px-4 py-3 shadow-2xl backdrop-blur-xl sm:block`}
+                  className={`absolute ${positions[index]} hidden rounded-2xl border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.06] px-4 py-3 shadow-2xl backdrop-blur-xl sm:block`}
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -343,11 +343,11 @@ const Hero = () => {
                     </div>
 
                     <div>
-                      <p className="text-[10px] tracking-[0.2em] text-[#E8D889]/30">
+                      <p className="text-[10px] tracking-[0.2em] text-[#F5F0E8]/30">
                         SYNCORA
                       </p>
 
-                      <p className="text-xs font-semibold text-[#E8D889]/70">
+                      <p className="text-xs font-semibold text-[#F5F0E8]/70">
                         {item.label}
                       </p>
                     </div>
@@ -386,20 +386,20 @@ const Hero = () => {
                     ease: "easeInOut",
                     delay: index * 0.2,
                   }}
-                  className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-[#FF8C2B]"
+                  className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-[#7AA6FF]"
                 />
               );
             })}
 
             {/* AI connection lines */}
-            <div className="absolute h-[300px] w-[300px] rounded-full border border-dashed border-[#E8D889]/[0.06]" />
-            <div className="absolute h-[470px] w-[470px] rounded-full border border-dashed border-[#E8D889]/[0.04]" />
+            <div className="absolute h-[300px] w-[300px] rounded-full border border-dashed border-[#F5F0E8]/[0.06]" />
+            <div className="absolute h-[470px] w-[470px] rounded-full border border-dashed border-[#F5F0E8]/[0.04]" />
           </motion.div>
         </motion.div>
       </div>
 
       {/* Bottom border */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#E8D889]/10" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#F5F0E8]/10" />
     </section>
   );
 };

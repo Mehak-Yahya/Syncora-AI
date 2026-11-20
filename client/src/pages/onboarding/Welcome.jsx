@@ -61,7 +61,7 @@ const Welcome = () => {
   ];
 
   return (
-    <main className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#07090D] text-[#E8D889]">
+    <main className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#151D2B] text-[#F5F0E8]">
       {/* =========================================================
           BACKGROUND
       ========================================================= */}
@@ -78,7 +78,7 @@ const Welcome = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute left-1/2 top-[42%] h-[430px] w-[430px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF8C2B]/10 blur-[110px]"
+          className="absolute left-1/2 top-[42%] h-[430px] w-[430px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#7AA6FF]/10 blur-[110px]"
         />
 
         {/* Orange ambient light */}
@@ -92,7 +92,7 @@ const Welcome = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -left-40 top-[15%] h-[300px] w-[300px] rounded-full bg-[#FF8C2B]/[0.055] blur-[100px]"
+          className="absolute -left-40 top-[15%] h-[300px] w-[300px] rounded-full bg-[#7AA6FF]/[0.055] blur-[100px]"
         />
 
         {/* Blue ambient light */}
@@ -114,16 +114,16 @@ const Welcome = () => {
           className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(232,216,137,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(232,216,137,.7) 1px, transparent 1px)",
+              "linear-gradient(rgba(245,240,232,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,.7) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
 
         {/* Bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#07090D] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#151D2B] to-transparent" />
 
         {/* Vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#07090D_90%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#151D2B_90%)]" />
       </div>
 
       {/* =========================================================
@@ -181,13 +181,13 @@ const Welcome = () => {
               className="relative"
             >
               {/* glow */}
-              <div className="absolute inset-[-18px] rounded-[25px] bg-[#FF8C2B]/15 blur-[25px]" />
+              <div className="absolute inset-[-18px] rounded-[25px] bg-[#7AA6FF]/15 blur-[25px]" />
 
               {/* depth */}
-              <div className="absolute inset-0 translate-y-2 rounded-[20px] bg-[#FF8C2B]/20 blur-md" />
+              <div className="absolute inset-0 translate-y-2 rounded-[20px] bg-[#7AA6FF]/20 blur-md" />
 
               {/* logo container */}
-              <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-[20px] border border-[#E8D889]/10 bg-[#E8D889]/[0.045] p-2.5 shadow-[0_20px_50px_rgba(0,0,0,.45)] backdrop-blur-xl">
+              <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-[20px] border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.045] p-2.5 shadow-[0_20px_50px_rgba(0,0,0,.45)] backdrop-blur-xl">
                 <img
                   src={syncoraLogo}
                   alt="Syncora"
@@ -196,7 +196,7 @@ const Welcome = () => {
               </div>
             </motion.div>
 
-            <p className="mt-3 text-[13px] font-semibold tracking-[-0.01em] text-[#E8D889]">
+            <p className="mt-3 text-[13px] font-semibold tracking-[-0.01em] text-[#F5F0E8]">
               Syncora
             </p>
 
@@ -220,7 +220,7 @@ const Welcome = () => {
           >
             <h1 className="mx-auto mt-6 max-w-[760px] text-[38px] font-semibold leading-[1.04] tracking-[-0.055em] sm:text-[48px] lg:text-[56px]">
               Welcome to{" "}
-              <span className="bg-gradient-to-r from-[#E8D889] via-white to-[#FF8C2B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#F5F0E8] via-white to-[#7AA6FF] bg-clip-text text-transparent">
                 Syncora
               </span>
             </h1>
@@ -258,7 +258,7 @@ const Welcome = () => {
               whileTap={{
                 scale: 0.97,
               }}
-              className="group relative mt-5 overflow-hidden rounded-xl bg-[#FF8C2B] px-6 py-3 text-[11px] font-semibold text-[#E8D889] shadow-[0_10px_35px_rgba(255,140,43,.2)] transition-all duration-300 hover:bg-[#FF8C2B] hover:shadow-[0_14px_45px_rgba(255,140,43,.28)]"
+              className="group relative mt-5 overflow-hidden rounded-xl bg-[#7AA6FF] px-6 py-3 text-[11px] font-semibold text-[#F5F0E8] shadow-[0_10px_35px_rgba(122,166,255,.2)] transition-all duration-300 hover:bg-[#7AA6FF] hover:shadow-[0_14px_45px_rgba(122,166,255,.28)]"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Get Started
@@ -311,26 +311,26 @@ const Welcome = () => {
                   y: -5,
                   scale: 1.015,
                 }}
-                className="group relative overflow-hidden rounded-xl border border-[#E8D889]/[0.075] bg-[#E8D889]/[0.028] px-4 py-3.5 text-left shadow-[0_15px_45px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:border-[#FF8C2B]/20 hover:bg-[#E8D889]/[0.045]"
+                className="group relative overflow-hidden rounded-xl border border-[#F5F0E8]/[0.075] bg-[#F5F0E8]/[0.028] px-4 py-3.5 text-left shadow-[0_15px_45px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:border-[#7AA6FF]/20 hover:bg-[#F5F0E8]/[0.045]"
               >
                 {/* top highlight */}
                 <div className="absolute left-4 right-4 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
                 {/* glow */}
-                <div className="absolute -right-10 -top-10 h-20 w-20 rounded-full bg-[#FF8C2B]/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute -right-10 -top-10 h-20 w-20 rounded-full bg-[#7AA6FF]/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
 
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <span className="text-[15px] font-semibold tracking-[0.15em] text-[#FF8C2B]">
+                    <span className="text-[15px] font-semibold tracking-[0.15em] text-[#7AA6FF]">
                       {feature.number}
                     </span>
 
-                    <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[#E8D889]/[0.07] bg-[#E8D889]/[0.025] text-[15px] text-[#FF8C2B]">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[#F5F0E8]/[0.07] bg-[#F5F0E8]/[0.025] text-[15px] text-[#7AA6FF]">
                       {feature.icon}
                     </span>
                   </div>
 
-                  <h3 className="mt-3 text-[15px] font-semibold text-[#E8D889] sm:text-[14px]">
+                  <h3 className="mt-3 text-[15px] font-semibold text-[#F5F0E8] sm:text-[14px]">
                     {feature.title}
                   </h3>
 
@@ -355,7 +355,7 @@ const Welcome = () => {
             }}
             className="mt-5 text-center"
           >
-            <div className="mx-auto mb-2 h-px w-12 bg-[#E8D889]/10" />
+            <div className="mx-auto mb-2 h-px w-12 bg-[#F5F0E8]/10" />
 
             <p className="text-[15px] text-[#464E59]">
               Your project. Your team. One engineering workspace.

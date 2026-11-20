@@ -1655,7 +1655,7 @@ const Dashboard = () => {
     return (
        <main className="flex min-h-screen items-center justify-center bg-[#0B0F14]">
       <div className="text-center">
-        <div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-[#FF8C2B] border-t-transparent" />
+        <div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-[#7AA6FF] border-t-transparent" />
 
         <p className="mt-4 text-sm text-[#858D97]">
           Loading Syncora...

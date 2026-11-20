@@ -60,8 +60,8 @@
 
 .hero-grid-dark {
   background-image:
-    linear-gradient(rgba(232,216,137,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,216,137,0.035) 1px, transparent 1px);
+    linear-gradient(rgba(245,240,232,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,240,232,0.035) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: linear-gradient(
     to bottom,
@@ -73,8 +73,8 @@
 
 .hero-perspective-floor {
   background-image:
-    linear-gradient(rgba(232,216,137,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,216,137,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(245,240,232,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,240,232,0.06) 1px, transparent 1px);
   background-size: 70px 70px;
   transform: translateX(-50%) perspective(600px) rotateX(62deg);
   transform-origin: center top;

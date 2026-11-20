@@ -7,7 +7,7 @@ const features = [
     description:
       "Organize projects, tasks, sprints, priorities, and deadlines from one workspace.",
     icon: "▦",
-    accent: "#FF8C2B",
+    accent: "#7AA6FF",
   },
   {
     number: "02",
@@ -15,7 +15,7 @@ const features = [
     description:
       "Get intelligent assistance for coding, debugging, documentation, and architecture.",
     icon: "✦",
-    accent: "#FF8C2B",
+    accent: "#7AA6FF",
   },
   {
     number: "03",
@@ -31,7 +31,7 @@ const features = [
     description:
       "Bring repositories, commits, issues, pull requests, and development activity together.",
     icon: "◉",
-    accent: "#FF8C2B",
+    accent: "#7AA6FF",
   },
   {
     number: "05",
@@ -39,7 +39,7 @@ const features = [
     description:
       "Create technical documentation, API references, notes, and project knowledge.",
     icon: "▤",
-    accent: "#FF8C2B",
+    accent: "#7AA6FF",
   },
   {
     number: "06",
@@ -55,7 +55,7 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="relative overflow-hidden border-t border-[#E8D889]/10 bg-[#182A4A] px-6 py-20 text-[#E8D889] sm:px-10 lg:px-12 lg:py-28"
+      className="relative overflow-hidden border-t border-[#F5F0E8]/10 bg-[#151D2B] px-6 py-20 text-[#F5F0E8] sm:px-10 lg:px-12 lg:py-28"
     >
       {/* =====================================================
           BACKGROUND
@@ -76,7 +76,7 @@ const Features = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute left-[20%] top-[-250px] h-[500px] w-[500px] rounded-full bg-[#FF8C2B]/20 blur-[150px]"
+          className="absolute left-[20%] top-[-250px] h-[500px] w-[500px] rounded-full bg-[#7AA6FF]/20 blur-[150px]"
         />
 
         <motion.div
@@ -89,7 +89,7 @@ const Features = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute right-[5%] top-[20%] h-[450px] w-[450px] rounded-full bg-[#FF8C2B]/15 blur-[150px]"
+          className="absolute right-[5%] top-[20%] h-[450px] w-[450px] rounded-full bg-[#7AA6FF]/15 blur-[150px]"
         />
 
         {/* Moving light */}
@@ -103,7 +103,7 @@ const Features = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute left-[10%] h-[180px] w-px bg-gradient-to-b from-transparent via-[#FF8C2B] to-transparent"
+          className="absolute left-[10%] h-[180px] w-px bg-gradient-to-b from-transparent via-[#7AA6FF] to-transparent"
         />
       </div>
 
@@ -115,21 +115,21 @@ const Features = () => {
 
         {/* Header — NO scroll animation */}
         <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B] shadow-[0_0_12px_#FF8C2B]" />
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7AA6FF]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#7AA6FF] shadow-[0_0_12px_#7AA6FF]" />
             Everything connected
           </span>
 
-          <h2 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-[#E8D889] sm:text-4xl lg:text-[48px]">
+          <h2 className="mt-4 text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-[#F5F0E8] sm:text-4xl lg:text-[48px]">
             One workspace for the
             <br />
 
-            <span className="bg-gradient-to-r from-[#FF8C2B] via-[#FF8C2B] to-[#FF8C2B] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#7AA6FF] via-[#7AA6FF] to-[#7AA6FF] bg-clip-text text-transparent">
               entire engineering journey.
             </span>
           </h2>
 
-          <p className="mt-5 max-w-xl text-sm leading-6 text-[#E8D889]/45 sm:text-base">
+          <p className="mt-5 max-w-xl text-sm leading-6 text-[#F5F0E8]/45 sm:text-base">
             From the first idea to the final release, Syncora keeps your
             engineering workflow connected, organized, and intelligent.
           </p>
@@ -154,7 +154,7 @@ const Features = () => {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="pointer-events-none absolute left-[16.66%] top-1/2 hidden h-px w-20 bg-gradient-to-r from-transparent via-[#FF8C2B] to-transparent lg:block"
+            className="pointer-events-none absolute left-[16.66%] top-1/2 hidden h-px w-20 bg-gradient-to-r from-transparent via-[#7AA6FF] to-transparent lg:block"
           />
 
           {/* Cards */}
@@ -171,7 +171,7 @@ const Features = () => {
                 style={{
                   transformPerspective: 1000,
                 }}
-                className="group relative min-h-[235px] overflow-hidden rounded-2xl border border-[#E8D889]/[0.08] bg-[#E8D889]/[0.035] p-6 backdrop-blur-xl transition-colors duration-500 hover:border-[#E8D889]/[0.16] hover:bg-[#E8D889]/[0.055]"
+                className="group relative min-h-[235px] overflow-hidden rounded-2xl border border-[#F5F0E8]/[0.08] bg-[#F5F0E8]/[0.035] p-6 backdrop-blur-xl transition-colors duration-500 hover:border-[#F5F0E8]/[0.16] hover:bg-[#F5F0E8]/[0.055]"
               >
                 {/* Card glow */}
                 <motion.div
@@ -210,7 +210,7 @@ const Features = () => {
                       stiffness: 300,
                       damping: 15,
                     }}
-                    className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-[#E8D889]/10 bg-[#E8D889]/[0.06] text-base"
+                    className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-[#F5F0E8]/10 bg-[#F5F0E8]/[0.06] text-base"
                     style={{
                       color: feature.accent,
                     }}
@@ -229,18 +229,18 @@ const Features = () => {
                   </motion.div>
 
                   {/* Number */}
-                  <span className="font-mono text-[11px] tracking-[0.2em] text-[#E8D889]/20 transition-colors duration-300 group-hover:text-[#E8D889]/40">
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-[#F5F0E8]/20 transition-colors duration-300 group-hover:text-[#F5F0E8]/40">
                     {feature.number}
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <h3 className="mt-7 text-lg font-semibold tracking-[-0.02em] text-[#E8D889]">
+                  <h3 className="mt-7 text-lg font-semibold tracking-[-0.02em] text-[#F5F0E8]">
                     {feature.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[#E8D889]/40 transition-colors duration-300 group-hover:text-[#E8D889]/55">
+                  <p className="mt-3 text-sm leading-6 text-[#F5F0E8]/40 transition-colors duration-300 group-hover:text-[#F5F0E8]/55">
                     {feature.description}
                   </p>
                 </div>
@@ -263,7 +263,7 @@ const Features = () => {
                 />
 
                 {/* Card number background */}
-                <span className="pointer-events-none absolute -bottom-8 -right-2 text-[100px] font-bold leading-none text-[#E8D889]/[0.015]">
+                <span className="pointer-events-none absolute -bottom-8 -right-2 text-[100px] font-bold leading-none text-[#F5F0E8]/[0.015]">
                   {feature.number}
                 </span>
               </motion.article>
@@ -275,8 +275,8 @@ const Features = () => {
             BOTTOM SYSTEM INDICATOR
         ====================================================== */}
 
-        <div className="mt-8 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-[#E8D889]/20">
-          <span className="h-px w-12 bg-[#E8D889]/10" />
+        <div className="mt-8 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-[#F5F0E8]/20">
+          <span className="h-px w-12 bg-[#F5F0E8]/10" />
 
           <span className="relative flex items-center gap-2">
             <motion.span
@@ -288,13 +288,13 @@ const Features = () => {
                 duration: 2,
                 repeat: Infinity,
               }}
-              className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B] shadow-[0_0_10px_#FF8C2B]"
+              className="h-1.5 w-1.5 rounded-full bg-[#7AA6FF] shadow-[0_0_10px_#7AA6FF]"
             />
 
             All systems connected
           </span>
 
-          <span className="h-px w-12 bg-[#E8D889]/10" />
+          <span className="h-px w-12 bg-[#F5F0E8]/10" />
         </div>
       </div>
     </section>

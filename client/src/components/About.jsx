@@ -47,14 +47,14 @@ const About = () => {
       title: "Projects",
       subtitle: "Planning",
       icon: "▦",
-      color: "#FF8C2B",
+      color: "#7AA6FF",
       position: "left-[2%] top-[15%]",
     },
     {
       title: "GitHub",
       subtitle: "Development",
       icon: "◉",
-      color: "#FF8C2B",
+      color: "#7AA6FF",
       position: "right-[3%] top-[11%]",
     },
     {
@@ -68,7 +68,7 @@ const About = () => {
       title: "Team",
       subtitle: "Collaboration",
       icon: "⌁",
-      color: "#FF8C2B",
+      color: "#7AA6FF",
       position: "right-[5%] bottom-[15%]",
     },
   ];
@@ -76,7 +76,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative overflow-hidden border-y border-[#3D4B63] bg-[#182A4A] px-6 py-20 text-[#E8D889] sm:px-10 lg:px-12 lg:py-28"
+      className="relative overflow-hidden border-y border-[#2A3852] bg-[#151D2B] px-6 py-20 text-[#F5F0E8] sm:px-10 lg:px-12 lg:py-28"
     >
       {/* =========================================================
           BACKGROUND
@@ -88,7 +88,7 @@ const About = () => {
           className="absolute inset-0 opacity-[0.14]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(232,216,137,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(232,216,137,.05) 1px, transparent 1px)",
+              "linear-gradient(rgba(245,240,232,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,.05) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -104,7 +104,7 @@ const About = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute left-[10%] top-[20%] h-[420px] w-[420px] rounded-full bg-[#FF8C2B] blur-[150px]"
+          className="absolute left-[10%] top-[20%] h-[420px] w-[420px] rounded-full bg-[#7AA6FF] blur-[150px]"
         />
 
         {/* Purple glow */}
@@ -118,7 +118,7 @@ const About = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-[-10%] right-[5%] h-[450px] w-[450px] rounded-full bg-[#FF8C2B] blur-[160px]"
+          className="absolute bottom-[-10%] right-[5%] h-[450px] w-[450px] rounded-full bg-[#7AA6FF] blur-[160px]"
         />
       </div>
 
@@ -135,9 +135,9 @@ const About = () => {
 
           <div className="max-w-xl">
             <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[#FF8C2B]" />
+              <span className="h-px w-8 bg-[#7AA6FF]" />
 
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#FF8C2B]">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7AA6FF]">
                 About Syncora
               </span>
             </div>
@@ -146,18 +146,18 @@ const About = () => {
               Stop switching
               <br />
 
-              <span className="text-[#FF8C2B]">
+              <span className="text-[#7AA6FF]">
                 between the pieces.
               </span>
             </h2>
 
-            <p className="mt-6 max-w-lg text-base leading-7 text-[#E8D889] sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-7 text-[#F5F0E8] sm:text-lg">
               Syncora is an AI-powered engineering workspace that brings
               planning, development, collaboration, documentation, and
               intelligence into one continuous workflow.
             </p>
 
-            <p className="mt-4 max-w-lg text-sm leading-6 text-[#E8D889]">
+            <p className="mt-4 max-w-lg text-sm leading-6 text-[#F5F0E8]">
               Your project should not feel like a collection of disconnected
               tools. Syncora keeps the context moving with you from the first
               idea to the final release.
@@ -173,7 +173,7 @@ const About = () => {
                   key={item}
                   className="flex items-center gap-3"
                 >
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#2D2C33] bg-[#243A5A] text-[10px] text-[#FF8C2B]">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#2D2C33] bg-[#202B40] text-[10px] text-[#7AA6FF]">
                     ✓
                   </span>
 
@@ -220,7 +220,7 @@ const About = () => {
                   repeat: Infinity,
                   ease: "linear",
                 }}
-                className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#3D4B63]"
+                className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#2A3852]"
                 style={{
                   transform:
                     "translate(-50%, -50%) rotateX(68deg)",
@@ -247,17 +247,17 @@ const About = () => {
                   <linearGradient id="flow1">
                     <stop
                       offset="0%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
                     <stop
                       offset="50%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity=".8"
                     />
                     <stop
                       offset="100%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
                   </linearGradient>
@@ -265,17 +265,17 @@ const About = () => {
                   <linearGradient id="flow2">
                     <stop
                       offset="0%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
                     <stop
                       offset="50%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity=".7"
                     />
                     <stop
                       offset="100%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
                   </linearGradient>
@@ -323,7 +323,7 @@ const About = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute left-[10%] top-[28%] h-1.5 w-1.5 rounded-full bg-[#FF8C2B] shadow-[0_0_15px_#FF8C2B]"
+                  className="absolute left-[10%] top-[28%] h-1.5 w-1.5 rounded-full bg-[#7AA6FF] shadow-[0_0_15px_#7AA6FF]"
                 />
               ))}
 
@@ -347,7 +347,7 @@ const About = () => {
                     transform: `translateZ(${40 + index * 15}px)`,
                   }}
                 >
-                  <div className="rounded-2xl border border-[#E8D889]/10 bg-[#243A5A]/90 px-3.5 py-3 shadow-[0_20px_50px_rgba(0,0,0,.35)] backdrop-blur-xl">
+                  <div className="rounded-2xl border border-[#F5F0E8]/10 bg-[#202B40]/90 px-3.5 py-3 shadow-[0_20px_50px_rgba(0,0,0,.35)] backdrop-blur-xl">
                     <div className="flex items-center gap-2.5">
 
                       <div
@@ -362,11 +362,11 @@ const About = () => {
                       </div>
 
                       <div>
-                        <p className="text-[11px] font-semibold text-[#E8D889]">
+                        <p className="text-[11px] font-semibold text-[#F5F0E8]">
                           {item.title}
                         </p>
 
-                        <p className="text-[9px] text-[#E8D889]">
+                        <p className="text-[9px] text-[#F5F0E8]">
                           {item.subtitle}
                         </p>
                       </div>
@@ -410,10 +410,10 @@ const About = () => {
                 {/* Main object */}
 
                 <div
-                  className="relative h-[210px] w-[280px] rounded-[30px] border border-[#E8D889]/10 bg-[#151519]"
+                  className="relative h-[210px] w-[280px] rounded-[30px] border border-[#F5F0E8]/10 bg-[#151519]"
                   style={{
                     boxShadow:
-                      "0 40px 90px rgba(0,0,0,.55), inset 0 1px 1px rgba(232,216,137,.08)",
+                      "0 40px 90px rgba(0,0,0,.55), inset 0 1px 1px rgba(245,240,232,.08)",
                     transformStyle: "preserve-3d",
                   }}
                 >
@@ -429,16 +429,16 @@ const About = () => {
                       duration: 3,
                       repeat: Infinity,
                     }}
-                    className="absolute left-1/2 top-[-60px] h-40 w-40 -translate-x-1/2 rounded-full bg-[#FF8C2B]/25 blur-[55px]"
+                    className="absolute left-1/2 top-[-60px] h-40 w-40 -translate-x-1/2 rounded-full bg-[#7AA6FF]/25 blur-[55px]"
                   />
 
                   {/* Header */}
 
-                  <div className="flex items-center justify-between border-b border-[#3D4B63] px-5 py-4">
+                  <div className="flex items-center justify-between border-b border-[#2A3852] px-5 py-4">
                     <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#FF8C2B]" />
+                      <span className="h-2 w-2 rounded-full bg-[#7AA6FF]" />
 
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#E8D889]">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#F5F0E8]">
                         Syncora
                       </span>
                     </div>
@@ -451,12 +451,12 @@ const About = () => {
                   {/* Flow */}
 
                   <div className="relative px-5 py-6">
-                    <p className="text-xs text-[#E8D889]">
+                    <p className="text-xs text-[#F5F0E8]">
                       Engineering context
                     </p>
 
                     <div className="mt-4 flex items-center gap-2">
-                      <div className="h-1.5 flex-1 rounded-full bg-[#3D4B63]">
+                      <div className="h-1.5 flex-1 rounded-full bg-[#2A3852]">
                         <motion.div
                           animate={{
                             width: ["20%", "85%", "20%"],
@@ -466,11 +466,11 @@ const About = () => {
                             repeat: Infinity,
                             ease: "easeInOut",
                           }}
-                          className="h-full rounded-full bg-[#FF8C2B]"
+                          className="h-full rounded-full bg-[#7AA6FF]"
                         />
                       </div>
 
-                      <span className="text-[9px] text-[#FF8C2B]">
+                      <span className="text-[9px] text-[#7AA6FF]">
                         SYNC
                       </span>
                     </div>
@@ -495,14 +495,14 @@ const About = () => {
                               }}
                               className={`flex h-8 w-8 items-center justify-center rounded-full border text-[8px] ${
                                 index === 1
-                                  ? "border-[#FF8C2B] bg-[#FF8C2B]/10 text-[#FF8C2B]"
-                                  : "border-[#3D4B63] bg-[#243A5A] text-[#E8D889]"
+                                  ? "border-[#7AA6FF] bg-[#7AA6FF]/10 text-[#7AA6FF]"
+                                  : "border-[#2A3852] bg-[#202B40] text-[#F5F0E8]"
                               }`}
                             >
                               {index + 1}
                             </motion.div>
 
-                            <span className="mt-2 text-[8px] text-[#E8D889]">
+                            <span className="mt-2 text-[8px] text-[#F5F0E8]">
                               {step}
                             </span>
                           </div>
@@ -527,10 +527,10 @@ const About = () => {
                 }}
                 className="absolute bottom-[4%] left-1/2 z-50 -translate-x-1/2"
               >
-                <div className="flex items-center gap-2 rounded-full border border-[#3D4B63] bg-[#243A5A]/90 px-4 py-2 backdrop-blur-xl">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B] shadow-[0_0_10px_#FF8C2B]" />
+                <div className="flex items-center gap-2 rounded-full border border-[#2A3852] bg-[#202B40]/90 px-4 py-2 backdrop-blur-xl">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#7AA6FF] shadow-[0_0_10px_#7AA6FF]" />
 
-                  <span className="whitespace-nowrap text-[10px] text-[#E8D889]">
+                  <span className="whitespace-nowrap text-[10px] text-[#F5F0E8]">
                     One continuous engineering context
                   </span>
                 </div>

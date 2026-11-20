@@ -92,7 +92,7 @@ const DashboardOverview = ({ dashboard }) => {
             <div className="min-w-0">
               
 
-              <h1 className="mt-0.5 truncate text-[18px] font-semibold leading-tight tracking-[-0.04em] text-[#E8D889] sm:text-[25px] lg:text-[28px]">
+              <h1 className="mt-0.5 truncate text-[18px] font-semibold leading-tight tracking-[-0.04em] text-[#F5F0E8] sm:text-[25px] lg:text-[28px]">
                 Good to see you, {firstName}
               </h1>
             </div>
@@ -102,7 +102,7 @@ const DashboardOverview = ({ dashboard }) => {
             <button
               type="button"
               onClick={() => handleNavClick("AI workspace")}
-              className="rounded-lg border border-[#252C35] bg-[#151A21] px-2.5 py-2 text-[9px] font-semibold text-[#D9DEE3] transition hover:border-[#FF8C2B] hover:text-[#FF8C2B] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
+              className="rounded-lg border border-[#252C35] bg-[#151A21] px-2.5 py-2 text-[9px] font-semibold text-[#D9DEE3] transition hover:border-[#7AA6FF] hover:text-[#7AA6FF] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
             >
               <span className="sm:hidden">✦</span>
               <span className="hidden sm:inline">✦ Ask AI</span>
@@ -111,7 +111,7 @@ const DashboardOverview = ({ dashboard }) => {
             <button
               type="button"
               onClick={openProjectDialog}
-              className="rounded-lg bg-[#FF8C2B] px-2.5 py-2 text-[9px] font-semibold text-[#E8D889] transition hover:bg-[#E94B27] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
+              className="rounded-lg bg-[#7AA6FF] px-2.5 py-2 text-[9px] font-semibold text-[#F5F0E8] transition hover:bg-[#7AA6FF] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[11px]"
             >
               <span className="sm:hidden">+ New</span>
               <span className="hidden sm:inline">+ New project</span>
@@ -128,14 +128,14 @@ const DashboardOverview = ({ dashboard }) => {
             animate={{ opacity: 1, y: 0 }}
             className="relative overflow-hidden rounded-[20px] border border-[#252C35] bg-[#151A21] p-4 shadow-[0_10px_30px_rgba(0,0,0,0.14)] sm:rounded-[24px] sm:p-6 lg:col-span-7 lg:min-h-[360px] lg:p-8"
           >
-            <div className="pointer-events-none absolute -right-24 -top-28 h-64 w-64 rounded-full bg-[#FF8C2B]/10 blur-3xl sm:h-80 sm:w-80" />
+            <div className="pointer-events-none absolute -right-24 -top-28 h-64 w-64 rounded-full bg-[#7AA6FF]/10 blur-3xl sm:h-80 sm:w-80" />
 
             <div className="pointer-events-none absolute -bottom-28 left-[42%] h-56 w-56 rounded-full bg-[#5865F2]/10 blur-3xl sm:h-72 sm:w-72" />
 
             <div className="relative flex h-full flex-col justify-between gap-7 sm:gap-12">
               <div>
                 <div className="flex items-center gap-2.5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#222A33] text-sm text-[#FF8C2B] sm:h-10 sm:w-10 sm:rounded-xl sm:text-base">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#222A33] text-sm text-[#7AA6FF] sm:h-10 sm:w-10 sm:rounded-xl sm:text-base">
                     ✦
                   </span>
 
@@ -152,7 +152,7 @@ const DashboardOverview = ({ dashboard }) => {
 
                 <h2 className="mt-5 max-w-[650px] text-[27px] font-semibold leading-[1.05] tracking-[-0.05em] sm:mt-7 sm:text-[38px] lg:text-[46px]">
                   Your engineering workspace,
-                  <span className="text-[#FF8C2B]">
+                  <span className="text-[#7AA6FF]">
                     {" "}in one view.
                   </span>
                 </h2>
@@ -166,7 +166,7 @@ const DashboardOverview = ({ dashboard }) => {
                 <button
                   type="button"
                   onClick={() => handleNavClick("Projects")}
-                  className="rounded-lg bg-[#E8D889] px-3 py-2 text-[9px] font-semibold text-[#11161D] transition hover:bg-[#E8EAED] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
+                  className="rounded-lg bg-[#F5F0E8] px-3 py-2 text-[9px] font-semibold text-[#11161D] transition hover:bg-[#E8EAED] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
                   Projects →
                 </button>
@@ -174,7 +174,7 @@ const DashboardOverview = ({ dashboard }) => {
                 <button
                   type="button"
                   onClick={() => handleNavClick("AI workspace")}
-                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-[#E8D889] transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
+                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-[#F5F0E8] transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
                   AI →
                 </button>
@@ -186,14 +186,14 @@ const DashboardOverview = ({ dashboard }) => {
                       ? handleConnectGithub(projects[0]._id)
                       : openProjectDialog()
                   }
-                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-[#E8D889] transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
+                  className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-2 text-[9px] font-semibold text-[#F5F0E8] transition hover:bg-[#252E38] sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[10px]"
                 >
                   GitHub →
                 </button>
               </div>
 
               {githubError && (
-                <p className="max-w-lg rounded-lg border border-[#7F3F35] bg-[#2A1715] px-3 py-2 text-[9px] text-[#FF8C2B] sm:rounded-xl sm:py-2.5 sm:text-[10px]">
+                <p className="max-w-lg rounded-lg border border-[#7F3F35] bg-[#2A1715] px-3 py-2 text-[9px] text-[#7AA6FF] sm:rounded-xl sm:py-2.5 sm:text-[10px]">
                   {githubError}
                 </p>
               )}
@@ -272,7 +272,7 @@ const DashboardOverview = ({ dashboard }) => {
                     onClick={() => setProjectFilter(filter)}
                     className={`rounded-md px-2 py-1.5 text-[8px] font-semibold transition sm:px-3 sm:py-2 sm:text-[9px] ${
                       projectFilter === filter
-                        ? "bg-[#252C35] text-[#E8D889]"
+                        ? "bg-[#252C35] text-[#F5F0E8]"
                         : "text-[#858D97] hover:text-[#D9DEE3]"
                     }`}
                   >
@@ -309,7 +309,7 @@ const DashboardOverview = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => handleNavClick("Projects")}
-                className="mt-3 w-full rounded-lg border border-[#252C35] bg-[#10151B] py-2 text-[9px] font-semibold text-[#AAB2BC] transition hover:bg-[#1C232B] hover:text-[#E8D889] sm:mt-4 sm:rounded-xl sm:py-2.5 sm:text-[10px]"
+                className="mt-3 w-full rounded-lg border border-[#252C35] bg-[#10151B] py-2 text-[9px] font-semibold text-[#AAB2BC] transition hover:bg-[#1C232B] hover:text-[#F5F0E8] sm:mt-4 sm:rounded-xl sm:py-2.5 sm:text-[10px]"
               >
                 View all projects →
               </button>
@@ -391,7 +391,7 @@ const DashboardOverview = ({ dashboard }) => {
             <button
               type="button"
               onClick={handlePrimaryAction}
-              className="mt-2.5 w-full rounded-lg bg-[#252C35] py-2.5 text-[9px] font-semibold text-[#E8D889] transition hover:bg-[#303943] sm:mt-3 sm:rounded-xl sm:py-3 sm:text-[10px]"
+              className="mt-2.5 w-full rounded-lg bg-[#252C35] py-2.5 text-[9px] font-semibold text-[#F5F0E8] transition hover:bg-[#303943] sm:mt-3 sm:rounded-xl sm:py-3 sm:text-[10px]"
             >
               {pendingInvitations
                 ? "Review invitation →"
@@ -427,14 +427,14 @@ const KpiCard = ({
     className="group relative min-w-0 overflow-hidden rounded-[16px] border border-[#252C35] bg-[#151A21] p-3 text-left transition duration-200 hover:-translate-y-0.5 hover:border-[#39424D] hover:bg-[#181E25] hover:shadow-lg sm:rounded-[20px] sm:p-5"
   >
     <div className="flex items-start justify-between gap-2">
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#242B34] text-xs text-[#FF8C2B] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#242B34] text-xs text-[#7AA6FF] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
         {icon}
       </span>
 
       <span
         className={`max-w-[65px] truncate rounded-full px-1.5 py-1 text-[7px] font-bold sm:max-w-none sm:px-2 sm:text-[8px] ${
           warning
-            ? "bg-[#33251A] text-[#F0A34A]"
+            ? "bg-[#33251A] text-[#7AA6FF]"
             : "bg-[#123A2D] text-[#4ADEA3]"
         }`}
       >
@@ -446,7 +446,7 @@ const KpiCard = ({
       {label}
     </p>
 
-    <p className="mt-1 text-[22px] font-semibold leading-none tracking-[-0.05em] text-[#E8D889] sm:text-[28px]">
+    <p className="mt-1 text-[22px] font-semibold leading-none tracking-[-0.05em] text-[#F5F0E8] sm:text-[28px]">
       {value}
     </p>
 
@@ -460,7 +460,7 @@ const KpiCard = ({
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.8 }}
-          className="h-full rounded-r-full bg-[#FF8C2B]"
+          className="h-full rounded-r-full bg-[#7AA6FF]"
         />
       </div>
     )}
@@ -473,12 +473,12 @@ const KpiCard = ({
 
 const CardHeader = ({ icon, title, subtitle }) => (
   <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#2A211F] text-xs font-semibold text-[#FF8C2B] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#2A211F] text-xs font-semibold text-[#7AA6FF] sm:h-9 sm:w-9 sm:rounded-xl sm:text-sm">
       {icon}
     </div>
 
     <div className="min-w-0">
-      <h2 className="truncate text-[11px] font-semibold text-[#E8D889] sm:text-[13px]">
+      <h2 className="truncate text-[11px] font-semibold text-[#F5F0E8] sm:text-[13px]">
         {title}
       </h2>
 
@@ -498,7 +498,7 @@ const StatusRow = ({ label, value, ok }) => (
     <div className="flex min-w-0 items-center gap-2">
       <span
         className={`h-1.5 w-1.5 shrink-0 rounded-full sm:h-2 sm:w-2 ${
-          ok ? "bg-[#24B47E]" : "bg-[#F0A34A]"
+          ok ? "bg-[#24B47E]" : "bg-[#7AA6FF]"
         }`}
       />
 
@@ -509,7 +509,7 @@ const StatusRow = ({ label, value, ok }) => (
 
     <span
       className={`shrink-0 text-[7px] font-semibold sm:text-[9px] ${
-        ok ? "text-[#4ADEA3]" : "text-[#F0A34A]"
+        ok ? "text-[#4ADEA3]" : "text-[#7AA6FF]"
       }`}
     >
       {value}
@@ -538,7 +538,7 @@ const ProjectCard = ({
     >
       <div className="flex items-start justify-between gap-2.5">
         <div className="min-w-0">
-          <h3 className="truncate text-[11px] font-semibold text-[#E8D889] sm:text-[12px]">
+          <h3 className="truncate text-[11px] font-semibold text-[#F5F0E8] sm:text-[12px]">
             {project.name}
           </h3>
 
@@ -589,7 +589,7 @@ const ProjectCard = ({
         <button
           type="button"
           onClick={onGithub}
-          className="truncate text-[8px] font-semibold text-[#B8C0C9] transition hover:text-[#FF8C2B] sm:text-[9px]"
+          className="truncate text-[8px] font-semibold text-[#B8C0C9] transition hover:text-[#7AA6FF] sm:text-[9px]"
         >
           {connected
             ? "Manage repository →"
@@ -601,7 +601,7 @@ const ProjectCard = ({
             type="button"
             onClick={onSync}
             disabled={syncing}
-            className="shrink-0 rounded-md px-1.5 py-1 text-[7px] font-semibold text-[#737C87] transition hover:bg-[#252C35] hover:text-[#E8D889] disabled:opacity-50 sm:px-2 sm:py-1.5 sm:text-[8px]"
+            className="shrink-0 rounded-md px-1.5 py-1 text-[7px] font-semibold text-[#737C87] transition hover:bg-[#252C35] hover:text-[#F5F0E8] disabled:opacity-50 sm:px-2 sm:py-1.5 sm:text-[8px]"
           >
             {syncing ? "Syncing..." : "Sync"}
           </button>
@@ -621,11 +621,11 @@ const EmptyProjects = ({
 }) => (
   <div className="col-span-full flex min-h-[150px] items-center justify-center rounded-xl border border-dashed border-[#303842] bg-[#10151B] p-5 sm:min-h-[190px] sm:rounded-2xl sm:p-6">
     <div className="text-center">
-      <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg bg-[#2A211F] text-base text-[#FF8C2B] sm:h-11 sm:w-11 sm:rounded-xl sm:text-lg">
+      <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg bg-[#2A211F] text-base text-[#7AA6FF] sm:h-11 sm:w-11 sm:rounded-xl sm:text-lg">
         ◇
       </div>
 
-      <p className="mt-2.5 text-[10px] font-semibold text-[#E8D889] sm:mt-3 sm:text-[12px]">
+      <p className="mt-2.5 text-[10px] font-semibold text-[#F5F0E8] sm:mt-3 sm:text-[12px]">
         {hasProjects
           ? "No projects match this filter"
           : "No projects yet"}
@@ -641,7 +641,7 @@ const EmptyProjects = ({
         <button
           type="button"
           onClick={openProjectDialog}
-          className="mt-3 rounded-lg bg-[#FF8C2B] px-3 py-2 text-[8px] font-semibold text-[#E8D889] transition hover:bg-[#E94B27] sm:mt-4 sm:px-4 sm:py-2.5 sm:text-[9px]"
+          className="mt-3 rounded-lg bg-[#7AA6FF] px-3 py-2 text-[8px] font-semibold text-[#F5F0E8] transition hover:bg-[#7AA6FF] sm:mt-4 sm:px-4 sm:py-2.5 sm:text-[9px]"
         >
           Create project
         </button>
@@ -709,13 +709,13 @@ const ActivityChart = ({ values }) => {
 
         <polygon
           points={area}
-          fill="rgba(255,140,43,0.08)"
+          fill="rgba(122,166,255,0.08)"
         />
 
         <polyline
           points={points}
           fill="none"
-          stroke="#FF8C2B"
+          stroke="#7AA6FF"
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -739,7 +739,7 @@ const ActivityChart = ({ values }) => {
               cy={y}
               r="5"
               fill="#151A21"
-              stroke="#FF8C2B"
+              stroke="#7AA6FF"
               strokeWidth="3"
             />
           );

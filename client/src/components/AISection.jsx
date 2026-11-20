@@ -13,31 +13,31 @@ const nodes = [
   {
     label: "GitHub",
     icon: "◉",
-    color: "#FF8C2B",
+    color: "#7AA6FF",
     position: "left-[2%] top-[15%]",
   },
   {
     label: "Tasks",
     icon: "✓",
-    color: "#FF8C2B",
+    color: "#7AA6FF",
     position: "right-[2%] top-[20%]",
   },
   {
     label: "Docs",
     icon: "▤",
-    color: "#FF8C2B",
+    color: "#7AA6FF",
     position: "left-[5%] bottom-[20%]",
   },
   {
     label: "Projects",
     icon: "◆",
-    color: "#FF8C2B",
+    color: "#7AA6FF",
     position: "right-[4%] bottom-[18%]",
   },
   {
     label: "Code",
     icon: "</>",
-    color: "#FF8C2B",
+    color: "#7AA6FF",
     position: "left-[27%] top-[4%]",
   },
 ];
@@ -86,7 +86,7 @@ const AISection = () => {
   return (
     <section
       id="ai"
-      className="relative overflow-hidden border-y border-[#E8D889]/[0.07] bg-[#182A4A] px-6 py-16 text-[#E8D889] sm:px-10 lg:px-12 lg:py-20"
+      className="relative overflow-hidden border-y border-[#F5F0E8]/[0.07] bg-[#151D2B] px-6 py-16 text-[#F5F0E8] sm:px-10 lg:px-12 lg:py-20"
     >
       {/* =========================================================
           BACKGROUND
@@ -99,8 +99,8 @@ const AISection = () => {
           className="absolute inset-0 opacity-[0.18]"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(232,216,137,0.045) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(232,216,137,0.045) 1px, transparent 1px)
+              linear-gradient(rgba(245,240,232,0.045) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(245,240,232,0.045) 1px, transparent 1px)
             `,
             backgroundSize: "48px 48px",
           }}
@@ -180,7 +180,7 @@ const AISection = () => {
                   duration: 2,
                   repeat: Infinity,
                 }}
-                className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_#FF8C2B]"
+                className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_#7AA6FF]"
               />
 
               Syncora AI
@@ -188,7 +188,7 @@ const AISection = () => {
 
             {/* Heading */}
 
-            <h2 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-[#E8D889] sm:text-5xl">
+            <h2 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-[#F5F0E8] sm:text-5xl">
               Your engineering
               <br />
 
@@ -199,7 +199,7 @@ const AISection = () => {
 
             {/* Description */}
 
-            <p className="mt-5 max-w-lg text-base leading-7 text-[#E8D889]/55 sm:text-lg">
+            <p className="mt-5 max-w-lg text-base leading-7 text-[#F5F0E8]/55 sm:text-lg">
               Syncora AI understands your projects, tasks, documentation, and
               development activity so you can spend less time searching and
               more time building.
@@ -217,7 +217,7 @@ const AISection = () => {
                 <motion.div
                   key={item}
                   whileHover={{ x: 6 }}
-                  className="flex items-center gap-3 text-sm text-[#E8D889]/65"
+                  className="flex items-center gap-3 text-sm text-[#F5F0E8]/65"
                 >
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-[10px] font-bold text-cyan-400">
                     ✓
@@ -238,7 +238,7 @@ const AISection = () => {
                   "0 0 35px rgba(34,211,238,.18), 0 15px 35px rgba(0,0,0,.4)",
               }}
               whileTap={{ scale: 0.98 }}
-              className="mt-8 rounded-xl border border-[#E8D889]/10 bg-[#E8D889] px-6 py-3.5 text-sm font-semibold text-[#182A4A] transition-all"
+              className="mt-8 rounded-xl border border-[#F5F0E8]/10 bg-[#F5F0E8] px-6 py-3.5 text-sm font-semibold text-[#151D2B] transition-all"
             >
               Explore Syncora AI →
             </motion.button>
@@ -313,9 +313,9 @@ const AISection = () => {
                   transformStyle: "preserve-3d",
                 }}
               >
-                <div className="absolute left-1/2 top-[-4px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-400 shadow-[0_0_20px_#FF8C2B]" />
+                <div className="absolute left-1/2 top-[-4px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-400 shadow-[0_0_20px_#7AA6FF]" />
 
-                <div className="absolute bottom-[18%] left-[-3px] h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_18px_#FF8C2B]" />
+                <div className="absolute bottom-[18%] left-[-3px] h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_18px_#7AA6FF]" />
               </motion.div>
 
               <motion.div
@@ -329,7 +329,7 @@ const AISection = () => {
                 }}
                 className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-violet-400/15"
               >
-                <div className="absolute right-[7%] top-[12%] h-2 w-2 rounded-full bg-fuchsia-400 shadow-[0_0_15px_#FF8C2B]" />
+                <div className="absolute right-[7%] top-[12%] h-2 w-2 rounded-full bg-fuchsia-400 shadow-[0_0_15px_#7AA6FF]" />
               </motion.div>
 
               <motion.div
@@ -357,7 +357,7 @@ const AISection = () => {
               ===================================================== */}
 
               <div
-                className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-[40px] border border-[#E8D889]/[0.05]"
+                className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-[40px] border border-[#F5F0E8]/[0.05]"
                 style={{
                   transform:
                     "translate(-50%, -50%) rotateX(65deg) rotateZ(25deg)",
@@ -392,19 +392,19 @@ const AISection = () => {
                   >
                     <stop
                       offset="0%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
 
                     <stop
                       offset="50%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0.8"
                     />
 
                     <stop
                       offset="100%"
-                      stopColor="#FF8C2B"
+                      stopColor="#7AA6FF"
                       stopOpacity="0"
                     />
                   </linearGradient>
@@ -447,7 +447,7 @@ const AISection = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute left-[14%] top-[21%] z-20 h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_14px_#FF8C2B]"
+                  className="absolute left-[14%] top-[21%] z-20 h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_14px_#7AA6FF]"
                 />
               ))}
 
@@ -488,12 +488,12 @@ const AISection = () => {
                 {/* Core */}
 
                 <div
-                  className="relative flex h-48 w-48 flex-col items-center justify-center overflow-hidden rounded-[38px] border border-[#E8D889]/15"
+                  className="relative flex h-48 w-48 flex-col items-center justify-center overflow-hidden rounded-[38px] border border-[#F5F0E8]/15"
                   style={{
                     background:
                       "linear-gradient(145deg, rgba(25,30,42,.98), rgba(10,14,22,.98))",
                     boxShadow:
-                      "0 30px 80px rgba(0,0,0,.55), inset 0 1px 1px rgba(232,216,137,.1)",
+                      "0 30px 80px rgba(0,0,0,.55), inset 0 1px 1px rgba(245,240,232,.1)",
                   }}
                 >
                   {/* Scanning light */}
@@ -536,19 +536,19 @@ const AISection = () => {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-cyan-400 to-violet-500 text-2xl text-[#E8D889] shadow-[0_0_35px_rgba(34,211,238,.25)]"
+                    className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-cyan-400 to-violet-500 text-2xl text-[#F5F0E8] shadow-[0_0_35px_rgba(34,211,238,.25)]"
                   >
                     ✦
                   </motion.div>
 
-                  <p className="relative mt-4 text-sm font-semibold text-[#E8D889]">
+                  <p className="relative mt-4 text-sm font-semibold text-[#F5F0E8]">
                     Syncora AI
                   </p>
 
                   <div className="relative mt-1 flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#FF8C2B]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#7AA6FF]" />
 
-                    <span className="text-[10px] text-[#E8D889]/45">
+                    <span className="text-[10px] text-[#F5F0E8]/45">
                       Context active
                     </span>
                   </div>
@@ -598,9 +598,9 @@ const AISection = () => {
 
                     {/* Card */}
 
-                    <div className="relative flex items-center gap-2.5 rounded-2xl border border-[#E8D889]/10 bg-[#243A5A]/90 px-3.5 py-3 shadow-[0_20px_45px_rgba(0,0,0,.4)] backdrop-blur-xl">
+                    <div className="relative flex items-center gap-2.5 rounded-2xl border border-[#F5F0E8]/10 bg-[#202B40]/90 px-3.5 py-3 shadow-[0_20px_45px_rgba(0,0,0,.4)] backdrop-blur-xl">
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-xl text-[11px] font-bold text-[#E8D889]"
+                        className="flex h-9 w-9 items-center justify-center rounded-xl text-[11px] font-bold text-[#F5F0E8]"
                         style={{
                           background: `linear-gradient(135deg, ${node.color}, #111827)`,
                           boxShadow: `0 8px 25px ${node.color}35`,
@@ -610,16 +610,16 @@ const AISection = () => {
                       </div>
 
                       <div>
-                        <p className="text-[11px] font-semibold text-[#E8D889]">
+                        <p className="text-[11px] font-semibold text-[#F5F0E8]">
                           {node.label}
                         </p>
 
-                        <p className="mt-0.5 text-[9px] text-[#E8D889]/35">
+                        <p className="mt-0.5 text-[9px] text-[#F5F0E8]/35">
                           Connected
                         </p>
                       </div>
 
-                      <span className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#FF8C2B]" />
+                      <span className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#7AA6FF]" />
                     </div>
                   </div>
                 </motion.div>
@@ -639,7 +639,7 @@ const AISection = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute right-[1%] top-[2%] z-50 rounded-2xl border border-[#E8D889]/10 bg-[#243A5A]/90 px-4 py-3 shadow-[0_20px_45px_rgba(0,0,0,.35)] backdrop-blur-xl"
+                className="absolute right-[1%] top-[2%] z-50 rounded-2xl border border-[#F5F0E8]/10 bg-[#202B40]/90 px-4 py-3 shadow-[0_20px_45px_rgba(0,0,0,.35)] backdrop-blur-xl"
                 style={{
                   transform: "translateZ(120px)",
                 }}
@@ -651,7 +651,7 @@ const AISection = () => {
                     <span className="relative h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </span>
 
-                  <span className="text-[10px] font-semibold text-[#E8D889]/70">
+                  <span className="text-[10px] font-semibold text-[#F5F0E8]/70">
                     AI Context Active
                   </span>
                 </div>
@@ -672,7 +672,7 @@ const AISection = () => {
                   ease: "easeInOut",
                   delay: 0.5,
                 }}
-                className="absolute bottom-[3%] right-[1%] z-50 w-48 rounded-2xl border border-[#E8D889]/10 bg-[#243A5A]/90 p-3.5 shadow-[0_20px_45px_rgba(0,0,0,.4)] backdrop-blur-xl"
+                className="absolute bottom-[3%] right-[1%] z-50 w-48 rounded-2xl border border-[#F5F0E8]/10 bg-[#202B40]/90 p-3.5 shadow-[0_20px_45px_rgba(0,0,0,.4)] backdrop-blur-xl"
               >
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-violet-500/10 text-xs text-violet-400">
@@ -680,11 +680,11 @@ const AISection = () => {
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-semibold text-[#E8D889]">
+                    <p className="text-[10px] font-semibold text-[#F5F0E8]">
                       Workspace analysis
                     </p>
 
-                    <p className="text-[9px] text-[#E8D889]/35">
+                    <p className="text-[9px] text-[#F5F0E8]/35">
                       24 signals detected
                     </p>
                   </div>

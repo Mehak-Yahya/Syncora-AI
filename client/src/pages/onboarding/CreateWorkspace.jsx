@@ -349,7 +349,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
   ------------------------------------------------------- */
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-[#E8D889] sm:px-6 lg:px-8">
+    <main className="relative min-h-screen overflow-hidden bg-[#151D2B] px-4 py-5 text-[#F5F0E8] sm:px-6 lg:px-8">
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
@@ -375,7 +375,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
             w-[520px]
             -translate-x-1/2
             rounded-full
-            bg-[#FF8C2B]/10
+            bg-[#7AA6FF]/10
             blur-[140px]
           "
         />
@@ -424,7 +424,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
             h-[400px]
             w-[400px]
             rounded-full
-            bg-[#FF8C2B]
+            bg-[#7AA6FF]
             blur-[130px]
           "
         />
@@ -436,12 +436,12 @@ const CreateWorkspace = ({ existingUser = false }) => {
           style={{
             backgroundImage: `
               linear-gradient(
-                rgba(232,216,137,0.7) 1px,
+                rgba(245,240,232,0.7) 1px,
                 transparent 1px
               ),
               linear-gradient(
                 90deg,
-                rgba(232,216,137,0.7) 1px,
+                rgba(245,240,232,0.7) 1px,
                 transparent 1px
               )
             `,
@@ -451,11 +451,11 @@ const CreateWorkspace = ({ existingUser = false }) => {
 
         {/* Vertical fade */}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#07090D]/20 to-[#07090D]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#151D2B]/20 to-[#151D2B]" />
 
         {/* Vignette */}
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#07090D_92%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#151D2B_92%)]" />
       </div>
 
       {/* =====================================================
@@ -502,9 +502,9 @@ const CreateWorkspace = ({ existingUser = false }) => {
             justify-center
             rounded-2xl
             border
-            border-[#E8D889]/[0.08]
-            bg-[#E8D889]/[0.025]
-            text-[#FF8C2B]
+            border-[#F5F0E8]/[0.08]
+            bg-[#F5F0E8]/[0.025]
+            text-[#7AA6FF]
             shadow-[0_20px_60px_rgba(0,0,0,0.3)]
           "
         >
@@ -552,9 +552,9 @@ const CreateWorkspace = ({ existingUser = false }) => {
             justify-center
             rounded-2xl
             border
-            border-[#E8D889]/[0.08]
-            bg-[#E8D889]/[0.025]
-            text-[#FF8C2B]
+            border-[#F5F0E8]/[0.08]
+            bg-[#F5F0E8]/[0.025]
+            text-[#7AA6FF]
             shadow-[0_20px_60px_rgba(0,0,0,0.3)]
           "
         >
@@ -596,18 +596,18 @@ const CreateWorkspace = ({ existingUser = false }) => {
                   justify-center
                   rounded-xl
                   border
-                  border-[#E8D889]/[0.09]
-                  bg-[#E8D889]/[0.045]
+                  border-[#F5F0E8]/[0.09]
+                  bg-[#F5F0E8]/[0.045]
                   shadow-lg
                 "
               >
-                <span className="text-sm font-bold text-[#FF8C2B]">
+                <span className="text-sm font-bold text-[#7AA6FF]">
                   S
                 </span>
               </div>
 
               <div>
-                <p className="text-sm font-semibold tracking-[-0.02em] text-[#E8D889]">
+                <p className="text-sm font-semibold tracking-[-0.02em] text-[#F5F0E8]">
                   Syncora
                 </p>
 
@@ -634,9 +634,9 @@ const CreateWorkspace = ({ existingUser = false }) => {
 
               {!isExistingWorkspaceSetup && (
                 <div className="flex gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B]" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B]" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#E8D889]/15" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#7AA6FF]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#7AA6FF]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#F5F0E8]/15" />
                 </div>
               )}
             </motion.div>
@@ -665,7 +665,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
               overflow-hidden
               rounded-[24px]
               border
-              border-[#E8D889]/[0.085]
+              border-[#F5F0E8]/[0.085]
               bg-[#0C0F14]
               shadow-[0_30px_90px_rgba(0,0,0,0.45)]
             "
@@ -690,7 +690,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                 h-px
                 bg-gradient-to-r
                 from-transparent
-                via-[#FF8C2B]
+                via-[#7AA6FF]
                 to-transparent
               "
             />
@@ -706,7 +706,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                 h-64
                 w-64
                 rounded-full
-                bg-[#FF8C2B]/[0.035]
+                bg-[#7AA6FF]/[0.035]
                 blur-[80px]
               "
             />
@@ -741,14 +741,14 @@ const CreateWorkspace = ({ existingUser = false }) => {
                         items-center
                         justify-center
                         rounded-lg
-                        bg-[#FF8C2B]/10
-                        text-[#FF8C2B]
+                        bg-[#7AA6FF]/10
+                        text-[#7AA6FF]
                       "
                     >
                       <SparkIcon size={13} />
                     </span>
 
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7AA6FF]">
                       {isExistingWorkspaceSetup
                         ? "New workspace"
                         : "Your workspace"}
@@ -774,7 +774,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                       font-semibold
                       leading-[1.08]
                       tracking-[-0.045em]
-                      text-[#E8D889]
+                      text-[#F5F0E8]
                       sm:text-[38px]
                     "
                   >
@@ -834,8 +834,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                     shrink-0
                     rounded-2xl
                     border
-                    border-[#E8D889]/[0.075]
-                    bg-[#E8D889]/[0.02]
+                    border-[#F5F0E8]/[0.075]
+                    bg-[#F5F0E8]/[0.02]
                     p-3
                     md:block
                   "
@@ -849,15 +849,15 @@ const CreateWorkspace = ({ existingUser = false }) => {
                         items-center
                         justify-center
                         rounded-lg
-                        bg-[#FF8C2B]/10
-                        text-[#FF8C2B]
+                        bg-[#7AA6FF]/10
+                        text-[#7AA6FF]
                       "
                     >
                       <SparkIcon size={12} />
                     </div>
 
                     <div className="min-w-0">
-                      <p className="truncate text-[10px] font-semibold text-[#E8D889]">
+                      <p className="truncate text-[10px] font-semibold text-[#F5F0E8]">
                         {formData.workspaceName ||
                           "Your workspace"}
                       </p>
@@ -870,7 +870,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                     </div>
                   </div>
 
-                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#E8D889]/[0.05]">
+                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#F5F0E8]/[0.05]">
                     <motion.div
                       animate={{
                         width: [
@@ -886,7 +886,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="h-full rounded-full bg-[#FF8C2B]/55"
+                      className="h-full rounded-full bg-[#7AA6FF]/55"
                     />
                   </div>
                 </motion.div>
@@ -941,22 +941,22 @@ const CreateWorkspace = ({ existingUser = false }) => {
                           w-full
                           rounded-xl
                           border
-                          border-[#E8D889]/[0.09]
-                          bg-[#E8D889]/[0.025]
+                          border-[#F5F0E8]/[0.09]
+                          bg-[#F5F0E8]/[0.025]
                           px-3.5
                           py-3
                           text-xs
-                          text-[#E8D889]
+                          text-[#F5F0E8]
                           outline-none
                           transition-all
                           duration-200
                           placeholder:text-[#59616D]
-                          hover:border-[#E8D889]/[0.16]
-                          hover:bg-[#E8D889]/[0.035]
-                          focus:border-[#FF8C2B]/60
-                          focus:bg-[#FF8C2B]/[0.025]
+                          hover:border-[#F5F0E8]/[0.16]
+                          hover:bg-[#F5F0E8]/[0.035]
+                          focus:border-[#7AA6FF]/60
+                          focus:bg-[#7AA6FF]/[0.025]
                           focus:ring-4
-                          focus:ring-[#FF8C2B]/[0.06]
+                          focus:ring-[#7AA6FF]/[0.06]
                         "
                       />
 
@@ -996,8 +996,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                             rounded-l-xl
                             border
                             border-r-0
-                            border-[#E8D889]/[0.09]
-                            bg-[#E8D889]/[0.045]
+                            border-[#F5F0E8]/[0.09]
+                            bg-[#F5F0E8]/[0.045]
                             px-3
                             text-[10px]
                             text-[#7D8795]
@@ -1019,21 +1019,21 @@ const CreateWorkspace = ({ existingUser = false }) => {
                             flex-1
                             rounded-r-xl
                             border
-                            border-[#E8D889]/[0.09]
-                            bg-[#E8D889]/[0.025]
+                            border-[#F5F0E8]/[0.09]
+                            bg-[#F5F0E8]/[0.025]
                             px-3.5
                             py-3
                             text-xs
-                            text-[#E8D889]
+                            text-[#F5F0E8]
                             outline-none
                             transition-all
                             duration-200
                             placeholder:text-[#59616D]
-                            hover:border-[#E8D889]/[0.16]
-                            focus:border-[#FF8C2B]/60
-                            focus:bg-[#FF8C2B]/[0.025]
+                            hover:border-[#F5F0E8]/[0.16]
+                            focus:border-[#7AA6FF]/60
+                            focus:bg-[#7AA6FF]/[0.025]
                             focus:ring-4
-                            focus:ring-[#FF8C2B]/[0.06]
+                            focus:ring-[#7AA6FF]/[0.06]
                           "
                         />
                       </div>
@@ -1083,21 +1083,21 @@ const CreateWorkspace = ({ existingUser = false }) => {
                           resize-none
                           rounded-xl
                           border
-                          border-[#E8D889]/[0.09]
-                          bg-[#E8D889]/[0.025]
+                          border-[#F5F0E8]/[0.09]
+                          bg-[#F5F0E8]/[0.025]
                           px-3.5
                           py-3
                           text-xs
-                          text-[#E8D889]
+                          text-[#F5F0E8]
                           outline-none
                           transition-all
                           duration-200
                           placeholder:text-[#59616D]
-                          hover:border-[#E8D889]/[0.16]
-                          focus:border-[#FF8C2B]/60
-                          focus:bg-[#FF8C2B]/[0.025]
+                          hover:border-[#F5F0E8]/[0.16]
+                          focus:border-[#7AA6FF]/60
+                          focus:bg-[#7AA6FF]/[0.025]
                           focus:ring-4
-                          focus:ring-[#FF8C2B]/[0.06]
+                          focus:ring-[#7AA6FF]/[0.06]
                         "
                       />
                     </motion.div>
@@ -1161,8 +1161,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                               duration-200
                               ${
                                 selected
-                                  ? "border-[#FF8C2B]/55 bg-[#FF8C2B]/[0.075] shadow-[0_12px_40px_rgba(255,140,43,0.10)]"
-                                  : "border-[#E8D889]/[0.075] bg-[#E8D889]/[0.018] hover:border-[#E8D889]/[0.14] hover:bg-[#E8D889]/[0.035]"
+                                  ? "border-[#7AA6FF]/55 bg-[#7AA6FF]/[0.075] shadow-[0_12px_40px_rgba(122,166,255,0.10)]"
+                                  : "border-[#F5F0E8]/[0.075] bg-[#F5F0E8]/[0.018] hover:border-[#F5F0E8]/[0.14] hover:bg-[#F5F0E8]/[0.035]"
                               }
                             `}
                           >
@@ -1190,7 +1190,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                                   h-20
                                   w-20
                                   rounded-full
-                                  bg-[#FF8C2B]/15
+                                  bg-[#7AA6FF]/15
                                   blur-2xl
                                 "
                               />
@@ -1211,8 +1211,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                                   duration-200
                                   ${
                                     selected
-                                      ? "border-[#FF8C2B]/30 bg-[#FF8C2B]/10 text-[#FF8C2B]"
-                                      : "border-[#E8D889]/[0.08] bg-[#E8D889]/[0.025] text-[#7D8795]"
+                                      ? "border-[#7AA6FF]/30 bg-[#7AA6FF]/10 text-[#7AA6FF]"
+                                      : "border-[#F5F0E8]/[0.08] bg-[#F5F0E8]/[0.025] text-[#7D8795]"
                                   }
                                 `}
                               >
@@ -1221,7 +1221,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
 
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center justify-between gap-2">
-                                  <p className="text-xs font-semibold text-[#E8D889]">
+                                  <p className="text-xs font-semibold text-[#F5F0E8]">
                                     {option.title}
                                   </p>
 
@@ -1241,8 +1241,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                                       duration-200
                                       ${
                                         selected
-                                          ? "border-[#FF8C2B] bg-[#FF8C2B] text-[#E8D889]"
-                                          : "border-[#E8D889]/[0.15] text-transparent"
+                                          ? "border-[#7AA6FF] bg-[#7AA6FF] text-[#F5F0E8]"
+                                          : "border-[#F5F0E8]/[0.15] text-transparent"
                                       }
                                     `}
                                   >
@@ -1267,8 +1267,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                         mt-3
                         rounded-xl
                         border
-                        border-[#E8D889]/[0.06]
-                        bg-[#E8D889]/[0.018]
+                        border-[#F5F0E8]/[0.06]
+                        bg-[#F5F0E8]/[0.018]
                         px-3
                         py-2.5
                       "
@@ -1280,8 +1280,8 @@ const CreateWorkspace = ({ existingUser = false }) => {
                             w-1.5
                             shrink-0
                             rounded-full
-                            bg-[#FF8C2B]
-                            shadow-[0_0_8px_rgba(255,140,43,0.7)]
+                            bg-[#7AA6FF]
+                            shadow-[0_0_8px_rgba(122,166,255,0.7)]
                           "
                         />
 
@@ -1347,7 +1347,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                     items-center
                     justify-between
                     border-t
-                    border-[#E8D889]/[0.06]
+                    border-[#F5F0E8]/[0.06]
                     pt-5
                   "
                 >
@@ -1381,7 +1381,7 @@ const CreateWorkspace = ({ existingUser = false }) => {
                       text-[#7D8795]
                       transition-colors
                       duration-200
-                      hover:text-[#E8D889]
+                      hover:text-[#F5F0E8]
                     "
                   >
                     <ArrowLeftIcon size={13} />
@@ -1409,17 +1409,17 @@ const CreateWorkspace = ({ existingUser = false }) => {
                       relative
                       overflow-hidden
                       rounded-xl
-                      bg-[#FF8C2B]
+                      bg-[#7AA6FF]
                       px-5
                       py-3
                       text-[10px]
                       font-semibold
-                      text-[#E8D889]
-                      shadow-[0_10px_30px_rgba(255,140,43,0.18)]
+                      text-[#F5F0E8]
+                      shadow-[0_10px_30px_rgba(122,166,255,0.18)]
                       transition-all
                       duration-200
-                      hover:bg-[#FF8C2B]
-                      hover:shadow-[0_14px_40px_rgba(255,140,43,0.28)]
+                      hover:bg-[#7AA6FF]
+                      hover:shadow-[0_14px_40px_rgba(122,166,255,0.28)]
                       disabled:cursor-not-allowed
                       disabled:opacity-60
                     "
