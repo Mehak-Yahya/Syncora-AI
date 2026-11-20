@@ -158,11 +158,11 @@ const DashboardWorkspace = ({ dashboard }) => {
         ========================================================= */}
         <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF5C35]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF8C2B]">
               Workspace
             </p>
 
-            <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-white sm:text-[28px]">
+            <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-[#E8D889] sm:text-[28px]">
               Workspaces
             </h1>
 
@@ -174,7 +174,7 @@ const DashboardWorkspace = ({ dashboard }) => {
           <button
             type="button"
             onClick={() => navigate("/workspace/new")}
-            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#FF5C35] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#E94B27] focus:outline-none focus:ring-2 focus:ring-[#FF5C35]/30"
+            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#FF8C2B] px-4 text-sm font-semibold text-[#E8D889] shadow-sm transition hover:bg-[#E94B27] focus:outline-none focus:ring-2 focus:ring-[#FF8C2B]/30"
           >
             <span className="text-base leading-none">+</span>
             New workspace
@@ -209,14 +209,14 @@ const DashboardWorkspace = ({ dashboard }) => {
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Search workspaces..."
-                className="h-10 w-full rounded-xl border border-[#252C35] bg-[#0F1318] pl-9 pr-9 text-sm text-white outline-none transition placeholder:text-[#626C78] focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
+                className="h-10 w-full rounded-xl border border-[#252C35] bg-[#0F1318] pl-9 pr-9 text-sm text-[#E8D889] outline-none transition placeholder:text-[#626C78] focus:border-[#FF8C2B] focus:ring-2 focus:ring-[#FF8C2B]/10"
               />
 
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md text-[#737C87] transition hover:bg-[#1D242D] hover:text-white"
+                  className="absolute right-2.5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md text-[#737C87] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                   aria-label="Clear search"
                 >
                   ×
@@ -258,7 +258,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                 {/* SECTION HEADER */}
                 <div className="mb-4 flex items-center justify-between">
                   <div>
-                    <h2 className="text-sm font-semibold text-white">
+                    <h2 className="text-sm font-semibold text-[#E8D889]">
                       Your workspaces
                     </h2>
 
@@ -298,7 +298,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                           key={workspace._id}
                           className={`group relative rounded-xl border transition-all ${
                             isActive
-                              ? "border-[#FF5C35]/60 bg-[#1D1917] shadow-[0_4px_16px_rgba(255,92,53,0.08)]"
+                              ? "border-[#FF8C2B]/60 bg-[#1D1917] shadow-[0_4px_16px_rgba(255,140,43,0.08)]"
                               : "border-[#252C35] bg-[#10151B] hover:border-[#39424D] hover:bg-[#151A21] hover:shadow-[0_8px_20px_rgba(0,0,0,0.16)]"
                           }`}
                         >
@@ -308,7 +308,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                             onClick={() =>
                               handleWorkspaceSelect(workspace)
                             }
-                            className="w-full p-4 text-left focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#FF5C35]/20"
+                            className="w-full p-4 text-left focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#FF8C2B]/20"
                           >
                             <div className="flex items-start gap-3 pr-8">
 
@@ -316,7 +316,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                               <div
                                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
                                   isActive
-                                    ? "bg-[#FF5C35] text-white"
+                                    ? "bg-[#FF8C2B] text-[#E8D889]"
                                     : "bg-[#242B34] text-[#B8C0C9]"
                                 }`}
                               >
@@ -328,13 +328,13 @@ const DashboardWorkspace = ({ dashboard }) => {
                               {/* INFO */}
                               <div className="min-w-0 flex-1">
                                 <div className="flex min-w-0 items-center gap-2">
-                                  <p className="truncate text-sm font-semibold text-white">
+                                  <p className="truncate text-sm font-semibold text-[#E8D889]">
                                     {workspace.name ||
                                       "Untitled workspace"}
                                   </p>
 
                                   {isActive && (
-                                    <span className="shrink-0 rounded-full border border-[#FF5C35]/25 bg-[#2A211F] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#FF8F75]">
+                                    <span className="shrink-0 rounded-full border border-[#FF8C2B]/25 bg-[#2A211F] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#FF8C2B]">
                                       Active
                                     </span>
                                   )}
@@ -398,8 +398,8 @@ const DashboardWorkspace = ({ dashboard }) => {
                               }}
                               className={`flex h-7 w-7 items-center justify-center rounded-md text-[#737C87] transition ${
                                 openMenuId === workspace._id
-                                  ? "bg-[#252C35] text-white"
-                                  : "opacity-70 hover:bg-[#242B34] hover:text-white sm:opacity-0 sm:group-hover:opacity-100"
+                                  ? "bg-[#252C35] text-[#E8D889]"
+                                  : "opacity-70 hover:bg-[#242B34] hover:text-[#E8D889] sm:opacity-0 sm:group-hover:opacity-100"
                               }`}
                               aria-label={`Actions for ${workspace.name}`}
                             >
@@ -419,7 +419,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                       workspace
                                     )
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                                 >
                                   <span className="w-4 text-center text-[#737C87]">
                                     ✓
@@ -432,7 +432,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                   onClick={() =>
                                     handleEdit(workspace)
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                                 >
                                   <span className="w-4 text-center text-[#737C87]">
                                     ✎
@@ -445,7 +445,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                   onClick={() =>
                                     handleShowMembers(workspace)
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                                 >
                                   <span className="w-4 text-center text-[#737C87]">
                                     ♙
@@ -458,7 +458,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                   onClick={() =>
                                     handleInvite(workspace)
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                                 >
                                   <span className="w-4 text-center text-[#737C87]">
                                     +
@@ -473,7 +473,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                   onClick={() =>
                                     handleCopySlug(workspace)
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                                 >
                                   <span className="w-4 text-center text-[#737C87]">
                                     ⧉
@@ -489,7 +489,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                                   onClick={() =>
                                     handleDelete(workspace)
                                   }
-                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#FF8F7A] transition hover:bg-[#2A1715] hover:text-[#FFB5A5]"
+                                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#FF8C2B] transition hover:bg-[#2A1715] hover:text-[#FF8C2B]"
                                 >
                                   <span className="w-4 text-center">
                                     ×
@@ -521,7 +521,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                       </svg>
                     </div>
 
-                    <p className="mt-4 text-sm font-semibold text-white">
+                    <p className="mt-4 text-sm font-semibold text-[#E8D889]">
                       No workspaces found
                     </p>
 
@@ -533,7 +533,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
-                      className="mt-4 rounded-xl border border-[#303842] bg-[#1D242D] px-3 py-2 text-xs font-semibold text-[#B8C0C9] transition hover:border-[#39424D] hover:bg-[#252C35] hover:text-white"
+                      className="mt-4 rounded-xl border border-[#303842] bg-[#1D242D] px-3 py-2 text-xs font-semibold text-[#B8C0C9] transition hover:border-[#39424D] hover:bg-[#252C35] hover:text-[#E8D889]"
                     >
                       Clear search
                     </button>
@@ -545,11 +545,11 @@ const DashboardWorkspace = ({ dashboard }) => {
                   NO WORKSPACE STATE
               ===================================================== */
               <div className="flex min-h-[360px] flex-col items-center justify-center rounded-xl border border-dashed border-[#303842] bg-[#10151B] px-6 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2A211F] text-[#FF5C35] ring-1 ring-[#3A2A27]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2A211F] text-[#FF8C2B] ring-1 ring-[#3A2A27]">
                   <span className="text-xl">+</span>
                 </div>
 
-                <h2 className="mt-4 text-sm font-semibold text-white">
+                <h2 className="mt-4 text-sm font-semibold text-[#E8D889]">
                   No workspace yet
                 </h2>
 
@@ -561,7 +561,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                 <button
                   type="button"
                   onClick={() => navigate("/workspace/new")}
-                  className="mt-5 rounded-xl bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#E94B27]"
+                  className="mt-5 rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
                 >
                   Create workspace
                 </button>
@@ -575,11 +575,11 @@ const DashboardWorkspace = ({ dashboard }) => {
           {workspaceActionError && (
             <div className="border-t border-[#252C35] px-4 py-4 sm:px-5">
               <div className="flex items-start gap-3 rounded-xl border border-[#7F3F35] bg-[#2A1715] px-3 py-2.5">
-                <span className="mt-0.5 text-sm text-[#FF8F7A]">
+                <span className="mt-0.5 text-sm text-[#FF8C2B]">
                   !
                 </span>
 
-                <p className="text-xs leading-5 text-[#FFB5A5]">
+                <p className="text-xs leading-5 text-[#FF8C2B]">
                   {workspaceActionError}
                 </p>
               </div>
@@ -605,11 +605,11 @@ const DashboardWorkspace = ({ dashboard }) => {
             {/* MODAL HEADER */}
             <div className="flex items-start justify-between border-b border-[#252C35] px-5 py-4">
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
                   Workspace members
                 </p>
 
-                <h2 className="mt-1 truncate text-base font-semibold text-white">
+                <h2 className="mt-1 truncate text-base font-semibold text-[#E8D889]">
                   {membersWorkspace.name}
                 </h2>
 
@@ -624,7 +624,7 @@ const DashboardWorkspace = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setMembersWorkspace(null)}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-lg text-[#737C87] transition hover:bg-[#1D242D] hover:text-white"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-lg text-[#737C87] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                 aria-label="Close members"
               >
                 ×
@@ -651,7 +651,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                         </div>
 
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-white">
+                          <p className="truncate text-sm font-semibold text-[#E8D889]">
                             {member.name || "Unnamed member"}
                           </p>
 
@@ -669,7 +669,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                 </div>
               ) : (
                 <div className="rounded-xl border border-dashed border-[#303842] bg-[#0F1318] px-5 py-10 text-center">
-                  <p className="text-sm font-semibold text-white">
+                  <p className="text-sm font-semibold text-[#E8D889]">
                     No members yet
                   </p>
 
@@ -684,7 +684,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                 membersWorkspace.pendingInvites.length > 0 && (
                   <div className="mt-5">
                     <div className="mb-2 flex items-center justify-between">
-                      <p className="text-xs font-semibold text-white">
+                      <p className="text-xs font-semibold text-[#E8D889]">
                         Pending invitations
                       </p>
 
@@ -726,7 +726,7 @@ const DashboardWorkspace = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setMembersWorkspace(null)}
-                className="rounded-xl border border-[#303842] bg-[#1D242D] px-3.5 py-2 text-xs font-semibold text-[#B8C0C9] transition hover:bg-[#252C35] hover:text-white"
+                className="rounded-xl border border-[#303842] bg-[#1D242D] px-3.5 py-2 text-xs font-semibold text-[#B8C0C9] transition hover:bg-[#252C35] hover:text-[#E8D889]"
               >
                 Close
               </button>
@@ -737,7 +737,7 @@ const DashboardWorkspace = ({ dashboard }) => {
                   handleInvite(membersWorkspace);
                   setMembersWorkspace(null);
                 }}
-                className="rounded-xl bg-[#FF5C35] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#E94B27]"
+                className="rounded-xl bg-[#FF8C2B] px-3.5 py-2 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
               >
                 Invite member
               </button>

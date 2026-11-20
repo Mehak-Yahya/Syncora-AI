@@ -9,9 +9,9 @@ import SplashCursor from "../components/SplashCursor/SplashCursor";
 
 const Landing = () => {
   return (
-    <main className="relative min-h-screen bg-[#050507]">
+    <main className="relative min-h-screen bg-[#182A4A]">
       <SplashCursor
-        COLOR="#FF5C35"
+        COLOR="#FF8C2B"
         RAINBOW_MODE={false}
         SPLAT_FORCE={5000}
         SPLAT_RADIUS={0.2}

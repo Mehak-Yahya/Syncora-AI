@@ -334,7 +334,7 @@ const InviteTeam = () => {
   ------------------------------------------------------- */
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-white sm:px-6 lg:px-8">
+    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-[#E8D889] sm:px-6 lg:px-8">
 
       {/* =====================================================
           BACKGROUND
@@ -362,7 +362,7 @@ const InviteTeam = () => {
             w-[520px]
             -translate-x-1/2
             rounded-full
-            bg-[#FF5C35]/10
+            bg-[#FF8C2B]/10
             blur-[140px]
           "
         />
@@ -411,7 +411,7 @@ const InviteTeam = () => {
             h-[400px]
             w-[400px]
             rounded-full
-            bg-[#FF5C35]
+            bg-[#FF8C2B]
             blur-[130px]
           "
         />
@@ -423,12 +423,12 @@ const InviteTeam = () => {
           style={{
             backgroundImage: `
               linear-gradient(
-                rgba(255,255,255,0.7) 1px,
+                rgba(232,216,137,0.7) 1px,
                 transparent 1px
               ),
               linear-gradient(
                 90deg,
-                rgba(255,255,255,0.7) 1px,
+                rgba(232,216,137,0.7) 1px,
                 transparent 1px
               )
             `,
@@ -492,9 +492,9 @@ const InviteTeam = () => {
             justify-center
             rounded-2xl
             border
-            border-white/[0.08]
-            bg-white/[0.025]
-            text-[#FF6847]
+            border-[#E8D889]/[0.08]
+            bg-[#E8D889]/[0.025]
+            text-[#FF8C2B]
             shadow-[0_20px_60px_rgba(0,0,0,0.3)]
           "
         >
@@ -545,9 +545,9 @@ const InviteTeam = () => {
             justify-center
             rounded-2xl
             border
-            border-white/[0.08]
-            bg-white/[0.025]
-            text-[#FF6847]
+            border-[#E8D889]/[0.08]
+            bg-[#E8D889]/[0.025]
+            text-[#FF8C2B]
             shadow-[0_20px_60px_rgba(0,0,0,0.3)]
           "
         >
@@ -598,18 +598,18 @@ const InviteTeam = () => {
                   justify-center
                   rounded-xl
                   border
-                  border-white/[0.09]
-                  bg-white/[0.045]
+                  border-[#E8D889]/[0.09]
+                  bg-[#E8D889]/[0.045]
                   shadow-lg
                 "
               >
-                <span className="text-sm font-bold text-[#FF6847]">
+                <span className="text-sm font-bold text-[#FF8C2B]">
                   S
                 </span>
               </div>
 
               <div>
-                <p className="text-sm font-semibold tracking-[-0.02em] text-white">
+                <p className="text-sm font-semibold tracking-[-0.02em] text-[#E8D889]">
                   Syncora
                 </p>
 
@@ -642,7 +642,7 @@ const InviteTeam = () => {
               PROGRESS
           ================================================= */}
 
-          <div className="relative mt-6 h-1 overflow-hidden rounded-full bg-white/[0.07]">
+          <div className="relative mt-6 h-1 overflow-hidden rounded-full bg-[#E8D889]/[0.07]">
 
             <motion.div
               initial={{
@@ -660,8 +660,8 @@ const InviteTeam = () => {
                 relative
                 h-full
                 rounded-full
-                bg-[#FF5C35]
-                shadow-[0_0_12px_rgba(255,92,53,0.45)]
+                bg-[#FF8C2B]
+                shadow-[0_0_12px_rgba(255,140,43,0.45)]
               "
             >
               <motion.div
@@ -711,7 +711,7 @@ const InviteTeam = () => {
               overflow-hidden
               rounded-[24px]
               border
-              border-white/[0.085]
+              border-[#E8D889]/[0.085]
               bg-[#0C0F14]
               shadow-[0_30px_90px_rgba(0,0,0,0.45)]
             "
@@ -737,7 +737,7 @@ const InviteTeam = () => {
                 h-px
                 bg-gradient-to-r
                 from-transparent
-                via-[#FF5C35]
+                via-[#FF8C2B]
                 to-transparent
               "
             />
@@ -753,7 +753,7 @@ const InviteTeam = () => {
                 h-64
                 w-64
                 rounded-full
-                bg-[#FF5C35]/[0.035]
+                bg-[#FF8C2B]/[0.035]
                 blur-[80px]
               "
             />
@@ -781,14 +781,14 @@ const InviteTeam = () => {
                       items-center
                       justify-center
                       rounded-lg
-                      bg-[#FF5C35]/10
-                      text-[#FF6847]
+                      bg-[#FF8C2B]/10
+                      text-[#FF8C2B]
                     "
                   >
                     <UsersIcon size={13} />
                   </span>
 
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF6847]">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
                     Your team
                   </span>
                 </div>
@@ -800,7 +800,7 @@ const InviteTeam = () => {
                     font-semibold
                     leading-[1.08]
                     tracking-[-0.045em]
-                    text-white
+                    text-[#E8D889]
                     sm:text-[38px]
                   "
                 >
@@ -886,21 +886,21 @@ const InviteTeam = () => {
                       flex-1
                       rounded-xl
                       border
-                      border-white/[0.09]
-                      bg-white/[0.025]
+                      border-[#E8D889]/[0.09]
+                      bg-[#E8D889]/[0.025]
                       px-4
                       text-xs
-                      text-white
+                      text-[#E8D889]
                       placeholder:text-[#4F5865]
                       outline-none
                       transition-all
                       duration-200
-                      hover:border-white/[0.16]
-                      hover:bg-white/[0.035]
-                      focus:border-[#FF5C35]/60
-                      focus:bg-[#FF5C35]/[0.025]
+                      hover:border-[#E8D889]/[0.16]
+                      hover:bg-[#E8D889]/[0.035]
+                      focus:border-[#FF8C2B]/60
+                      focus:bg-[#FF8C2B]/[0.025]
                       focus:ring-4
-                      focus:ring-[#FF5C35]/[0.06]
+                      focus:ring-[#FF8C2B]/[0.06]
                     "
                   />
 
@@ -918,16 +918,16 @@ const InviteTeam = () => {
                       h-11
                       shrink-0
                       rounded-xl
-                      bg-[#FF5C35]
+                      bg-[#FF8C2B]
                       px-4
                       text-[12px]
                       font-semibold
-                      text-white
-                      shadow-[0_8px_24px_rgba(255,92,53,0.16)]
+                      text-[#E8D889]
+                      shadow-[0_8px_24px_rgba(255,140,43,0.16)]
                       transition-all
                       duration-200
-                      hover:bg-[#FF6847]
-                      hover:shadow-[0_12px_30px_rgba(255,92,53,0.24)]
+                      hover:bg-[#FF8C2B]
+                      hover:shadow-[0_12px_30px_rgba(255,140,43,0.24)]
                       disabled:cursor-not-allowed
                       disabled:opacity-50
                       sm:px-5
@@ -1011,8 +1011,8 @@ const InviteTeam = () => {
                       className="
                         rounded-2xl
                         border
-                        border-white/[0.06]
-                        bg-white/[0.018]
+                        border-[#E8D889]/[0.06]
+                        bg-[#E8D889]/[0.018]
                         p-3.5
                       "
                     >
@@ -1030,8 +1030,8 @@ const InviteTeam = () => {
                               items-center
                               justify-center
                               rounded-lg
-                              bg-[#FF5C35]/10
-                              text-[#FF6847]
+                              bg-[#FF8C2B]/10
+                              text-[#FF8C2B]
                             "
                           >
                             <UsersIcon size={12} />
@@ -1046,7 +1046,7 @@ const InviteTeam = () => {
                         <span
                           className="
                             rounded-full
-                            bg-white/[0.05]
+                            bg-[#E8D889]/[0.05]
                             px-2
                             py-1
                             text-[10px]
@@ -1093,8 +1093,8 @@ const InviteTeam = () => {
                                 justify-between
                                 rounded-xl
                                 border
-                                border-white/[0.07]
-                                bg-white/[0.025]
+                                border-[#E8D889]/[0.07]
+                                bg-[#E8D889]/[0.025]
                                 px-3
                                 py-2
                               "
@@ -1111,8 +1111,8 @@ const InviteTeam = () => {
                                     items-center
                                     justify-center
                                     rounded-lg
-                                    bg-[#FF5C35]/10
-                                    text-[#FF6847]
+                                    bg-[#FF8C2B]/10
+                                    text-[#FF8C2B]
                                   "
                                 >
                                   <MailIcon size={12} />
@@ -1182,8 +1182,8 @@ const InviteTeam = () => {
                   gap-2
                   rounded-xl
                   border
-                  border-white/[0.05]
-                  bg-white/[0.015]
+                  border-[#E8D889]/[0.05]
+                  bg-[#E8D889]/[0.015]
                   px-3
                   py-2.5
                 "
@@ -1194,8 +1194,8 @@ const InviteTeam = () => {
                     w-1.5
                     shrink-0
                     rounded-full
-                    bg-[#FF5C35]
-                    shadow-[0_0_8px_rgba(255,92,53,0.7)]
+                    bg-[#FF8C2B]
+                    shadow-[0_0_8px_rgba(255,140,43,0.7)]
                   "
                 />
 
@@ -1228,7 +1228,7 @@ const InviteTeam = () => {
                   flex-col-reverse
                   gap-3
                   border-t
-                  border-white/[0.06]
+                  border-[#E8D889]/[0.06]
                   pt-5
                   sm:flex-row
                   sm:items-center
@@ -1264,7 +1264,7 @@ const InviteTeam = () => {
                     text-[#7D8795]
                     transition-colors
                     duration-200
-                    hover:text-white
+                    hover:text-[#E8D889]
                     disabled:cursor-not-allowed
                     disabled:opacity-50
                   "
@@ -1298,8 +1298,8 @@ const InviteTeam = () => {
                       text-[#7D8795]
                       transition-all
                       duration-200
-                      hover:bg-white/[0.035]
-                      hover:text-white
+                      hover:bg-[#E8D889]/[0.035]
+                      hover:text-[#E8D889]
                       disabled:cursor-not-allowed
                       disabled:opacity-50
                     "
@@ -1324,17 +1324,17 @@ const InviteTeam = () => {
                       relative
                       overflow-hidden
                       rounded-xl
-                      bg-[#FF5C35]
+                      bg-[#FF8C2B]
                       px-5
                       py-3
                       text-[12px]
                       font-semibold
-                      text-white
-                      shadow-[0_10px_30px_rgba(255,92,53,0.18)]
+                      text-[#E8D889]
+                      shadow-[0_10px_30px_rgba(255,140,43,0.18)]
                       transition-all
                       duration-200
-                      hover:bg-[#FF6847]
-                      hover:shadow-[0_14px_40px_rgba(255,92,53,0.28)]
+                      hover:bg-[#FF8C2B]
+                      hover:shadow-[0_14px_40px_rgba(255,140,43,0.28)]
                       disabled:cursor-not-allowed
                       disabled:opacity-60
                     "

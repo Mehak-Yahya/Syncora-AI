@@ -67,11 +67,11 @@ const ProjectGrid = ({ dashboard }) => {
 
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
               Engineering workspace
             </p>
 
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#E8D889] sm:text-3xl">
               Projects
             </h1>
 
@@ -83,7 +83,7 @@ const ProjectGrid = ({ dashboard }) => {
           <button
             type="button"
             onClick={openProjectDialog}
-            className="rounded-xl bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#E94B27]"
+            className="rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] shadow-sm transition hover:bg-[#E94B27]"
           >
             + New project
           </button>
@@ -96,11 +96,11 @@ const ProjectGrid = ({ dashboard }) => {
         {projects.length === 0 ? (
           <div className="mx-auto mt-8 max-w-lg rounded-2xl border border-dashed border-[#303842] bg-[#151A21] px-6 py-14 text-center shadow-[0_8px_25px_rgba(0,0,0,0.1)]">
 
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#2A211F] text-lg text-[#FF5C35]">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#2A211F] text-lg text-[#FF8C2B]">
               +
             </div>
 
-            <h2 className="mt-4 text-base font-semibold text-white">
+            <h2 className="mt-4 text-base font-semibold text-[#E8D889]">
               No projects yet
             </h2>
 
@@ -112,7 +112,7 @@ const ProjectGrid = ({ dashboard }) => {
             <button
               type="button"
               onClick={openProjectDialog}
-              className="mt-5 rounded-xl bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#E94B27]"
+              className="mt-5 rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
             >
               + Create project
             </button>
@@ -170,7 +170,7 @@ const ProjectGrid = ({ dashboard }) => {
                   <div className="flex items-start justify-between gap-3">
 
                     <div className="min-w-0">
-                      <h2 className="truncate text-base font-semibold text-white">
+                      <h2 className="truncate text-base font-semibold text-[#E8D889]">
                         {project.name}
                       </h2>
 
@@ -192,7 +192,7 @@ const ProjectGrid = ({ dashboard }) => {
                               : project._id
                           )
                         }
-                        className="flex h-8 w-8 items-center justify-center rounded-lg text-lg text-[#737C87] transition hover:bg-[#1D242D] hover:text-white"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg text-lg text-[#737C87] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                         aria-label={`Actions for ${project.name}`}
                       >
                         ...
@@ -213,7 +213,7 @@ const ProjectGrid = ({ dashboard }) => {
                                   project._id
                                 );
                               }}
-                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889] disabled:cursor-not-allowed disabled:opacity-50"
                             >
                               {isSyncing
                                 ? "Syncing..."
@@ -233,7 +233,7 @@ const ProjectGrid = ({ dashboard }) => {
                                   project._id
                                 );
                               }}
-                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                              className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889] disabled:cursor-not-allowed disabled:opacity-50"
                             >
                               {isAnalyzing
                                 ? "Analyzing..."
@@ -256,7 +256,7 @@ const ProjectGrid = ({ dashboard }) => {
                                     project._id
                                   );
                             }}
-                            className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-white"
+                            className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#B8C0C9] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                           >
                             Settings
                           </button>
@@ -271,7 +271,7 @@ const ProjectGrid = ({ dashboard }) => {
                                 project._id
                               );
                             }}
-                            className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#FF8F7A] transition hover:bg-[#2A1715] hover:text-[#FFB5A5]"
+                            className="block w-full rounded-lg px-2.5 py-2 text-left text-xs text-[#FF8C2B] transition hover:bg-[#2A1715] hover:text-[#FF8C2B]"
                           >
                             Delete
                           </button>
@@ -391,7 +391,7 @@ const ProjectGrid = ({ dashboard }) => {
                               member.name ||
                               member.email
                             }
-                            className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25354A] text-[9px] font-semibold text-white ring-1 ring-[#303842]"
+                            className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25354A] text-[9px] font-semibold text-[#E8D889] ring-1 ring-[#303842]"
                           >
                             {(
                               member.name ||
@@ -454,7 +454,7 @@ const ProjectGrid = ({ dashboard }) => {
                               project._id
                             )
                           }
-                          className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-1.5 text-[10px] font-semibold text-[#C3CAD2] transition hover:border-[#FF5C35]/50 hover:bg-[#242B34] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-lg border border-[#303842] bg-[#1D242D] px-3 py-1.5 text-[10px] font-semibold text-[#C3CAD2] transition hover:border-[#FF8C2B]/50 hover:bg-[#242B34] hover:text-[#E8D889] disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {isSyncing
                             ? "Syncing..."
@@ -480,7 +480,7 @@ const ProjectGrid = ({ dashboard }) => {
                               "AI workspace"
                             );
                           }}
-                          className="rounded-lg bg-[#FF5C35] px-3 py-1.5 text-[10px] font-semibold text-white transition hover:bg-[#E94B27]"
+                          className="rounded-lg bg-[#FF8C2B] px-3 py-1.5 text-[10px] font-semibold text-[#E8D889] transition hover:bg-[#E94B27]"
                         >
                           AI Workspace →
                         </button>
@@ -498,7 +498,7 @@ const ProjectGrid = ({ dashboard }) => {
                               project._id
                             )
                           }
-                          className="text-xs font-semibold text-[#FF5C35] transition hover:text-[#FF704D]"
+                          className="text-xs font-semibold text-[#FF8C2B] transition hover:text-[#FF8C2B]"
                         >
                           Connect GitHub →
                         </button>

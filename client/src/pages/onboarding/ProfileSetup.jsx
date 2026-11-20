@@ -48,7 +48,7 @@ const ProfileSetup = () => {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-white sm:px-6 lg:px-8">
+    <main className="relative min-h-screen overflow-hidden bg-[#07090D] px-4 py-5 text-[#E8D889] sm:px-6 lg:px-8">
       {/* =========================================================
           BACKGROUND
       ========================================================= */}
@@ -65,7 +65,7 @@ const ProfileSetup = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute left-[8%] top-[15%] h-[420px] w-[420px] rounded-full bg-[#FF5C35]/10 blur-[120px]"
+          className="absolute left-[8%] top-[15%] h-[420px] w-[420px] rounded-full bg-[#FF8C2B]/10 blur-[120px]"
         />
 
         {/* Blue glow */}
@@ -94,7 +94,7 @@ const ProfileSetup = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-[-180px] left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-[#FF5C35]/10 blur-[130px]"
+          className="absolute bottom-[-180px] left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-[#FF8C2B]/10 blur-[130px]"
         />
 
         {/* Grid */}
@@ -102,7 +102,7 @@ const ProfileSetup = () => {
           className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px)",
+              "linear-gradient(rgba(232,216,137,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(232,216,137,.7) 1px, transparent 1px)",
             backgroundSize: "55px 55px",
           }}
         />
@@ -134,7 +134,7 @@ const ProfileSetup = () => {
               }}
               className="relative flex h-9 w-9 items-center justify-center"
             >
-              <div className="absolute inset-0 rounded-xl bg-[#FF5C35]/20 blur-lg" />
+              <div className="absolute inset-0 rounded-xl bg-[#FF8C2B]/20 blur-lg" />
 
               <img
                 src={syncoraLogo}
@@ -160,9 +160,9 @@ const ProfileSetup = () => {
             </span>
 
             <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-7 rounded-full bg-[#FF5C35]" />
-              <span className="h-1.5 w-7 rounded-full bg-white/10" />
-              <span className="h-1.5 w-7 rounded-full bg-white/10" />
+              <span className="h-1.5 w-7 rounded-full bg-[#FF8C2B]" />
+              <span className="h-1.5 w-7 rounded-full bg-[#E8D889]/10" />
+              <span className="h-1.5 w-7 rounded-full bg-[#E8D889]/10" />
             </div>
 
             <span className="text-[10px] font-semibold text-[#89919D]">
@@ -183,13 +183,13 @@ const ProfileSetup = () => {
               duration: 0.7,
               ease: "easeOut",
             }}
-            className="grid w-full max-w-[1080px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#0D1016]/90 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:grid-cols-[0.78fr_1.22fr]"
+            className="grid w-full max-w-[1080px] overflow-hidden rounded-[28px] border border-[#E8D889]/[0.08] bg-[#0D1016]/90 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:grid-cols-[0.78fr_1.22fr]"
           >
             {/* ===================================================
                 LEFT VISUAL PANEL
             =================================================== */}
 
-            <section className="relative hidden overflow-hidden border-r border-white/[0.07] lg:flex lg:min-h-[620px] lg:flex-col lg:justify-between">
+            <section className="relative hidden overflow-hidden border-r border-[#E8D889]/[0.07] lg:flex lg:min-h-[620px] lg:flex-col lg:justify-between">
               {/* 3D Orb */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
@@ -217,7 +217,7 @@ const ProfileSetup = () => {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                    className="absolute inset-0 rounded-full border border-[#FF5C35]/20"
+                    className="absolute inset-0 rounded-full border border-[#FF8C2B]/20"
                   />
 
                   <motion.div
@@ -229,11 +229,11 @@ const ProfileSetup = () => {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                    className="absolute inset-[25px] rounded-full border border-dashed border-white/[0.08]"
+                    className="absolute inset-[25px] rounded-full border border-dashed border-[#E8D889]/[0.08]"
                   />
 
                   {/* Glow */}
-                  <div className="absolute inset-[45px] rounded-full bg-[#FF5C35]/15 blur-[45px]" />
+                  <div className="absolute inset-[45px] rounded-full bg-[#FF8C2B]/15 blur-[45px]" />
 
                   {/* Core */}
                   <motion.div
@@ -246,7 +246,7 @@ const ProfileSetup = () => {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="absolute left-1/2 top-1/2 flex h-[125px] w-[125px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[32px] border border-white/[0.1] bg-gradient-to-br from-[#FF5C35]/20 via-[#171B23] to-[#0B0D12] shadow-[0_25px_70px_rgba(255,92,53,0.12)]"
+                    className="absolute left-1/2 top-1/2 flex h-[125px] w-[125px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[32px] border border-[#E8D889]/[0.1] bg-gradient-to-br from-[#FF8C2B]/20 via-[#171B23] to-[#0B0D12] shadow-[0_25px_70px_rgba(255,140,43,0.12)]"
                   >
                     <img
                       src={syncoraLogo}
@@ -265,7 +265,7 @@ const ProfileSetup = () => {
                       duration: 3,
                       repeat: Infinity,
                     }}
-                    className="absolute -right-3 top-[70px] h-2 w-2 rounded-full bg-[#FF5C35] shadow-[0_0_15px_#FF5C35]"
+                    className="absolute -right-3 top-[70px] h-2 w-2 rounded-full bg-[#FF8C2B] shadow-[0_0_15px_#FF8C2B]"
                   />
 
                   <motion.span
@@ -277,14 +277,14 @@ const ProfileSetup = () => {
                       duration: 4,
                       repeat: Infinity,
                     }}
-                    className="absolute bottom-[50px] left-2 h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_12px_white]"
+                    className="absolute bottom-[50px] left-2 h-1.5 w-1.5 rounded-full bg-[#E8D889] shadow-[0_0_12px_white]"
                   />
                 </motion.div>
               </div>
 
               {/* Top content */}
               <div className="relative z-10 p-8">
-                <span className="inline-flex rounded-full border border-[#FF5C35]/20 bg-[#FF5C35]/[0.07] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#FF7657]">
+                <span className="inline-flex rounded-full border border-[#FF8C2B]/20 bg-[#FF8C2B]/[0.07] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
                   Your identity
                 </span>
 
@@ -300,12 +300,12 @@ const ProfileSetup = () => {
 
               {/* Bottom info */}
               <div className="relative z-10 p-8">
-                <div className="flex items-center gap-3 border-t border-white/[0.07] pt-5">
+                <div className="flex items-center gap-3 border-t border-[#E8D889]/[0.07] pt-5">
                   <div className="flex -space-x-2">
                     <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#0D1016] bg-[#293241] text-[9px] font-semibold">
                       A
                     </div>
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#0D1016] bg-[#FF5C35] text-[9px] font-semibold">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#0D1016] bg-[#FF8C2B] text-[9px] font-semibold">
                       M
                     </div>
                     <div className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#0D1016] bg-[#475569] text-[9px] font-semibold">
@@ -327,11 +327,11 @@ const ProfileSetup = () => {
             <section className="p-5 sm:p-7 lg:p-9">
               {/* Heading */}
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF6848]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
                   Profile
                 </p>
 
-                <h1 className="mt-2 text-[28px] font-semibold tracking-[-0.045em] text-white sm:text-[32px]">
+                <h1 className="mt-2 text-[28px] font-semibold tracking-[-0.045em] text-[#E8D889] sm:text-[32px]">
                   Tell us about yourself.
                 </h1>
 
@@ -346,16 +346,16 @@ const ProfileSetup = () => {
                     PROFILE HEADER
                 ================================================= */}
 
-                <div className="flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.025] p-3.5">
+                <div className="flex items-center gap-4 rounded-2xl border border-[#E8D889]/[0.06] bg-[#E8D889]/[0.025] p-3.5">
                   <div className="relative shrink-0">
                     {profileImage ? (
                       <img
                         src={profileImage}
                         alt="Profile preview"
-                        className="h-16 w-16 rounded-2xl border border-white/10 object-cover"
+                        className="h-16 w-16 rounded-2xl border border-[#E8D889]/10 object-cover"
                       />
                     ) : (
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FF5C35]/20 bg-[#FF5C35]/10 text-lg font-semibold text-[#FF7657]">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FF8C2B]/20 bg-[#FF8C2B]/10 text-lg font-semibold text-[#FF8C2B]">
                         {formData.fullName
                           ? formData.fullName.charAt(0).toUpperCase()
                           : "+"}
@@ -364,7 +364,7 @@ const ProfileSetup = () => {
 
                     <label
                       htmlFor="profileImage"
-                      className="absolute -bottom-1.5 -right-1.5 flex h-6 w-6 cursor-pointer items-center justify-center rounded-lg border border-[#222832] bg-[#171B22] text-[10px] text-white transition hover:bg-[#222832]"
+                      className="absolute -bottom-1.5 -right-1.5 flex h-6 w-6 cursor-pointer items-center justify-center rounded-lg border border-[#222832] bg-[#171B22] text-[10px] text-[#E8D889] transition hover:bg-[#222832]"
                     >
                       ✎
                     </label>
@@ -379,7 +379,7 @@ const ProfileSetup = () => {
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-white">
+                    <p className="text-[13px] font-semibold text-[#E8D889]">
                       Profile picture
                     </p>
 
@@ -396,7 +396,7 @@ const ProfileSetup = () => {
 
                 <div className="mt-5">
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B]" />
 
                     <h2 className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#87909D]">
                       Basic information
@@ -418,7 +418,7 @@ const ProfileSetup = () => {
                       </label>
 
                       <div className="flex">
-                        <span className="flex h-10 items-center rounded-l-xl border border-r-0 border-white/[0.08] bg-white/[0.035] px-3 text-xs text-[#59626F]">
+                        <span className="flex h-10 items-center rounded-l-xl border border-r-0 border-[#E8D889]/[0.08] bg-[#E8D889]/[0.035] px-3 text-xs text-[#59626F]">
                           @
                         </span>
 
@@ -428,7 +428,7 @@ const ProfileSetup = () => {
                           value={formData.username}
                           onChange={handleChange}
                           placeholder="mehak"
-                          className="h-10 w-full rounded-r-xl border border-white/[0.08] bg-[#0A0D12] px-3 text-xs text-white outline-none transition placeholder:text-[#3F4752] focus:border-[#FF5C35]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF5C35]/10"
+                          className="h-10 w-full rounded-r-xl border border-[#E8D889]/[0.08] bg-[#0A0D12] px-3 text-xs text-[#E8D889] outline-none transition placeholder:text-[#3F4752] focus:border-[#FF8C2B]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF8C2B]/10"
                         />
                       </div>
                     </div>
@@ -445,7 +445,7 @@ const ProfileSetup = () => {
                       onChange={handleChange}
                       rows={2}
                       placeholder="Software developer focused on building useful products..."
-                      className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0A0D12] px-3.5 py-2.5 text-xs leading-5 text-white outline-none transition placeholder:text-[#3F4752] focus:border-[#FF5C35]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF5C35]/10"
+                      className="w-full resize-none rounded-xl border border-[#E8D889]/[0.08] bg-[#0A0D12] px-3.5 py-2.5 text-xs leading-5 text-[#E8D889] outline-none transition placeholder:text-[#3F4752] focus:border-[#FF8C2B]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF8C2B]/10"
                     />
                   </div>
                 </div>
@@ -456,7 +456,7 @@ const ProfileSetup = () => {
 
                 <div className="mt-5">
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B]" />
 
                     <h2 className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#87909D]">
                       Engineering profile
@@ -481,7 +481,7 @@ const ProfileSetup = () => {
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
-                        className="h-10 w-full rounded-xl border border-white/[0.08] bg-[#0A0D12] px-3 text-xs text-white outline-none transition focus:border-[#FF5C35]/60 focus:ring-2 focus:ring-[#FF5C35]/10"
+                        className="h-10 w-full rounded-xl border border-[#E8D889]/[0.08] bg-[#0A0D12] px-3 text-xs text-[#E8D889] outline-none transition focus:border-[#FF8C2B]/60 focus:ring-2 focus:ring-[#FF8C2B]/10"
                       >
                         <option value="">
                           Select experience
@@ -558,7 +558,7 @@ const ProfileSetup = () => {
                     ACTION
                 ================================================= */}
 
-                <div className="mt-6 flex items-center justify-between border-t border-white/[0.07] pt-5">
+                <div className="mt-6 flex items-center justify-between border-t border-[#E8D889]/[0.07] pt-5">
                   <p className="hidden text-[11px] text-[#4E5662] sm:block">
                     You can update these details later.
                   </p>
@@ -567,13 +567,13 @@ const ProfileSetup = () => {
                     whileHover={{
                       y: -2,
                       boxShadow:
-                        "0 12px 35px rgba(255,92,53,.22)",
+                        "0 12px 35px rgba(255,140,43,.22)",
                     }}
                     whileTap={{
                       scale: 0.97,
                     }}
                     type="submit"
-                    className="group ml-auto flex items-center gap-2 rounded-xl bg-[#FF5C35] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#FF6948]"
+                    className="group ml-auto flex items-center gap-2 rounded-xl bg-[#FF8C2B] px-5 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#FF8C2B]"
                   >
                     Continue
 
@@ -638,7 +638,7 @@ const Field = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="h-10 w-full rounded-xl border border-white/[0.08] bg-[#0A0D12] px-3.5 text-xs text-white outline-none transition placeholder:text-[#3F4752] hover:border-white/[0.12] focus:border-[#FF5C35]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF5C35]/10"
+        className="h-10 w-full rounded-xl border border-[#E8D889]/[0.08] bg-[#0A0D12] px-3.5 text-xs text-[#E8D889] outline-none transition placeholder:text-[#3F4752] hover:border-[#E8D889]/[0.12] focus:border-[#FF8C2B]/60 focus:bg-[#0C1016] focus:ring-2 focus:ring-[#FF8C2B]/10"
       />
     </div>
   );

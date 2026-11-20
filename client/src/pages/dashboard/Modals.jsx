@@ -40,10 +40,10 @@ const DashboardModals = ({ dashboard }) => {
   } = dashboard;
 
   const inputClass =
-    "mt-2 w-full rounded-xl border border-[#252C35] bg-[#0F1318] px-3 py-2.5 text-sm text-white placeholder:text-[#626C78] outline-none transition focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10";
+    "mt-2 w-full rounded-xl border border-[#252C35] bg-[#0F1318] px-3 py-2.5 text-sm text-[#E8D889] placeholder:text-[#626C78] outline-none transition focus:border-[#FF8C2B] focus:ring-2 focus:ring-[#FF8C2B]/10";
 
   const selectClass =
-    "mt-2 w-full rounded-xl border border-[#252C35] bg-[#0F1318] px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10";
+    "mt-2 w-full rounded-xl border border-[#252C35] bg-[#0F1318] px-3 py-2.5 text-sm text-[#E8D889] outline-none transition focus:border-[#FF8C2B] focus:ring-2 focus:ring-[#FF8C2B]/10";
 
   const modalOverlay =
     "fixed inset-0 z-50 flex items-center justify-center bg-[#05080C]/75 px-4 backdrop-blur-[4px]";
@@ -54,10 +54,10 @@ const DashboardModals = ({ dashboard }) => {
   const labelClass = "block text-xs font-semibold text-[#AAB2BC]";
 
   const secondaryButton =
-    "rounded-xl border border-[#303842] bg-[#1D242D] px-4 py-2.5 text-xs font-semibold text-[#AAB2BC] transition hover:border-[#39424D] hover:bg-[#252C35] hover:text-white";
+    "rounded-xl border border-[#303842] bg-[#1D242D] px-4 py-2.5 text-xs font-semibold text-[#AAB2BC] transition hover:border-[#39424D] hover:bg-[#252C35] hover:text-[#E8D889]";
 
   const primaryButton =
-    "rounded-xl bg-[#FF5C35] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[#E94B27] disabled:cursor-not-allowed disabled:opacity-60";
+    "rounded-xl bg-[#FF8C2B] px-4 py-2.5 text-xs font-semibold text-[#E8D889] transition hover:bg-[#E94B27] disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
     <>
@@ -73,11 +73,11 @@ const DashboardModals = ({ dashboard }) => {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
                   Workspace settings
                 </p>
 
-                <h2 className="mt-2 text-xl font-semibold text-white">
+                <h2 className="mt-2 text-xl font-semibold text-[#E8D889]">
                   Edit {workspaceName}
                 </h2>
               </div>
@@ -85,7 +85,7 @@ const DashboardModals = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setWorkspaceEditorOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                 aria-label="Close workspace editor"
               >
                 ×
@@ -144,7 +144,7 @@ const DashboardModals = ({ dashboard }) => {
             </div>
 
             {workspaceActionError && (
-              <p className="mt-4 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FFB5A5]">
+              <p className="mt-4 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FF8C2B]">
                 {workspaceActionError}
               </p>
             )}
@@ -184,11 +184,11 @@ const DashboardModals = ({ dashboard }) => {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
                   Team
                 </p>
 
-                <h2 className="mt-2 text-xl font-semibold text-white">
+                <h2 className="mt-2 text-xl font-semibold text-[#E8D889]">
                   Invite teammate
                 </h2>
               </div>
@@ -196,7 +196,7 @@ const DashboardModals = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setInviteDialogOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                 aria-label="Close invite dialog"
               >
                 ×
@@ -217,7 +217,7 @@ const DashboardModals = ({ dashboard }) => {
             </label>
 
             {inviteError && (
-              <p className="mt-3 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FFB5A5]">
+              <p className="mt-3 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FF8C2B]">
                 {inviteError}
               </p>
             )}
@@ -255,11 +255,11 @@ const DashboardModals = ({ dashboard }) => {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
                   GitHub
                 </p>
 
-                <h2 className="mt-1 text-xl font-semibold text-white">
+                <h2 className="mt-1 text-xl font-semibold text-[#E8D889]">
                   Select a repository
                 </h2>
 
@@ -272,7 +272,7 @@ const DashboardModals = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setGithubPickerOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                 aria-label="Close GitHub repository picker"
               >
                 ×
@@ -281,7 +281,7 @@ const DashboardModals = ({ dashboard }) => {
 
             {githubLoading && (
               <div className="py-12 text-center">
-                <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-[#FF5C35] border-t-transparent" />
+                <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-[#FF8C2B] border-t-transparent" />
 
                 <p className="mt-3 text-sm text-[#858D97]">
                   Loading repositories...
@@ -290,8 +290,8 @@ const DashboardModals = ({ dashboard }) => {
             )}
 
             {!githubLoading && githubError && (
-              <div className="mt-5 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-4 text-xs text-[#FFB5A5]">
-                <p className="font-semibold text-[#FFB5A5]">
+              <div className="mt-5 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-4 text-xs text-[#FF8C2B]">
+                <p className="font-semibold text-[#FF8C2B]">
                   GitHub connection error
                 </p>
 
@@ -307,10 +307,10 @@ const DashboardModals = ({ dashboard }) => {
                       key={repository.id}
                       type="button"
                       onClick={() => handleSelectRepository(repository)}
-                      className="flex w-full items-center justify-between rounded-xl border border-[#252C35] bg-[#0F1318] px-4 py-3 text-left transition hover:border-[#FF5C35] hover:bg-[#1D242D]"
+                      className="flex w-full items-center justify-between rounded-xl border border-[#252C35] bg-[#0F1318] px-4 py-3 text-left transition hover:border-[#FF8C2B] hover:bg-[#1D242D]"
                     >
                       <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-white">
+                        <span className="block truncate text-sm font-semibold text-[#E8D889]">
                           {repository.full_name}
                         </span>
 
@@ -320,14 +320,14 @@ const DashboardModals = ({ dashboard }) => {
                         </span>
                       </span>
 
-                      <span className="ml-4 shrink-0 text-xs font-semibold text-[#FF5C35]">
+                      <span className="ml-4 shrink-0 text-xs font-semibold text-[#FF8C2B]">
                         Select
                       </span>
                     </button>
                   ))
                 ) : (
                   <div className="rounded-xl border border-dashed border-[#303842] bg-[#0F1318] py-10 text-center">
-                    <p className="text-sm font-medium text-white">
+                    <p className="text-sm font-medium text-[#E8D889]">
                       No repositories available
                     </p>
 
@@ -357,11 +357,11 @@ const DashboardModals = ({ dashboard }) => {
             {/* HEADER */}
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF5C35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#FF8C2B]">
                   Projects
                 </p>
 
-                <h2 className="mt-2 text-xl font-semibold text-white">
+                <h2 className="mt-2 text-xl font-semibold text-[#E8D889]">
                   Create a project
                 </h2>
 
@@ -373,7 +373,7 @@ const DashboardModals = ({ dashboard }) => {
               <button
                 type="button"
                 onClick={() => setProjectDialogOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none text-[#626C78] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                 aria-label="Close project dialog"
               >
                 ×
@@ -477,7 +477,7 @@ const DashboardModals = ({ dashboard }) => {
 
             {/* ERROR */}
             {projectError && (
-              <p className="mt-4 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FFB5A5]">
+              <p className="mt-4 rounded-xl border border-[#7F3F35] bg-[#2A1715] p-3 text-xs text-[#FF8C2B]">
                 {projectError}
               </p>
             )}

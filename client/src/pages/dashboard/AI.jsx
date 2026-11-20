@@ -48,8 +48,8 @@ const DashboardAI = ({ dashboard }) => {
               onClick={() => setActiveTab(tab)}
               className={`border-b-2 px-3 py-3 text-xs font-semibold transition sm:px-4 ${
                 activeTab === tab
-                  ? "border-[#FF5C35] text-[#FF5C35]"
-                  : "border-transparent text-[#737C87] hover:text-white"
+                  ? "border-[#FF8C2B] text-[#FF8C2B]"
+                  : "border-transparent text-[#737C87] hover:text-[#E8D889]"
               }`}
             >
               {label}
@@ -66,11 +66,11 @@ const DashboardAI = ({ dashboard }) => {
             {/* HEADER */}
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF5C35]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF8C2B]">
                   Repository Intelligence
                 </p>
 
-                <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-white sm:text-[28px]">
+                <h1 className="mt-1.5 text-2xl font-semibold tracking-[-0.02em] text-[#E8D889] sm:text-[28px]">
                   Understand your codebase
                 </h1>
 
@@ -123,11 +123,11 @@ const DashboardAI = ({ dashboard }) => {
                       {/* PROJECT HEADER */}
                       <div className="flex flex-wrap items-start justify-between gap-4">
                         <div>
-                          <p className="inline-flex rounded-md border border-[#4A3028] bg-[#251916] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#FF7657]">
+                          <p className="inline-flex rounded-md border border-[#4A3028] bg-[#251916] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#FF8C2B]">
                             Project · {project.name}
                           </p>
 
-                          <p className="mt-2 text-sm font-semibold text-white">
+                          <p className="mt-2 text-sm font-semibold text-[#E8D889]">
                             {project.github.fullName ||
                               "Repository not named"}
                           </p>
@@ -146,7 +146,7 @@ const DashboardAI = ({ dashboard }) => {
                           onClick={() =>
                             handleAnalyzeRepository(project._id)
                           }
-                          className="rounded-xl border border-[#FF5C35] px-3.5 py-2 text-xs font-semibold text-[#FF6B4A] transition hover:bg-[#2A1814] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-xl border border-[#FF8C2B] px-3.5 py-2 text-xs font-semibold text-[#FF8C2B] transition hover:bg-[#2A1814] disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {analyzingProjectId === project._id
                             ? "Analyzing..."
@@ -211,7 +211,7 @@ const DashboardAI = ({ dashboard }) => {
                             onClick={() =>
                               toggleAnalysisDetails(project._id)
                             }
-                            className="mt-4 text-xs font-semibold text-[#FF6B4A] transition hover:text-[#FF856B]"
+                            className="mt-4 text-xs font-semibold text-[#FF8C2B] transition hover:text-[#FF8C2B]"
                           >
                             {expandedAnalysisProjects[project._id]
                               ? "Hide details"
@@ -242,8 +242,8 @@ const DashboardAI = ({ dashboard }) => {
                                     }
                                     className={`whitespace-nowrap rounded-lg px-3 py-2 text-xs font-semibold transition ${
                                       detailTab === tab
-                                        ? "bg-[#2A1814] text-[#FF6B4A]"
-                                        : "text-[#737C87] hover:bg-[#1D242D] hover:text-white"
+                                        ? "bg-[#2A1814] text-[#FF8C2B]"
+                                        : "text-[#737C87] hover:bg-[#1D242D] hover:text-[#E8D889]"
                                     }`}
                                   >
                                     {label}
@@ -293,7 +293,7 @@ const DashboardAI = ({ dashboard }) => {
                               ================================================= */}
                               {detailTab === "overview" && (
                                 <div className="rounded-xl border border-[#252C35] bg-[#151A21] p-4">
-                                  <p className="text-xs font-semibold text-white">
+                                  <p className="text-xs font-semibold text-[#E8D889]">
                                     Summary
                                   </p>
 
@@ -303,7 +303,7 @@ const DashboardAI = ({ dashboard }) => {
                                   </p>
 
                                   <div className="mt-5 border-t border-[#252C35] pt-4">
-                                    <p className="text-xs font-semibold text-white">
+                                    <p className="text-xs font-semibold text-[#E8D889]">
                                       Architecture
                                     </p>
 
@@ -322,7 +322,7 @@ const DashboardAI = ({ dashboard }) => {
                                 <div className="grid gap-5 md:grid-cols-2">
 
                                   <div className="rounded-xl border border-[#252C35] bg-[#151A21] p-4">
-                                    <p className="text-xs font-semibold text-white">
+                                    <p className="text-xs font-semibold text-[#E8D889]">
                                       Important files
                                     </p>
 
@@ -347,7 +347,7 @@ const DashboardAI = ({ dashboard }) => {
                                   </div>
 
                                   <div className="rounded-xl border border-[#252C35] bg-[#151A21] p-4">
-                                    <p className="text-xs font-semibold text-white">
+                                    <p className="text-xs font-semibold text-[#E8D889]">
                                       Project structure
                                     </p>
 
@@ -401,7 +401,7 @@ const DashboardAI = ({ dashboard }) => {
                                           {label}
                                         </p>
 
-                                        <p className="mt-2 text-lg font-semibold text-white">
+                                        <p className="mt-2 text-lg font-semibold text-[#E8D889]">
                                           {value ?? "Not detected"}
                                         </p>
                                       </div>
@@ -428,7 +428,7 @@ const DashboardAI = ({ dashboard }) => {
                                         key={label}
                                         className="rounded-xl border border-[#252C35] bg-[#151A21] p-4"
                                       >
-                                        <p className="text-xs font-semibold text-white">
+                                        <p className="text-xs font-semibold text-[#E8D889]">
                                           {label}
                                         </p>
 
@@ -452,7 +452,7 @@ const DashboardAI = ({ dashboard }) => {
                                                       ? "noreferrer"
                                                       : undefined
                                                   }
-                                                  className="block truncate rounded-lg bg-[#10151B] px-3 py-2 text-xs text-[#858D97] transition hover:text-[#FF6B4A]"
+                                                  className="block truncate rounded-lg bg-[#10151B] px-3 py-2 text-xs text-[#858D97] transition hover:text-[#FF8C2B]"
                                                 >
                                                   {item.message ||
                                                     item.title ||
@@ -491,17 +491,17 @@ const DashboardAI = ({ dashboard }) => {
             {/* AI HEADER */}
             <div className="flex items-center gap-3 border-b border-[#252C35] bg-[#10151B] px-5 py-4 sm:px-7">
 
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FF5C35] text-base text-white shadow-[0_0_20px_rgba(255,92,53,0.15)]">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FF8C2B] text-base text-[#E8D889] shadow-[0_0_20px_rgba(255,140,43,0.15)]">
                 ✦
               </div>
 
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#FF6B4A]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#FF8C2B]">
                   Syncora Intelligence
                 </p>
 
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <h1 className="text-lg font-semibold tracking-tight text-white">
+                  <h1 className="text-lg font-semibold tracking-tight text-[#E8D889]">
                     AI Workspace
                   </h1>
 
@@ -521,11 +521,11 @@ const DashboardAI = ({ dashboard }) => {
                 {/* AI TITLE */}
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF6B4A]">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF8C2B]">
                       Ask Syncora AI
                     </p>
 
-                    <h2 className="mt-1.5 text-xl font-semibold text-white">
+                    <h2 className="mt-1.5 text-xl font-semibold text-[#E8D889]">
                       Project-aware engineering answers
                     </h2>
 
@@ -538,7 +538,7 @@ const DashboardAI = ({ dashboard }) => {
                   <button
                     type="button"
                     onClick={clearAiConversation}
-                    className="rounded-lg px-2 py-1 text-xs font-semibold text-[#737C87] transition hover:bg-[#1D242D] hover:text-white"
+                    className="rounded-lg px-2 py-1 text-xs font-semibold text-[#737C87] transition hover:bg-[#1D242D] hover:text-[#E8D889]"
                   >
                     Clear
                   </button>
@@ -559,7 +559,7 @@ const DashboardAI = ({ dashboard }) => {
                       setAiAnswer("");
                       setAiError("");
                     }}
-                    className="mt-2 w-full rounded-xl border border-[#303842] bg-[#151A21] px-3 py-3 text-sm font-medium text-white outline-none transition focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
+                    className="mt-2 w-full rounded-xl border border-[#303842] bg-[#151A21] px-3 py-3 text-sm font-medium text-[#E8D889] outline-none transition focus:border-[#FF8C2B] focus:ring-2 focus:ring-[#FF8C2B]/10"
                   >
                     <option
                       value=""
@@ -607,7 +607,7 @@ const DashboardAI = ({ dashboard }) => {
                           aiLoading ||
                           !connectedProjects.length
                         }
-                        className="rounded-full border border-[#303842] bg-[#151A21] px-3 py-1.5 text-[11px] font-medium text-[#858D97] transition hover:border-[#5A332A] hover:bg-[#241613] hover:text-[#FF6B4A] disabled:cursor-not-allowed disabled:opacity-50"
+                        className="rounded-full border border-[#303842] bg-[#151A21] px-3 py-1.5 text-[11px] font-medium text-[#858D97] transition hover:border-[#5A332A] hover:bg-[#241613] hover:text-[#FF8C2B] disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {suggestion}
                       </button>
@@ -627,7 +627,7 @@ const DashboardAI = ({ dashboard }) => {
                     }
                     maxLength={1000}
                     placeholder="Ask about this project's engineering context..."
-                    className="min-w-0 flex-1 rounded-xl border border-[#303842] bg-[#151A21] px-3.5 py-3 text-sm text-white outline-none transition placeholder:text-[#626C78] focus:border-[#FF5C35] focus:ring-2 focus:ring-[#FF5C35]/10"
+                    className="min-w-0 flex-1 rounded-xl border border-[#303842] bg-[#151A21] px-3.5 py-3 text-sm text-[#E8D889] outline-none transition placeholder:text-[#626C78] focus:border-[#FF8C2B] focus:ring-2 focus:ring-[#FF8C2B]/10"
                   />
 
                   <button
@@ -636,7 +636,7 @@ const DashboardAI = ({ dashboard }) => {
                       aiLoading ||
                       !connectedProjects.length
                     }
-                    className="rounded-xl bg-[#FF5C35] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#E84D2A] disabled:cursor-not-allowed disabled:opacity-50"
+                    className="rounded-xl bg-[#FF8C2B] px-5 py-3 text-sm font-semibold text-[#E8D889] transition hover:bg-[#E84D2A] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {aiLoading ? "Thinking..." : "Ask"}
                   </button>
@@ -645,7 +645,7 @@ const DashboardAI = ({ dashboard }) => {
                 {/* LOADING */}
                 {aiLoading && (
                   <div className="mt-4 flex items-center gap-2 rounded-xl border border-[#303842] bg-[#151A21] px-3 py-3">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-[#FF5C35]" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-[#FF8C2B]" />
 
                     <p className="text-xs text-[#858D97]">
                       Retrieving relevant repository files and
@@ -685,7 +685,7 @@ const DashboardAI = ({ dashboard }) => {
                     <div className="mt-5 border-t border-[#27352F] pt-4">
 
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-xs font-semibold text-white">
+                        <p className="text-xs font-semibold text-[#E8D889]">
                           Sources used
                         </p>
 
@@ -721,7 +721,7 @@ const DashboardAI = ({ dashboard }) => {
                                   ? "noreferrer"
                                   : undefined
                               }
-                              className="rounded-lg border border-[#303842] bg-[#151A21] px-2.5 py-1.5 font-mono text-[10px] text-[#858D97] transition hover:border-[#5A332A] hover:text-[#FF6B4A]"
+                              className="rounded-lg border border-[#303842] bg-[#151A21] px-2.5 py-1.5 font-mono text-[10px] text-[#858D97] transition hover:border-[#5A332A] hover:text-[#FF8C2B]"
                             >
                               {source}
                             </a>

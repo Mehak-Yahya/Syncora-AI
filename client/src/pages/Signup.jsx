@@ -6,10 +6,10 @@ import logo from "../assets/logo.png";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const steps = [
-  { label: "Plan", icon: "▦", color: "#FF5C35" },
-  { label: "Build", icon: "◉", color: "#8B5CF6" },
-  { label: "AI", icon: "✦", color: "#22C55E" },
-  { label: "Ship", icon: "↗", color: "#38BDF8" },
+  { label: "Plan", icon: "▦", color: "#FF8C2B" },
+  { label: "Build", icon: "◉", color: "#FF8C2B" },
+  { label: "AI", icon: "✦", color: "#FF8C2B" },
+  { label: "Ship", icon: "↗", color: "#FF8C2B" },
 ];
 
 const Signup = () => {
@@ -132,7 +132,7 @@ const Signup = () => {
 
   return (
     <main
-      className="relative min-h-screen overflow-hidden bg-[#070708] text-white"
+      className="relative min-h-screen overflow-hidden bg-[#070708] text-[#E8D889]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -146,7 +146,7 @@ const Signup = () => {
           className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px)",
+              "linear-gradient(rgba(232,216,137,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(232,216,137,.7) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -191,7 +191,7 @@ const Signup = () => {
             duration: 5,
             repeat: Infinity,
           }}
-          className="absolute left-[45%] top-[40%] h-48 w-48 rounded-full bg-orange-500/10 blur-[100px]"
+          className="absolute left-[45%] top-[40%] h-48 w-48 rounded-full bg-[#FF8C2B]/10 blur-[100px]"
         />
       </div>
 
@@ -211,7 +211,7 @@ const Signup = () => {
               stiffness: 400,
               damping: 20,
             }}
-            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(255,92,53,.25)]"
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(255,140,43,.25)]"
           >
             <img
               src={logo}
@@ -220,7 +220,7 @@ const Signup = () => {
             />
           </motion.div>
 
-          <span className="text-xl font-semibold tracking-[-0.03em] text-white">
+          <span className="text-xl font-semibold tracking-[-0.03em] text-[#E8D889]">
             Syncora
           </span>
         </Link>
@@ -265,9 +265,9 @@ const Signup = () => {
                 }}
                 className="mb-4 flex items-center gap-2"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C35] shadow-[0_0_12px_#FF5C35]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF8C2B] shadow-[0_0_12px_#FF8C2B]" />
 
-                <span className="text-xs font-medium uppercase tracking-[0.22em] text-white/40">
+                <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#E8D889]/40">
                   Engineering workspace
                 </span>
               </motion.div>
@@ -276,12 +276,12 @@ const Signup = () => {
 
               <h1 className="whitespace-nowrap text-[clamp(2.6rem,4.3vw,4.7rem)] font-semibold leading-none tracking-[-0.065em]">
                 Build smarter.{" "}
-                <span className="bg-gradient-to-r from-[#FF5C35] via-orange-400 to-[#FF7A5C] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#FF8C2B] via-[#FF8C2B] to-[#FF8C2B] bg-clip-text text-transparent">
                   Stay in sync.
                 </span>
               </h1>
 
-              <p className="mt-5 max-w-lg text-[14px] leading-6 text-white/45">
+              <p className="mt-5 max-w-lg text-[14px] leading-6 text-[#E8D889]/45">
                 Your projects, development workflow, team collaboration, and AI
                 assistance — connected in one intelligent workspace.
               </p>
@@ -308,7 +308,7 @@ const Signup = () => {
               >
                 {/* Outer ring */}
 
-                <div className="absolute inset-0 rounded-[50%] border border-white/[0.07]" />
+                <div className="absolute inset-0 rounded-[50%] border border-[#E8D889]/[0.07]" />
 
                 {/* Orange ring */}
 
@@ -321,12 +321,12 @@ const Signup = () => {
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="absolute inset-[18px] rounded-[50%] border border-orange-500/10"
+                  className="absolute inset-[18px] rounded-[50%] border border-[#FF8C2B]/10"
                 />
 
                 {/* Inner ring */}
 
-                <div className="absolute inset-[42px] rounded-[50%] border border-white/[0.05]" />
+                <div className="absolute inset-[42px] rounded-[50%] border border-[#E8D889]/[0.05]" />
 
                 {/* Center */}
 
@@ -347,14 +347,14 @@ const Signup = () => {
                       ease: "linear",
                     },
                   }}
-                  className="absolute left-1/2 top-1/2 flex h-[82px] w-[82px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-orange-400/20 bg-[#111113]/95 shadow-[0_0_70px_rgba(255,92,53,0.18)] backdrop-blur-xl"
+                  className="absolute left-1/2 top-1/2 flex h-[82px] w-[82px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-[#FF8C2B]/20 bg-[#243A5A]/95 shadow-[0_0_70px_rgba(255,140,43,0.18)] backdrop-blur-xl"
                   style={{
                     transformStyle: "preserve-3d",
                   }}
                 >
-                  <span className="text-3xl text-[#FF5C35]">✦</span>
+                  <span className="text-3xl text-[#FF8C2B]">✦</span>
 
-                  <div className="absolute inset-2 rounded-2xl border border-white/[0.04]" />
+                  <div className="absolute inset-2 rounded-2xl border border-[#E8D889]/[0.04]" />
                 </motion.div>
 
                 {/* Orbiting objects */}
@@ -405,7 +405,7 @@ const Signup = () => {
                           rotateY: 18,
                           rotateX: -10,
                         }}
-                        className="group relative flex h-[68px] w-[68px] cursor-pointer items-center justify-center rounded-2xl border border-white/10 bg-[#111113]/95 shadow-2xl backdrop-blur-xl"
+                        className="group relative flex h-[68px] w-[68px] cursor-pointer items-center justify-center rounded-2xl border border-[#E8D889]/10 bg-[#243A5A]/95 shadow-2xl backdrop-blur-xl"
                         style={{
                           color: step.color,
                           transformStyle: "preserve-3d",
@@ -422,7 +422,7 @@ const Signup = () => {
 
                         <div className="relative z-10 text-xl">{step.icon}</div>
 
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-white/35">
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-[#E8D889]/35">
                           {step.label}
                         </div>
                       </motion.div>
@@ -441,7 +441,7 @@ const Signup = () => {
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="absolute left-1/2 top-1/2 h-[195px] w-[195px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-orange-500/10"
+                  className="absolute left-1/2 top-1/2 h-[195px] w-[195px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#FF8C2B]/10"
                 />
               </motion.div>
             </div>
@@ -460,7 +460,7 @@ const Signup = () => {
               transition={{
                 delay: 0.9,
               }}
-              className="relative -mt-1 flex max-w-lg items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.035] p-3.5 backdrop-blur-xl"
+              className="relative -mt-1 flex max-w-lg items-center gap-4 rounded-2xl border border-[#E8D889]/[0.08] bg-[#E8D889]/[0.035] p-3.5 backdrop-blur-xl"
             >
               <motion.div
                 animate={{
@@ -471,15 +471,15 @@ const Signup = () => {
                   repeat: Infinity,
                   ease: "linear",
                 }}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-orange-400/10 bg-orange-500/10 text-orange-400"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#FF8C2B]/10 bg-[#FF8C2B]/10 text-[#FF8C2B]"
               >
                 ✦
               </motion.div>
 
               <div>
-                <p className="text-xs font-semibold text-white">Syncora AI</p>
+                <p className="text-xs font-semibold text-[#E8D889]">Syncora AI</p>
 
-                <p className="mt-1 text-[10px] text-white/35">
+                <p className="mt-1 text-[10px] text-[#E8D889]/35">
                   Your engineering context, always connected.
                 </p>
               </div>
@@ -497,7 +497,7 @@ const Signup = () => {
                   className="h-1.5 w-1.5 rounded-full bg-emerald-400"
                 />
 
-                <span className="text-[10px] text-white/30">Online</span>
+                <span className="text-[10px] text-[#E8D889]/30">Online</span>
               </div>
             </motion.div>
           </motion.div>
@@ -533,24 +533,24 @@ const Signup = () => {
                 rotateX,
                 rotateY,
               }}
-              className="relative overflow-hidden rounded-[26px] border border-white/[0.1] bg-[#101012]/95 p-6 shadow-[0_35px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-7"
+              className="relative overflow-hidden rounded-[26px] border border-[#E8D889]/[0.1] bg-[#243A5A]/95 p-6 shadow-[0_35px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-7"
             >
               {/* Card glow */}
 
-              <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-orange-500/10 blur-[70px]" />
+              <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-[#FF8C2B]/10 blur-[70px]" />
 
               <div className="relative z-10">
                 {/* Header */}
 
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FF5C35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FF8C2B]">
                   Get started
                 </p>
 
-                <h2 className="mt-2 text-3xl font-semibold tracking-[-0.045em] text-white">
+                <h2 className="mt-2 text-3xl font-semibold tracking-[-0.045em] text-[#E8D889]">
                   Create your account
                 </h2>
 
-                <p className="mt-2 text-sm text-white/40">
+                <p className="mt-2 text-sm text-[#E8D889]/40">
                   Start building with Syncora.
                 </p>
 
@@ -578,7 +578,7 @@ const Signup = () => {
                   {/* EMAIL */}
 
                   <div>
-                    <label className="mb-1.5 block text-xs font-medium text-white/60">
+                    <label className="mb-1.5 block text-xs font-medium text-[#E8D889]/60">
                       Work email
                     </label>
 
@@ -591,10 +591,10 @@ const Signup = () => {
                       }}
                       placeholder="you@company.com"
                       autoComplete="email"
-                      className={`w-full rounded-xl border bg-white/[0.035] px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-white/20 focus:bg-white/[0.055] focus:ring-4 focus:ring-orange-500/10 ${
+                      className={`w-full rounded-xl border bg-[#E8D889]/[0.035] px-4 py-3.5 text-sm text-[#E8D889] outline-none transition-all placeholder:text-[#E8D889]/20 focus:bg-[#E8D889]/[0.055] focus:ring-4 focus:ring-[#FF8C2B]/10 ${
                         touched && !emailValid
                           ? "border-red-500/60"
-                          : "border-white/10 focus:border-[#FF5C35]/60"
+                          : "border-[#E8D889]/10 focus:border-[#FF8C2B]/60"
                       }`}
                     />
 
@@ -609,7 +609,7 @@ const Signup = () => {
 
                   <div>
                     <div className="mb-1.5 flex items-center justify-between">
-                      <label className="text-xs font-medium text-white/60">
+                      <label className="text-xs font-medium text-[#E8D889]/60">
                         Password
                       </label>
 
@@ -618,7 +618,7 @@ const Signup = () => {
                         onClick={() =>
                           setShowPasswordRequirements((prev) => !prev)
                         }
-                        className="text-[11px] text-white/30 transition-colors hover:text-orange-400"
+                        className="text-[11px] text-[#E8D889]/30 transition-colors hover:text-[#FF8C2B]"
                       >
                         {passwordValid
                           ? "Strong password"
@@ -639,17 +639,17 @@ const Signup = () => {
                         onBlur={() => setTouched(true)}
                         placeholder="Create a strong password"
                         autoComplete="new-password"
-                        className={`w-full rounded-xl border bg-white/[0.035] px-4 py-3.5 pr-12 text-sm text-white outline-none transition-all placeholder:text-white/20 focus:bg-white/[0.055] focus:ring-4 focus:ring-orange-500/10 ${
+                        className={`w-full rounded-xl border bg-[#E8D889]/[0.035] px-4 py-3.5 pr-12 text-sm text-[#E8D889] outline-none transition-all placeholder:text-[#E8D889]/20 focus:bg-[#E8D889]/[0.055] focus:ring-4 focus:ring-[#FF8C2B]/10 ${
                           touched && !passwordValid
                             ? "border-red-500/60"
-                            : "border-white/10 focus:border-[#FF5C35]/60"
+                            : "border-[#E8D889]/10 focus:border-[#FF8C2B]/60"
                         }`}
                       />
 
                       <button
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-xs text-white/30 transition hover:bg-white/5 hover:text-white"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-xs text-[#E8D889]/30 transition hover:bg-[#E8D889]/5 hover:text-[#E8D889]"
                       >
                         {showPassword ? "◉" : "◌"}
                       </button>
@@ -665,7 +665,7 @@ const Signup = () => {
                       }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-2.5 grid grid-cols-2 gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.025] p-2.5">
+                      <div className="mt-2.5 grid grid-cols-2 gap-1.5 rounded-xl border border-[#E8D889]/[0.06] bg-[#E8D889]/[0.025] p-2.5">
                         {[
                           ["length", "8+ characters"],
                           ["uppercase", "Uppercase"],
@@ -684,7 +684,7 @@ const Signup = () => {
                               className={`flex h-4 w-4 items-center justify-center rounded-full text-[8px] ${
                                 validations[key]
                                   ? "bg-emerald-500/15 text-emerald-400"
-                                  : "bg-white/5 text-white/25"
+                                  : "bg-[#E8D889]/5 text-[#E8D889]/25"
                               }`}
                             >
                               {validations[key] ? "✓" : "•"}
@@ -694,7 +694,7 @@ const Signup = () => {
                               className={
                                 validations[key]
                                   ? "text-emerald-400"
-                                  : "text-white/30"
+                                  : "text-[#E8D889]/30"
                               }
                             >
                               {label}
@@ -725,10 +725,10 @@ const Signup = () => {
                     }
                     type="submit"
                     disabled={!formValid || loading}
-                    className={`relative mt-1 flex w-full items-center justify-center overflow-hidden rounded-xl px-5 py-3.5 text-sm font-semibold text-white transition-all ${
+                    className={`relative mt-1 flex w-full items-center justify-center overflow-hidden rounded-xl px-5 py-3.5 text-sm font-semibold text-[#E8D889] transition-all ${
                       formValid && !loading
-                        ? "bg-[#FF5C35] shadow-[0_12px_35px_rgba(255,92,53,0.18)] hover:bg-[#FF6845]"
-                        : "cursor-not-allowed bg-white/10 text-white/30"
+                        ? "bg-[#FF8C2B] shadow-[0_12px_35px_rgba(255,140,43,0.18)] hover:bg-[#FF8C2B]"
+                        : "cursor-not-allowed bg-[#E8D889]/10 text-[#E8D889]/30"
                     }`}
                   >
                     {formValid && !loading && (
@@ -754,11 +754,11 @@ const Signup = () => {
                 {/* DIVIDER */}
 
                 <div className="my-4 flex items-center gap-3">
-                  <div className="h-px flex-1 bg-white/[0.07]" />
+                  <div className="h-px flex-1 bg-[#E8D889]/[0.07]" />
 
-                  <span className="text-[10px] text-white/25">OR</span>
+                  <span className="text-[10px] text-[#E8D889]/25">OR</span>
 
-                  <div className="h-px flex-1 bg-white/[0.07]" />
+                  <div className="h-px flex-1 bg-[#E8D889]/[0.07]" />
                 </div>
 
                 {/* GOOGLE */}
@@ -774,7 +774,7 @@ const Signup = () => {
                   onClick={() => {
                     window.location.href = `${API_URL}/api/auth/google`;
                   }}
-                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3.5 text-sm font-medium text-white transition-all hover:border-white/20 hover:bg-white/[0.06]"
+                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-[#E8D889]/10 bg-[#E8D889]/[0.035] px-4 py-3.5 text-sm font-medium text-[#E8D889] transition-all hover:border-[#E8D889]/20 hover:bg-[#E8D889]/[0.06]"
                 >
                   <span className="font-semibold">G</span>
                   Continue with Google
@@ -782,19 +782,19 @@ const Signup = () => {
 
                 {/* TERMS */}
 
-                <p className="mt-4 text-center text-[10px] leading-5 text-white/25">
+                <p className="mt-4 text-center text-[10px] leading-5 text-[#E8D889]/25">
                   By creating an account, you agree to our{" "}
-                  <span className="text-white/50">Terms</span> and{" "}
-                  <span className="text-white/50">Privacy Policy</span>.
+                  <span className="text-[#E8D889]/50">Terms</span> and{" "}
+                  <span className="text-[#E8D889]/50">Privacy Policy</span>.
                 </p>
 
                 {/* LOGIN */}
 
-                <p className="mt-4 border-t border-white/[0.07] pt-4 text-center text-sm text-white/35">
+                <p className="mt-4 border-t border-[#E8D889]/[0.07] pt-4 text-center text-sm text-[#E8D889]/35">
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="font-semibold text-[#FF5C35] transition-colors hover:text-orange-400"
+                    className="font-semibold text-[#FF8C2B] transition-colors hover:text-[#FF8C2B]"
                   >
                     Log in
                   </Link>
@@ -823,7 +823,7 @@ const Signup = () => {
             delay: index * 0.35,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute h-1 w-1 rounded-full bg-white"
+          className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#E8D889]"
           style={{
             left: `${8 + ((index * 17) % 85)}%`,
             top: `${12 + ((index * 23) % 75)}%`,

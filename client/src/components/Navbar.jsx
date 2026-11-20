@@ -9,7 +9,7 @@ const Navbar = () => {
         {/* Logo */}
         <motion.div whileHover={{ y: -1 }} transition={{ duration: 0.2 }}>
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-md shadow-orange-500/20">
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-md shadow-[#FF8C2B]/20">
               <img
                 src={logo}
                 alt="Syncora"
@@ -17,7 +17,7 @@ const Navbar = () => {
               />
             </div>
 
-            <span className="text-xl font-semibold tracking-[-0.02em] text-white">
+            <span className="text-xl font-semibold tracking-[-0.02em] text-[#E8D889]">
               Syncora
             </span>
           </Link>
@@ -29,28 +29,28 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <a
               href="#features"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+              className="text-sm font-medium text-[#E8D889]/70 transition-colors duration-200 hover:text-[#E8D889]"
             >
               Features
             </a>
 
             <a
               href="#ai"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+              className="text-sm font-medium text-[#E8D889]/70 transition-colors duration-200 hover:text-[#E8D889]"
             >
               AI
             </a>
 
             <a
               href="#integrations"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+              className="text-sm font-medium text-[#E8D889]/70 transition-colors duration-200 hover:text-[#E8D889]"
             >
               Integrations
             </a>
 
             <a
               href="#about"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+              className="text-sm font-medium text-[#E8D889]/70 transition-colors duration-200 hover:text-[#E8D889]"
             >
               About
             </a>
@@ -62,7 +62,7 @@ const Navbar = () => {
             <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/login"
-                className="inline-block px-3 py-2 text-sm font-medium text-white/75 transition-colors duration-200 hover:text-white"
+                className="inline-block px-3 py-2 text-sm font-medium text-[#E8D889]/75 transition-colors duration-200 hover:text-[#E8D889]"
               >
                 Log in
               </Link>
@@ -72,7 +72,7 @@ const Navbar = () => {
             <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/signup"
-                className="inline-block rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm font-medium text-[#171717] transition-all duration-200 hover:bg-white/90"
+                className="inline-block rounded-xl border border-[#E8D889]/10 bg-[#E8D889] px-4 py-2.5 text-sm font-medium text-[#182A4A] transition-all duration-200 hover:bg-[#E8D889]/90"
               >
                 Get Started
               </Link>
@@ -84,7 +84,7 @@ const Navbar = () => {
         <button
           type="button"
           aria-label="Open navigation menu"
-          className="rounded-xl border border-white/15 bg-white/10 p-2.5 text-white shadow-sm backdrop-blur-md transition-colors hover:bg-white/15 md:hidden"
+          className="rounded-xl border border-[#E8D889]/15 bg-[#E8D889]/10 p-2.5 text-[#E8D889] shadow-sm backdrop-blur-md transition-colors hover:bg-[#E8D889]/15 md:hidden"
         >
           <svg
             width="20"
