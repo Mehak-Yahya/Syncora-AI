@@ -24,3 +24,4 @@ Syncora AI brings repository intelligence, engineering context, and AI-assisted 
 
 <img width="1365" height="693" alt="sc1" src="https://github.com/user-attachments/assets/8a7bd42b-27bc-48a6-9bca-ab7eae8eb8a3" />
 
+## Future Enhancements 
