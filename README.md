@@ -5,11 +5,11 @@ Syncora AI brings repository intelligence, engineering context, and AI-assisted 
 
 ## Features
 
-- **GitHub Integration:** Connect and manage repositories.
-- **Repository Intelligence:** Sync and analyze codebases.
-- **Project Dashboard:** Manage projects and view repository insights.
-- **Engineering Context:** Understand project structure and technologies.
-- **AI Workspace:** Work with AI using project context.
+- GitHub Integration: Connect and manage repositories.
+- Repository Intelligence: Sync and analyze codebases.
+- Project Dashboard: Manage projects and view repository insights.
+- Engineering Context: Understand project structure and technologies.
+- AI Workspace: Work with AI using project context.
 
 ## Tech Stack
 
