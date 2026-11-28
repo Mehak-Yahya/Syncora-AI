@@ -13,12 +13,12 @@ Syncora AI brings repository intelligence, engineering context, and AI-assisted 
 
 ## Tech Stack
 
-- **Frontend:** React.js
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB Atlas
-- **Authentication:** Google OAuth, GitHub OAuth
-- **AI Integration:** Groq, OpenAI
-- **Deployment:** Vercel, Railway
+- Frontend: React.js
+- Backend: Node.js, Express.js
+- Database:  MongoDB Atlas
+- Authentication: Google OAuth, GitHub OAuth
+- AI Integration: Groq, OpenAI
+- Deployment: Vercel, Railway
 
 ## Screenshots
 
